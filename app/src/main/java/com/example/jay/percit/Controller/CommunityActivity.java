@@ -52,6 +52,7 @@ public class CommunityActivity extends ActionBarActivity {
     public static int state;
     public static int record_arr[];
     public static int record_power[];
+    private int mn;
 
     @Override
     protected void onDestroy() {
@@ -60,6 +61,10 @@ public class CommunityActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
+        //commit check
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_community);
 
