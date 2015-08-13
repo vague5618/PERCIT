@@ -4,8 +4,10 @@
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"></uses-feature>
 
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -23,17 +25,23 @@
         </activity>
         <activity
             android:name=".Controller.CrewActivity"
-            android:label="@string/title_activity_crew" >
-        </activity>
+            android:label="@string/title_activity_crew" />
         <activity
             android:name=".Controller.MusicplayerActivity"
-            android:label="@string/title_activity_musicplayer" >
+            android:label="@string/title_activity_musicplayer" />
+
+        <service
+            android:name=".Util.BluetoothLeService"
+            android:enabled="true" />
+        //
+        <service
+            android:name=".Util.BluetoothConnectService"
+            android:enabled="true" />
+
+        <activity
+            android:name=".Controller.SettingActivity"
+            android:label="@string/title_activity_setting" >
         </activity>
-
-        <service android:name="com.example.jay.percit.Util.BluetoothLeService" android:enabled="true"/>
-
-      //  <service android:name=".Util.BluetoothConnectService" android:enabled="true"/>
     </application>
-
 
 </manifest>

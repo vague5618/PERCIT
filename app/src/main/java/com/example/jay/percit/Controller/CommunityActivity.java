@@ -10,37 +10,39 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.LayoutInflater;
+import android.util.TypedValue;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import com.example.jay.percit.Fragment.CommunityFragment1;
 import com.example.jay.percit.Fragment.CommunityFragment2;
+import com.example.jay.percit.Fragment.CommunityFragment3;
 import com.example.jay.percit.Handler.MusicHandler;
 import com.example.jay.percit.R;
 import com.example.jay.percit.Thread.MusicplayerThread;
 import com.example.jay.percit.Thread.RecordThread;
-import com.example.jay.percit.Util.BluetoothConnectService;
 import com.example.jay.percit.Util.BluetoothScan;
 import com.example.jay.percit.Util.BluetoothThread;
-
-import java.util.Locale;
 
 public class CommunityActivity extends ActionBarActivity {
 
     public static final int NOMAL_MODE = 5;
     public static final int RECORD_MODE = 6;
     public static final int PLAY_MODE = 7;
+    private static final int LOW_DPI_STATUS_BAR_HEIGHT = 19;
+    private static final int MEDIUM_DPI_STATUS_BAR_HEIGHT = 25;
+    private static final int HIGH_DPI_STATUS_BAR_HEIGHT = 38;
 
     public static BluetoothThread gBluetoothThread;
     SectionsPagerAdapter mSectionsPagerAdapter;
-    ViewPager mViewPager;
+    public static ViewPager gViewPager;
     static public Context mContext;
     public BluetoothAdapter mBluetoothAdapter;
     public BluetoothScan mBluetoothScan;
@@ -52,7 +54,7 @@ public class CommunityActivity extends ActionBarActivity {
     public static int state;
     public static int record_arr[];
     public static int record_power[];
-    private int mn;
+    public static int current_fragment = 0;
 
     @Override
     protected void onDestroy() {
@@ -62,11 +64,44 @@ public class CommunityActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
         //commit check
 
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_community);
+
+        ActionBar actionBar = getSupportActionBar();
+
+        actionBar.setElevation(0);
+
+        actionBar.hide();
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+        int width = displayMetrics.widthPixels;
+        int height = displayMetrics.heightPixels;
+
+        System.out.println("width = " + width);
+        System.out.println("height = " + height);
+
+        int statusBarHeight;
+
+        switch (displayMetrics.densityDpi) {
+            case DisplayMetrics.DENSITY_HIGH:
+                statusBarHeight = HIGH_DPI_STATUS_BAR_HEIGHT;
+                break;
+            case DisplayMetrics.DENSITY_MEDIUM:
+                statusBarHeight = MEDIUM_DPI_STATUS_BAR_HEIGHT;
+                break;
+            case DisplayMetrics.DENSITY_LOW:
+                statusBarHeight = LOW_DPI_STATUS_BAR_HEIGHT;
+                break;
+            default:
+                statusBarHeight = MEDIUM_DPI_STATUS_BAR_HEIGHT;
+        }
+        System.out.println("StatusBarTest" + "onCreate StatusBar Height= " + statusBarHeight);
+
 
         final BluetoothManager bluetoothManager =
                 (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
@@ -94,22 +129,43 @@ public class CommunityActivity extends ActionBarActivity {
 
         mBluetoothScan.start();
 
-        mViewPager = (ViewPager) findViewById(R.id.pager);
+        gViewPager = (ViewPager) findViewById(R.id.pager);
 
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        gViewPager.setAdapter(mSectionsPagerAdapter);
+//
+        gViewPager.setOnTouchListener(onTouchPager);
 
-        mViewPager.setOnTouchListener(onTouchPager);
+        gViewPager.setCurrentItem(current_fragment);
+
+        current_fragment = 0;
 
         mContext = this;
 
-        Log.d("process","===================");
+        Log.d("process", "===================");
 
-        Log.d("process","onCreate");
+        Log.d("process", "onCreate");
 
-        Log.d("process","===================");
+        Log.d("process", "===================");
 
 //        Intent Service = new Intent(this, BluetoothConnectService.class);
 //        startService(Service);
+
+
+        TypedValue tv = new TypedValue();
+        if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true))
+        {
+            int actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics());
+            System.out.println("actionbar = " +actionBarHeight);
+
+        }
+
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_community, menu);
+
+        return true;
     }
 
     /**
@@ -127,10 +183,13 @@ public class CommunityActivity extends ActionBarActivity {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
 
-            if(position == 2)
+            if (position == 2) {
+                return CommunityFragment3.newInstance();
+            } else if (position == 1) {
                 return CommunityFragment2.newInstance();
-            else
+            } else {
                 return CommunityFragment1.newInstance();
+            }
         }
 
         @Override
@@ -139,6 +198,7 @@ public class CommunityActivity extends ActionBarActivity {
             return 3;
         }
     }
+
 
     // up-down swipe
 
@@ -159,13 +219,18 @@ public class CommunityActivity extends ActionBarActivity {
                     mPressedY = event.getY();
                     mPressedX = event.getX();
                     break;
+
                 case MotionEvent.ACTION_UP:
                     y_distance = mPressedY - event.getY();
                     x_distance = mPressedX - event.getX();
                     break;
             }
 
-            if (Math.abs(y_distance) < 100 || Math.abs(x_distance) > 300) {
+
+            System.out.println("x_distance =" + x_distance + "y_distance = " + y_distance);
+
+            if (Math.abs(y_distance) < 200 || Math.abs(x_distance) > 300) {
+
                 return false;
             }
 
@@ -175,10 +240,13 @@ public class CommunityActivity extends ActionBarActivity {
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_down);
                 finish();
+                return false;
 
             } else {
                 //Siwpe up content
+
             }
+
             return true;
         }
 

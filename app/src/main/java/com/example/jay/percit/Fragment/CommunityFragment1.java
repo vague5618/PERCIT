@@ -41,14 +41,6 @@ public class CommunityFragment1 extends Fragment {
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_community, container, false);
-        mButton = (Button) v.findViewById(R.id.mButton);
-        mButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
 
         return v;
     }
