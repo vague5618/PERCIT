@@ -21,21 +21,28 @@ public class Setting_Category2 {
         this.res = res;
     }
 
-    public void add_index(String data) {
+    public void add_index(String category) {
 
-        mListAdapter.addItem(new Setting_Category2_Model(res.getDrawable(R.drawable.setting_main_category2_01_bombo_unfocus),
-                (res.getDrawable(R.drawable.setting_main_category2_01_bombo_focus)),
-                "bombo1"
+        switch (category)
+        {
+            case "main":
+                break;
+        }
+
+
+        mListAdapter.addItem(new Setting_Category2_Model(res.getDrawable(R.drawable.setting_main_category2_01_bombo_focus),
+                (res.getDrawable(R.drawable.setting_main_category2_01_bombo_unfocus)),
+                "1","bomb1"
         ));
 
-        mListAdapter.addItem(new Setting_Category2_Model(res.getDrawable(R.drawable.setting_main_category2_02_bombo_unfocus),
-                (res.getDrawable(R.drawable.setting_main_category2_02_bombo_focus)),
-                "bombo2"
+        mListAdapter.addItem(new Setting_Category2_Model(res.getDrawable(R.drawable.setting_main_category2_02_bombo_focus),
+                (res.getDrawable(R.drawable.setting_main_category2_02_bombo_unfocus)),
+                "2","bomb2"
         ));
 
-        mListAdapter.addItem(new Setting_Category2_Model(res.getDrawable(R.drawable.setting_main_category2_03_bombo_unfocus),
-                (res.getDrawable(R.drawable.setting_main_category2_03_bombo_focus)),
-                "bombo3"
+        mListAdapter.addItem(new Setting_Category2_Model(res.getDrawable(R.drawable.setting_main_category2_03_bombo_focus),
+                (res.getDrawable(R.drawable.setting_main_category2_03_bombo_unfocus)),
+                "3","bomb3"
         ));
     }
 }

@@ -9,10 +9,11 @@ import android.graphics.drawable.Drawable;
  */
 public class Setting_Category2_Model {
 
-    private Drawable setting_category2_nameImage_foucs;
+    private Drawable setting_category2_nameImage_focus;
     private Drawable setting_category2_nameImage_unfocus;
-
+    private String setting_catergory2_number;
     private String setting_catergory2_name;
+
     /**
      * True if this item is selectable
      */
@@ -22,16 +23,20 @@ public class Setting_Category2_Model {
         return setting_category2_nameImage_unfocus;
     }
 
-    public Drawable getSetting_category2_nameImage_foucs() {
-        return setting_category2_nameImage_foucs;
+    public Drawable getSetting_category2_nameImage_focus() {
+        return setting_category2_nameImage_focus;
     }
 
-    public Setting_Category2_Model(Drawable setting_category2_nameImage_unfocus,Drawable setting_category2_nameImage_focus, String data) {
+    public Setting_Category2_Model(Drawable setting_category2_nameImage_focus, Drawable setting_category2_nameImage_unfocus, String setting_catergory2_number, String setting_catergory2_name) {
 
+        this.setting_category2_nameImage_focus = setting_category2_nameImage_focus;
         this.setting_category2_nameImage_unfocus = setting_category2_nameImage_unfocus;
-        this.setting_category2_nameImage_foucs = setting_category2_nameImage_focus;
-        this.setting_catergory2_name = data;
+        this.setting_catergory2_number = setting_catergory2_number;
+        this.setting_catergory2_name = setting_catergory2_name;
+    }
 
+    public String getSetting_catergory2_name() {
+        return setting_catergory2_name;
     }
 
     public boolean isSelectable() {
@@ -49,8 +54,8 @@ public class Setting_Category2_Model {
      *
      * @return
      */
-    public String getSetting_catergory2_name() {
-        return setting_catergory2_name;
+    public String getSetting_catergory2_number() {
+        return setting_catergory2_number;
     }
 
 }

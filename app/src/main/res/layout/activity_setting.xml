@@ -20,69 +20,265 @@
 
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/setting_back1"
+        android:layout_width="1280dp"
+        android:layout_height="727dp"
+        android:background="@drawable/setting_back_total"
         android:orientation="horizontal">
 
 
         <FrameLayout
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="509dp"
+            android:layout_height="727dp"
+            android:background="@drawable/setting_back">
 
 
-            <ImageView
-                android:id="@+id/dropView1"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:adjustViewBounds="true"
-                android:background="#00aa00" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/setting_sub1"
+                    android:layout_width="107dp"
+                    android:layout_height="118dp"
+                    android:layout_marginLeft="78dp"
+                    android:layout_marginTop="300dp"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/setting_sub1_unfocus" />
+
+                <TextView
+                    android:id="@+id/setting_sub1_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/setting_sub1"
+                    android:layout_alignLeft="@id/setting_sub1"
+                    android:layout_alignRight="@id/setting_sub1"
+                    android:layout_alignTop="@id/setting_sub1"
+                    android:gravity="center"
+                    android:textColor="#2e313f"
+                    android:textSize="16.67px"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/setting_sub2"
+                    android:layout_width="107dp"
+                    android:layout_height="119dp"
+                    android:layout_marginLeft="78dp"
+                    android:layout_marginTop="175dp"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/setting_sub2_unfocus" />
+
+                <TextView
+                    android:id="@+id/setting_sub2_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/setting_sub2"
+                    android:layout_alignLeft="@id/setting_sub2"
+                    android:layout_alignRight="@id/setting_sub2"
+                    android:layout_alignTop="@id/setting_sub2"
+                    android:gravity="center"
+                    android:textColor="#2e313f"
+                    android:textSize="16.67px"
+                    android:textStyle="bold" />
 
 
-            <ImageView
-                android:id="@+id/dropView2"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:adjustViewBounds="true"
-                android:background="#00aa00" />
+                <ImageView
+                    android:id="@+id/setting_sub3"
+                    android:layout_width="117dp"
+                    android:layout_height="107dp"
+                    android:layout_marginLeft="132dp"
+                    android:layout_marginTop="122dp"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/setting_sub3_unfocus" />
 
 
+                <TextView
+                    android:id="@+id/setting_sub3_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/setting_sub3"
+                    android:layout_alignLeft="@id/setting_sub3"
+                    android:layout_alignRight="@id/setting_sub3"
+                    android:layout_alignTop="@id/setting_sub3"
+                    android:gravity="center"
+                    android:textColor="#2e313f"
+                    android:textSize="16.67px"
+                    android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/dropView3"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:adjustViewBounds="true"
-                android:background="#00aa00" />
+
+                <ImageView
+                    android:id="@+id/setting_sub4"
+                    android:layout_width="119dp"
+                    android:layout_height="107dp"
+                    android:layout_marginLeft="254dp"
+                    android:layout_marginTop="122dp"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/setting_sub4_unfocus" />
 
 
+                <TextView
+                    android:id="@+id/setting_sub4_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/setting_sub4"
+                    android:layout_alignLeft="@id/setting_sub4"
+                    android:layout_alignRight="@id/setting_sub4"
+                    android:layout_alignTop="@id/setting_sub4"
+                    android:gravity="center"
+                    android:textColor="#2e313f"
+                    android:textSize="16.67px"
+                    android:textStyle="bold" />
+
+
+                <ImageView
+                    android:id="@+id/setting_sub5"
+                    android:layout_width="107dp"
+                    android:layout_height="119dp"
+                    android:layout_marginLeft="320dp"
+                    android:layout_marginTop="175dp"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/setting_sub5_unfocus" />
+
+
+                <TextView
+                    android:id="@+id/setting_sub5_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/setting_sub5"
+                    android:layout_alignLeft="@id/setting_sub5"
+                    android:layout_alignRight="@id/setting_sub5"
+                    android:layout_alignTop="@id/setting_sub5"
+                    android:gravity="center"
+                    android:textColor="#2e313f"
+                    android:textSize="16.67px"
+                    android:textStyle="bold" />
+
+
+                <ImageView
+                    android:id="@+id/setting_sub6"
+                    android:layout_width="107dp"
+                    android:layout_height="118dp"
+                    android:layout_marginLeft="320dp"
+                    android:layout_marginTop="299dp"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/setting_sub6_unfocus" />
+
+
+                <TextView
+                    android:id="@+id/setting_sub6_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/setting_sub6"
+                    android:layout_alignLeft="@id/setting_sub6"
+                    android:layout_alignRight="@id/setting_sub6"
+                    android:layout_alignTop="@id/setting_sub6"
+                    android:gravity="center"
+                    android:textColor="#2e313f"
+                    android:textSize="16.67px"
+                    android:textStyle="bold" />
+
+
+                <ImageView
+                    android:id="@+id/setting_mainboard"
+                    android:layout_width="172dp"
+                    android:layout_height="172dp"
+                    android:layout_marginLeft="166dp"
+                    android:layout_marginTop="210dp"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/setting_mainboard_unfocus" />
+
+                <TextView
+                    android:id="@+id/setting_mainboard_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/setting_mainboard"
+                    android:layout_alignLeft="@id/setting_mainboard"
+                    android:layout_alignRight="@id/setting_mainboard"
+                    android:layout_alignTop="@id/setting_mainboard"
+                    android:gravity="center"
+                    android:textColor="#2e313f"
+                    android:textSize="16.67px"
+                    android:textStyle="bold" />
+
+
+                <ImageView
+                    android:id="@+id/setting_kick1"
+                    android:layout_width="117dp"
+                    android:layout_height="84dp"
+                    android:layout_marginLeft="83dp"
+                    android:layout_marginTop="479dp"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/setting_kick1_unfocus" />
+
+                <TextView
+                    android:id="@+id/setting_kick1_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/setting_kick1"
+                    android:layout_alignLeft="@id/setting_kick1"
+                    android:layout_alignRight="@id/setting_kick1"
+                    android:layout_alignTop="@id/setting_kick1"
+                    android:gravity="center"
+                    android:textColor="#2e313f"
+                    android:textSize="16.67px"
+                    android:textStyle="bold" />
+
+
+                <ImageView
+                    android:id="@+id/setting_kick2"
+                    android:layout_width="117dp"
+                    android:layout_height="84dp"
+                    android:layout_marginLeft="307dp"
+                    android:layout_marginTop="479dp"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/setting_kick2_unfocus" />
+
+                <TextView
+                    android:id="@+id/setting_kick2_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/setting_kick2"
+                    android:layout_alignLeft="@id/setting_kick2"
+                    android:layout_alignRight="@id/setting_kick2"
+                    android:layout_alignTop="@id/setting_kick2"
+                    android:gravity="center"
+                    android:textColor="#2e313f"
+                    android:textSize="16.67px"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
 
         </FrameLayout>
 
-
-
         <LinearLayout
-            android:layout_width="426dp"
+            android:layout_width="385dp"
             android:layout_height="match_parent">
 
             <ListView
                 android:id="@+id/setting_category1_listview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:choiceMode="singleChoice"></ListView>
-
+                android:choiceMode="singleChoice"
+                android:divider="#00000000"
+                android:dividerHeight="0dp"></ListView>
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="426dp"
+            android:layout_width="1dp"
+            android:layout_height="1066.67dp"
+            android:background="@drawable/setting_category_line"></LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="386dp"
             android:layout_height="match_parent">
 
             <ListView
                 android:id="@+id/setting_category2_listview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></ListView>
+                android:layout_height="match_parent"
+                android:divider="#00000000"
+                android:dividerHeight="0dp"></ListView>
 
 
         </LinearLayout>

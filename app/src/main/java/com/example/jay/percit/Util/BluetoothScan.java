@@ -6,11 +6,7 @@ package com.example.jay.percit.Util;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Handler;
-
-import com.example.jay.percit.Controller.CommunityActivity;
 
 /**
  * Activity for scanning and displaying available Bluetooth LE devices.
@@ -84,4 +80,20 @@ public class BluetoothScan extends Thread {
                     }
                 }
             };
+
+
+    public void Bluetooth_onDestory()
+    {
+        mBluetoothThread.Thread_onDestroy();
+    }
+
+    public void Bluetooth_onPause()
+    {
+        mBluetoothThread.Thread_onPause();
+    }
+    public void Bluetooth_onResume()
+    {
+        mBluetoothThread.Thread_onResume();
+    }
+
 }

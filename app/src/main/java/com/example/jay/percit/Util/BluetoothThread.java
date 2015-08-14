@@ -1,6 +1,5 @@
 package com.example.jay.percit.Util;
 
-import android.app.Service;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
 import android.content.BroadcastReceiver;
@@ -13,13 +12,12 @@ import android.os.IBinder;
 import android.util.Log;
 
 
-import com.example.jay.percit.Controller.CommunityActivity;
+import com.example.jay.percit.Controller.MusicStageActivity;
 import com.example.jay.percit.Handler.MusicHandler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Handler;
 
 /**
  * Created by Jay on 2015-07-31.
@@ -98,7 +96,7 @@ public class BluetoothThread extends Thread implements Runnable {
 
     private void displayData(String data) {
 
-        if (data != null && CommunityActivity.state!=CommunityActivity.PLAY_MODE) {
+        if (data != null && MusicStageActivity.state!= MusicStageActivity.PLAY_MODE) {
 
             for (int i = 0; i < data.length(); i++) {
                 char temp_signal = data.charAt(i);
@@ -214,14 +212,15 @@ public class BluetoothThread extends Thread implements Runnable {
 
     public void Thread_onPause() {
 
-        mContext.unregisterReceiver(mGattUpdateReceiver);
+        if(mGattUpdateReceiver!=null)
+            mContext.unregisterReceiver(mGattUpdateReceiver);
+
     }
 
 
     public void Thread_onDestroy() {
         mContext.unbindService(mServiceConnection);
         mBluetoothLeService = null;
-        Log.d("process", "Thread Destroy");
     }
 
 
@@ -231,6 +230,7 @@ public class BluetoothThread extends Thread implements Runnable {
         mContext.bindService(gattServiceIntent, mServiceConnection, mContext.BIND_AUTO_CREATE);
 
         mContext.registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
+
         if (mBluetoothLeService != null) {
             final boolean result = mBluetoothLeService.connect(mDeviceAddress);
             Log.d(TAG, "Connect request result=" + result);

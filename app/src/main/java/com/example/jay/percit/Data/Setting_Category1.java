@@ -18,24 +18,42 @@ public class Setting_Category1 {
         this.mListAdapter = mListAdapter;
         this.res = res;
 
-        mListAdapter.addItem(new Setting_Category1_Model(res.getDrawable(R.drawable.setting_main_category1_01_icon_focus),
-                res.getDrawable(R.drawable.setting_main_category1_01_text_focus),
-                res.getDrawable(R.drawable.setting_main_category1_01_number),
-                res.getDrawable(R.drawable.setting_main_category1_01_number),
-                res.getDrawable(R.drawable.setting_main_category1_01_number),
-                res.getDrawable(R.drawable.setting_main_category1_01_number),
-                "Drum-Snare"
+        mListAdapter.addItem(new Setting_Category1_Model(res.getDrawable(R.drawable.setting_main_category1_01_icon_unfocus),
+                res.getDrawable(R.drawable.setting_main_category1_01_icon_focus),
+          //      res.getDrawable(R.drawable.setting_main_category1_01_number),
+           //     res.getDrawable(R.drawable.setting_main_category1_01_number),
+            //    res.getDrawable(R.drawable.setting_main_category1_01_number),
+             //   res.getDrawable(R.drawable.setting_main_category1_01_number),
+                "snare-drum"
         ));
 
 
-        mListAdapter.addItem(new Setting_Category1_Model(res.getDrawable(R.drawable.setting_main_category1_02_icon_focus),
-                res.getDrawable(R.drawable.setting_main_category1_02_text_focus),
-                res.getDrawable(R.drawable.setting_main_category1_02_number),
-                res.getDrawable(R.drawable.setting_main_category1_02_number),
-                res.getDrawable(R.drawable.setting_main_category1_02_number),
-                res.getDrawable(R.drawable.setting_main_category1_02_number),
-                "KICK"
+        mListAdapter.addItem(new Setting_Category1_Model(res.getDrawable(R.drawable.setting_main_category1_02_icon_unfocus),
+                res.getDrawable(R.drawable.setting_main_category1_02_icon_focus),
+                "djembe"
         ));
+
+        mListAdapter.addItem(new Setting_Category1_Model(res.getDrawable(R.drawable.setting_main_category1_03_icon_unfocus),
+                res.getDrawable(R.drawable.setting_main_category1_03_icon_focus),
+                "cajon"
+        ));
+        mListAdapter.addItem(new Setting_Category1_Model(res.getDrawable(R.drawable.setting_main_category1_04_icon_unfocus),
+                res.getDrawable(R.drawable.setting_main_category1_04_icon_focus),
+                "bongo"
+        )); mListAdapter.addItem(new Setting_Category1_Model(res.getDrawable(R.drawable.setting_main_category1_05_icon_unfocus),
+                res.getDrawable(R.drawable.setting_main_category1_05_icon_focus),
+                "bongo"
+        )); mListAdapter.addItem(new Setting_Category1_Model(res.getDrawable(R.drawable.setting_main_category1_06_icon_unfocus),
+                res.getDrawable(R.drawable.setting_main_category1_06_icon_focus),
+                "bongo"
+        )); mListAdapter.addItem(new Setting_Category1_Model(res.getDrawable(R.drawable.setting_main_category1_07_icon_unfocus),
+                res.getDrawable(R.drawable.setting_main_category1_07_icon_focus),
+                "bongo"
+        )); mListAdapter.addItem(new Setting_Category1_Model(res.getDrawable(R.drawable.setting_main_category1_08_icon_unfocus),
+                res.getDrawable(R.drawable.setting_main_category1_08_icon_focus),
+                "bongo"
+        ));
+
 
         mListAdapter.notifyDataSetChanged();
     }
