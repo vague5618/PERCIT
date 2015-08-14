@@ -28,7 +28,7 @@ public class Setting_Category2_View extends LinearLayout {
         setting_category2_nameImage = (ImageView) findViewById(R.id.setting_category2_nameImage);
 
         if(position == 0) {
-            setting_category2_nameImage.setImageDrawable(aItem.getSetting_category2_nameImage_foucs());
+            setting_category2_nameImage.setImageDrawable(aItem.getSetting_category2_nameImage_focus());
         }
         else {
             setting_category2_nameImage.setImageDrawable(aItem.getSetting_category2_nameImage_unfocus());
@@ -43,7 +43,7 @@ public class Setting_Category2_View extends LinearLayout {
 
 
     public void Setting_focus(Setting_Category2_Model aItem) {
-        setting_category2_nameImage.setImageDrawable(aItem.getSetting_category2_nameImage_foucs());
+        setting_category2_nameImage.setImageDrawable(aItem.getSetting_category2_nameImage_focus());
     }
 
 }

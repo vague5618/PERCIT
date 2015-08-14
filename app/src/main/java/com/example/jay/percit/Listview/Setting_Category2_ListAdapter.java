@@ -42,7 +42,7 @@ public class Setting_Category2_ListAdapter extends BaseAdapter {
         return mItems.size();
     }
 
-    public Object getItem(int position) {
+    public Setting_Category2_Model getItem(int position) {
         return mItems.get(position);
     }
 

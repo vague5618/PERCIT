@@ -20,12 +20,10 @@ public class Setting_Category1_View extends LinearLayout {
 	 * Icon
 	 */
 	private ImageView setting_catergoy1_icon;
-
-	private ImageView setting_catergoy1_nameImage;
-
-	private TextView setting_category1_name;
-
-	private ImageView setting_catergoy1_number;
+//
+//	private ImageView setting_catergoy1_nameImage;
+//
+//	private ImageView setting_catergoy1_number;
 
 
 	public Setting_Category1_View(Context context, Setting_Category1_Model aItem,int position) {
@@ -36,41 +34,41 @@ public class Setting_Category1_View extends LinearLayout {
 		inflater.inflate(R.layout.item_setting_category1, this, true);
 
 		setting_catergoy1_icon = (ImageView) findViewById(R.id.setting_category1_icon);
-		setting_catergoy1_nameImage = (ImageView)findViewById(R.id.setting_category1_nameImage);
-		setting_catergoy1_number = (ImageView) findViewById(R.id.setting_category1_number);
+//		setting_catergoy1_nameImage = (ImageView)findViewById(R.id.setting_category1_nameImage);
+//		setting_catergoy1_number = (ImageView) findViewById(R.id.setting_category1_number);
 
 
 		if(position == 0)
 		{
 			setting_catergoy1_icon.setImageDrawable(aItem.getSetting_category1_icon_focus());
-
-			setting_catergoy1_nameImage.setImageDrawable(aItem.getSetting_category1_nameImage_focus());
-
-			setting_catergoy1_number.setImageDrawable(aItem.getSetting_category1_number_focus());
+//
+//			setting_catergoy1_nameImage.setImageDrawable(aItem.getSetting_category1_nameImage_focus());
+//
+//			setting_catergoy1_number.setImageDrawable(aItem.getSetting_category1_number_focus());
 		}
 		else {
 
 			setting_catergoy1_icon.setImageDrawable(aItem.getSetting_category1_icon_unfocus());
-
-			setting_catergoy1_nameImage.setImageDrawable(aItem.getSetting_category1_nameImage_unfocus());
-
-			setting_catergoy1_number.setImageDrawable(aItem.getSetting_category1_number_unfocus());
+//
+//			setting_catergoy1_nameImage.setImageDrawable(aItem.getSetting_category1_nameImage_unfocus());
+//
+//			setting_catergoy1_number.setImageDrawable(aItem.getSetting_category1_number_unfocus());
 		}
 	}
 
 	public void Setting_unfocus(Setting_Category1_Model aItem)
 	{
 		setting_catergoy1_icon.setImageDrawable(aItem.getSetting_category1_icon_unfocus());
-		setting_catergoy1_nameImage.setImageDrawable(aItem.getSetting_category1_nameImage_unfocus());
-		setting_catergoy1_number.setImageDrawable(aItem.getSetting_category1_number_unfocus());
+//		setting_catergoy1_nameImage.setImageDrawable(aItem.getSetting_category1_nameImage_unfocus());
+//		setting_catergoy1_number.setImageDrawable(aItem.getSetting_category1_number_unfocus());
 	}
 
 
 	public void Setting_focus(Setting_Category1_Model aItem)
 	{
 		setting_catergoy1_icon.setImageDrawable(aItem.getSetting_category1_icon_focus());
-		setting_catergoy1_nameImage.setImageDrawable(aItem.getSetting_category1_nameImage_focus());
-		setting_catergoy1_number.setImageDrawable(aItem.getSetting_category1_number_focus());
+//		setting_catergoy1_nameImage.setImageDrawable(aItem.getSetting_category1_nameImage_focus());
+//		setting_catergoy1_number.setImageDrawable(aItem.getSetting_category1_number_focus());
 	}
 
 }

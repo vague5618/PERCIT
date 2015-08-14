@@ -12,9 +12,7 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.example.jay.percit.Controller.CommunityActivity;
-import com.example.jay.percit.Controller.CrewActivity;
-import com.example.jay.percit.Controller.MusicplayerActivity;
+import com.example.jay.percit.Controller.MusicStageActivity;
 import com.example.jay.percit.Handler.MusicHandler;
 
 import java.util.ArrayList;
@@ -95,7 +93,7 @@ public class BluetoothConnectService extends Service {
     @Override
     public void onCreate() {
 
-        this.mHandler = CommunityActivity.gMusicHandler;
+        this.mHandler = MusicStageActivity.gMusicHandler;
         Log.d("process","ok1");
     }
 
@@ -113,9 +111,6 @@ public class BluetoothConnectService extends Service {
 
         this.registerReceiver(gGattUpdateReceiver,makeGattUpdateIntentFilter());
 
-       // CommunityActivity.mContext.registerReceiver(gGattUpdateReceiver, makeGattUpdateIntentFilter());
-       // CrewActivity.mContext.registerReceiver(gGattUpdateReceiver, makeGattUpdateIntentFilter());
-       // MusicplayerActivity.mContext.registerReceiver(gGattUpdateReceiver, makeGattUpdateIntentFilter());
 
  //       mContext.registerReceiver(gGattUpdateReceiver, makeGattUpdateIntentFilter());
 //        if (mBluetoothLeService != null) {

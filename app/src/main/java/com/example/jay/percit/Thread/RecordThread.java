@@ -1,10 +1,7 @@
 package com.example.jay.percit.Thread;
 
-import android.util.Log;
-
-import com.example.jay.percit.Controller.CommunityActivity;
-import com.example.jay.percit.Fragment.CommunityFragment2;
-import com.example.jay.percit.Handler.MusicHandler;
+import com.example.jay.percit.Controller.MusicStageActivity;
+import com.example.jay.percit.Fragment.MusicStageFragment2;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,7 +21,7 @@ public class RecordThread {
 
     public void record_start(){
 
-        CommunityActivity.gMusicHandler.sendEmptyMessage(RECORD_MODE);
+        MusicStageActivity.gMusicHandler.sendEmptyMessage(RECORD_MODE);
 
         time_sec = 0;
 
@@ -32,7 +29,7 @@ public class RecordThread {
 
             public void run() {
 
-                if(time_sec==500 || CommunityActivity.state==NOMAL_MODE)
+                if(time_sec==500 || MusicStageActivity.state==NOMAL_MODE)
                 {
                     cancel_timer();
                 }
@@ -52,16 +49,16 @@ public class RecordThread {
 
     public void cancel_timer()
     {
-        CommunityActivity.gMusicHandler.sendEmptyMessage(NOMAL_MODE);
-        CommunityFragment2.guiHandler.sendEmptyMessage(NOMAL_MODE);
-        CommunityActivity.state = NOMAL_MODE;
+        MusicStageActivity.gMusicHandler.sendEmptyMessage(NOMAL_MODE);
+        MusicStageFragment2.guiHandler.sendEmptyMessage(NOMAL_MODE);
+        MusicStageActivity.state = NOMAL_MODE;
         time_sec = 0;
         mTimer.cancel();
     }
 
     public void Play_Recorded(final int temp_arr[],final int temp_power[])
     {
-        CommunityActivity.gMusicHandler.sendEmptyMessage(PLAY_MODE);
+        MusicStageActivity.gMusicHandler.sendEmptyMessage(PLAY_MODE);
 
        this.temp_arr=temp_arr;
 
@@ -73,11 +70,11 @@ public class RecordThread {
 
                 if(temp_arr[time_sec]!=0)
                 {
-                    CommunityActivity.gMusicHandler.sendEmptyMessage(temp_arr[time_sec]);
-                    CommunityActivity.gMusicHandler.sendEmptyMessage(temp_power[time_sec]);
+                    MusicStageActivity.gMusicHandler.sendEmptyMessage(temp_arr[time_sec]);
+                    MusicStageActivity.gMusicHandler.sendEmptyMessage(temp_power[time_sec]);
                 }
 
-                if(time_sec==500 || CommunityActivity.state==NOMAL_MODE)
+                if(time_sec==500 || MusicStageActivity.state==NOMAL_MODE)
                 {
                     cancel_timer();
                 }
