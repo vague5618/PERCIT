@@ -56,12 +56,6 @@ public class PlaylistActivity extends ActionBarActivity {
         @Override
         public Fragment getItem(int position) {
 
-            if(position==2)
-            {
-                mViewPager.setPadding(0,0,0,0);
-            }
-
-
             return MusicStageFragment1.newInstance();
         }
 

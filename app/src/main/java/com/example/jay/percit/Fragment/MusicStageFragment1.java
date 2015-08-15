@@ -37,8 +37,6 @@ public class MusicStageFragment1 extends Fragment implements View.OnClickListene
 
     private ImageView musicstage_imageList[];
 
-    //private ArrayList<ImageView> musicstage_imageList;
-
     private ImageView musicstage_progress1List[];
 
     private ImageView musicstage_progress2List[];
