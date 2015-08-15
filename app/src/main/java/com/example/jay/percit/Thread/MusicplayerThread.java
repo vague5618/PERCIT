@@ -63,6 +63,7 @@ public class MusicplayerThread extends Thread implements Runnable {
         }
     }
 
+
     public void stopBGM()
     {
         currentPosition=mediaPlayer.getCurrentPosition();
@@ -75,7 +76,7 @@ public class MusicplayerThread extends Thread implements Runnable {
         mediaPlayer.start();
     }
 
-    private void killMediaPlayer() {
+    public void killMediaPlayer() {
         if (mediaPlayer != null) {
             try {
                 mediaPlayer.release();

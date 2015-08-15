@@ -18,6 +18,7 @@ import com.example.jay.percit.Data.Setting_Category1;
 import com.example.jay.percit.Data.Setting_Category2;
 import com.example.jay.percit.Handler.SettingHandler;
 import com.example.jay.percit.Listener.DragEventListener;
+import com.example.jay.percit.Listener.MusicStageClickListener;
 import com.example.jay.percit.Listview.Setting_Category1_ListAdapter;
 import com.example.jay.percit.Listview.Setting_Category2_ListAdapter;
 import com.example.jay.percit.R;
@@ -27,6 +28,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnTouchLi
     ListView mCategory1_listView;
     ListView mCategory2_listView;
 
+    public static String[] setting_list;
     public static ImageView setting_sub1;
     public static ImageView setting_sub2;
     public static ImageView setting_sub3;
@@ -47,6 +49,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnTouchLi
     public static TextView setting_kick2_text;
 
     DragEventListener mDragEventListener;
+    MusicStageClickListener mMusicStageClickListener;
+
 
     Setting_Category1_ListAdapter mCategory1_adapter;
     Setting_Category2_ListAdapter mCategory2_adapter;
@@ -57,6 +61,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnTouchLi
     private float mPressedX;
     ImageView mActivitySetting;
 
+    String temp_name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,8 +71,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnTouchLi
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
-        gSettingHandler = new SettingHandler(this);
-
+        gSettingHandler = new SettingHandler(this, getResources());
+        setting_list = new String[10];
         setting_sub1 = (ImageView) findViewById(R.id.setting_sub1);
         setting_sub2 = (ImageView) findViewById(R.id.setting_sub2);
         setting_sub3 = (ImageView) findViewById(R.id.setting_sub3);
@@ -98,6 +104,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnTouchLi
 
         mDragEventListener = new DragEventListener(this, gSettingHandler);
 
+        mMusicStageClickListener = new MusicStageClickListener(this);
+
         mCategory1_listView.setAdapter(mCategory1_adapter);
 
         mCategory2_listView.setAdapter(mCategory2_adapter);
@@ -112,7 +120,9 @@ public class SettingActivity extends AppCompatActivity implements View.OnTouchLi
                 mCategory1_adapter.select(position);
                 mCategory2_adapter.clear();
                 //             mCategory2_adapter.select(0);
-                mCategory2_setup.add_index(mCategory1_adapter.getItem(position).getSetting_category1_name());
+
+                temp_name = mCategory1_adapter.getItem(position).getSetting_category1_name();
+                mCategory2_setup.add_index(position);
                 mCategory2_adapter.notifyDataSetInvalidated();
                 mCategory1_adapter.notifyDataSetInvalidated();
 
@@ -124,7 +134,6 @@ public class SettingActivity extends AppCompatActivity implements View.OnTouchLi
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 mCategory2_adapter.select(position);
-
                 mCategory2_adapter.notifyDataSetInvalidated();
 
             }
@@ -138,9 +147,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnTouchLi
                 mCategory2_adapter.notifyDataSetInvalidated();
 
                 String temp_number = mCategory2_adapter.getItem(position).getSetting_catergory2_number();
-                String temp_name = mCategory2_adapter.getItem(position).getSetting_catergory2_name();
 
-                ClipData.Item item = new ClipData.Item(temp_number + " "+ temp_name);
+                ClipData.Item item = new ClipData.Item(temp_number + " " + temp_name);
                 String[] mineType = {ClipDescription.MIMETYPE_TEXT_PLAIN};
                 ClipData drogData = new ClipData((CharSequence) view.getTag(), mineType, item);
 
@@ -162,6 +170,18 @@ public class SettingActivity extends AppCompatActivity implements View.OnTouchLi
         setting_mainboard.setOnDragListener(mDragEventListener);
         setting_kick1.setOnDragListener(mDragEventListener);
         setting_kick2.setOnDragListener(mDragEventListener);
+
+
+        setting_sub1.setOnClickListener(mMusicStageClickListener);
+        setting_sub2.setOnClickListener(mMusicStageClickListener);
+        setting_sub3.setOnClickListener(mMusicStageClickListener);
+        setting_sub4.setOnClickListener(mMusicStageClickListener);
+        setting_sub5.setOnClickListener(mMusicStageClickListener);
+        setting_sub6.setOnClickListener(mMusicStageClickListener);
+        setting_mainboard.setOnClickListener(mMusicStageClickListener);
+        setting_kick1.setOnClickListener(mMusicStageClickListener);
+        setting_kick2.setOnClickListener(mMusicStageClickListener);
+
     }
 
     @Override

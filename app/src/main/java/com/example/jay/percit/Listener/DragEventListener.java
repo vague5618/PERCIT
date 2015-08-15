@@ -67,7 +67,7 @@ public class DragEventListener implements View.OnDragListener {
             case DragEvent.ACTION_DRAG_EXITED:
 
                 ((ImageView) v).clearAnimation();
-                ((ImageView) v).setColorFilter(Color.RED);
+
           //      Toast.makeText(mContext, "ACTION_DRAG_EXIT", Toast.LENGTH_SHORT).show();
                 v.invalidate();
                 return true;
@@ -83,11 +83,22 @@ public class DragEventListener implements View.OnDragListener {
 
                 String temp_data = drogData.toString();
 
+                System.out.println("====================================");
+
+                System.out.println("temp_data :  "+temp_data);
+
+                System.out.println("====================================");
+
                 StringTokenizer token = new StringTokenizer(temp_data);
 
                 int temp_musicnumber = Integer.parseInt(token.nextToken());
 
-                String temp_musicname = token.nextToken();
+                String temp_musicname = "";
+
+                while(token.hasMoreTokens())
+                {
+                    temp_musicname+=" "+token.nextToken();
+                }
 
                 System.out.println("number = " + temp_musicnumber + "name = " + temp_musicname);
 

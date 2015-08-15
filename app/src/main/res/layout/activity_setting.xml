@@ -184,7 +184,7 @@
                     android:layout_marginLeft="166dp"
                     android:layout_marginTop="210dp"
                     android:adjustViewBounds="true"
-                    android:background="@drawable/setting_mainboard_unfocus" />
+                    android:background="@drawable/setting_mainboard_focus" />
 
                 <TextView
                     android:id="@+id/setting_mainboard_text"
@@ -259,6 +259,7 @@
                 android:layout_height="match_parent"
                 android:choiceMode="singleChoice"
                 android:divider="#00000000"
+                android:fadingEdge="none"
                 android:dividerHeight="0dp"></ListView>
 
         </LinearLayout>
@@ -278,6 +279,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:divider="#00000000"
+                android:fadingEdge="none"
                 android:dividerHeight="0dp"></ListView>
 
 

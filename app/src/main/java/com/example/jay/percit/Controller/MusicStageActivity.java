@@ -55,6 +55,7 @@ public class MusicStageActivity extends ActionBarActivity {
     @Override
     protected void onDestroy() {
 
+        mMusicplayerThread.killMediaPlayer();
         super.onDestroy();
     }
 
@@ -114,11 +115,7 @@ public class MusicStageActivity extends ActionBarActivity {
 
         mContext = this;
 
-
-
         mMusicplayerThread.play(2,1);
-
-
 
 //        Intent Service = new Intent(this, BluetoothConnectService.class);
 //        startService(Service);
@@ -200,9 +197,6 @@ public class MusicStageActivity extends ActionBarActivity {
             }
 
             if (y_distance > 0) {
-
-                mBluetoothScan.Bluetooth_onPause();
-                mBluetoothScan.Bluetooth_onDestory();
 
                 Intent intent = new Intent(mContext, PlaylistActivity.class);
                 startActivity(intent);
