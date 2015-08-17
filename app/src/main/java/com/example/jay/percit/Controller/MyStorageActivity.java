@@ -12,6 +12,9 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.jay.percit.Fragment.MusicStageFragment1;
+import com.example.jay.percit.Fragment.MusicStageFragment2;
+import com.example.jay.percit.Fragment.PlaylistFragment1;
+import com.example.jay.percit.Fragment.PlaylistFragment2;
 import com.example.jay.percit.R;
 
 public class MyStorageActivity extends ActionBarActivity {
@@ -53,13 +56,17 @@ public class MyStorageActivity extends ActionBarActivity {
         @Override
         public Fragment getItem(int position) {
 
-            return MusicStageFragment1.newInstance();
+            if (position == 1) {
+                return PlaylistFragment2.newInstance();
+            } else {
+                return PlaylistFragment1.newInstance();
+            }
         }
 
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 2;
         }
     }
 

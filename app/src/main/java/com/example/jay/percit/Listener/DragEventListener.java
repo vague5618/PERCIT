@@ -83,12 +83,6 @@ public class DragEventListener implements View.OnDragListener {
 
                 String temp_data = drogData.toString();
 
-                System.out.println("====================================");
-
-                System.out.println("temp_data :  "+temp_data);
-
-                System.out.println("====================================");
-
                 StringTokenizer token = new StringTokenizer(temp_data);
 
                 int temp_musicnumber = Integer.parseInt(token.nextToken());
@@ -99,8 +93,6 @@ public class DragEventListener implements View.OnDragListener {
                 {
                     temp_musicname+=" "+token.nextToken();
                 }
-
-                System.out.println("number = " + temp_musicnumber + "name = " + temp_musicname);
 
                 Message msg = settingHandler.obtainMessage();
                 msg.what = ((ImageView)v).getId();

@@ -1,49 +1,52 @@
 package com.example.jay.percit.Fragment;
 
+import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.jay.percit.Controller.MusicStageActivity;
+import com.example.jay.percit.Controller.MusicStageSubActivity;
+import com.example.jay.percit.Controller.SettingActivity;
 import com.example.jay.percit.R;
 
 /**
  * Created by Jay on 2015-08-06.
  */
-public class MusicStageFragment2 extends Fragment  {
-    private static final int NOMAL_MODE = 5;
-    private static final int RECORD_MODE = 6;
-    private static final int PLAY_MODE = 7;
+public class MusicStageFragment2 extends Fragment implements View.OnClickListener {
 
-    public static UiHandler guiHandler;
-    private Button mButton_record_mic;
-    private Button mButton_play;
-    private ImageView feedback_mainboard_focus;
-    private ImageView feedback_kick1_focus;
-    private ImageView feedback_kick2_focus;
-    private ImageView feedback_sub1_focus;
-    private ProgressBar mProgressbar;
-    private Animation mGrowAnim;
-    private Animation mFeedbackAnim;
+    private static final int CLICK_STATE_ON = 99;
+    private static final int CLICK_STATE_OFF = 100;
+    private static final int CLICK_STATE_ING = 101;
+    private static final int CONTENT_NUMBER = 4;
+    private static final int PLAY_BGM = 8;
+    private static final int PAUSE_BGM = 9;
+    private static final int RESUME_BGM = 10;
+    private static final int CLEAR_BGM = 11;
 
+    public static int click_current_state = CLICK_STATE_OFF;
 
-    private static final String ARG_SECTION_NUMBER = "section_number";
+    public static int pre_choice = -1;
+    private View mSetting_handle;
+    private Resources res;
+    private int target_index = 0;
+
 
     public static MusicStageFragment2 newInstance() {
 
         MusicStageFragment2 fragment = new MusicStageFragment2();
-//        Bundle args = new Bundle();
-        //      args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-        //     fragment.setArguments(args);
+
+        click_current_state = CLICK_STATE_OFF;
         return fragment;
     }
 
@@ -54,124 +57,304 @@ public class MusicStageFragment2 extends Fragment  {
 
         View v = inflater.inflate(R.layout.fragment_musicstage2, container, false);
 
-        guiHandler = new UiHandler();
+        res = v.getResources();
 
-        mButton_record_mic = (Button) v.findViewById(R.id.record_mic);
+        mSetting_handle = (ImageView) v.findViewById(R.id.setting_handler);
 
-        mButton_play = (Button) v.findViewById(R.id.mButton_play);
+        mSetting_handle.setOnTouchListener(
 
-        feedback_mainboard_focus = (ImageView) v.findViewById(R.id.feedback_mainboard_focus);
+                new View.OnTouchListener() {
 
-        feedback_kick1_focus = (ImageView) v.findViewById(R.id.feedback_kick1_focus);
+                    private float PressedY;
+                    private float PressedX;
 
-        feedback_kick2_focus = (ImageView) v.findViewById(R.id.feedback_kick2_focus);
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
 
-        feedback_sub1_focus = (ImageView) v.findViewById(R.id.feedback_sub1_focus);
+                        float y_distance = 0;
+                        float x_distance = 0;
 
-        mProgressbar = (ProgressBar) v.findViewById(R.id.mProgressBar);
 
-        mGrowAnim = AnimationUtils.loadAnimation(MusicStageActivity.mContext, R.anim.grow);
+                        if (v.getId() == R.id.setting_handler) {
 
-        mFeedbackAnim =AnimationUtils.loadAnimation(MusicStageActivity.mContext, R.anim.scale);
+                            MusicStageActivity.gViewPager.requestDisallowInterceptTouchEvent(true);
 
-       mButton_record_mic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                            switch (event.getAction()) {
 
-               MusicStageActivity.state = RECORD_MODE;
 
-                for(int i=0; i< MusicStageActivity.record_arr.length; i++)
-                    MusicStageActivity.record_arr[i] = 0;
+                                case MotionEvent.ACTION_DOWN:
 
-                for(int i=0; i< MusicStageActivity.record_power.length; i++)
-                    MusicStageActivity.record_power[i] = 0;
+                                    PressedY = event.getY();
 
-               MusicStageActivity.gRecordThread.record_start();
-                mProgressbar.startAnimation(mGrowAnim);
+                                    PressedX = event.getX();
+
+                                    break;
+
+                                case MotionEvent.ACTION_UP:
+
+                                    y_distance = PressedY - event.getY();
+                                    x_distance = PressedX - event.getX();
+
+                                    break;
+
                             }
-        });
 
-        mButton_play.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MusicStageActivity.state = PLAY_MODE;
-                MusicStageActivity.gRecordThread.Play_Recorded(MusicStageActivity.record_arr, MusicStageActivity.record_power);
-                mProgressbar.startAnimation(mGrowAnim);
-            }
-        });
+                            if (Math.abs(x_distance) > 1000) {
+
+                                MusicStageActivity.gViewPager.requestDisallowInterceptTouchEvent(false);
+
+                                return true;
+                            }
+
+                            if (x_distance > 0 && y_distance < 200) {
+
+                                Intent intent = new Intent(MusicStageActivity.mContext, SettingActivity.class);
+                                startActivity(intent);
+                                getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_hold);
+                                getActivity().finish();
+
+                                return true;
+
+                            } else if (x_distance < 0) {
+
+                                MusicStageActivity.gViewPager.requestDisallowInterceptTouchEvent(false);
+
+                                return true;
+
+                            }
+                            return true;
+
+                        }
+
+                        return true;
+                    }
+                });
+
+        for (int i = 4; i < 8; i++) {
+
+            MusicStageActivity.musicstage_imageList[i] = (ImageView) v.findViewById(MusicStageActivity.musicstage_Id_modelList.get(i).getMusicstage_image_id());
+            MusicStageActivity.musicstage_informationList[i] = (ImageView) v.findViewById(MusicStageActivity.musicstage_Id_modelList.get(i).getMusicstage_information_id());
+            MusicStageActivity.musicstage_progress1List[i] = (ImageView) v.findViewById(MusicStageActivity.musicstage_Id_modelList.get(i).getMusicstage_progress1_id());
+            MusicStageActivity.musicstage_progress2List[i] = (ImageView) v.findViewById(MusicStageActivity.musicstage_Id_modelList.get(i).getMusicstage_progress2_id());
+            MusicStageActivity.musicstage_progress3List[i] = (ImageView) v.findViewById(MusicStageActivity.musicstage_Id_modelList.get(i).getMusicstage_progress3_id());
+            MusicStageActivity.musicstage_like_img[i] = (ImageView) v.findViewById(MusicStageActivity.musicstage_Id_modelList.get(i).getMusicstage_like_img_id());
+            MusicStageActivity.musicstage_like_txt[i] = (TextView) v.findViewById(MusicStageActivity.musicstage_Id_modelList.get(i).getMusicstage_like_txt_id());
+
+            MusicStageActivity.musicstage_imageList[i].setBackground(res.getDrawable(MusicStageActivity.musicstage_Image_modelList.get(i).getMusicstage_image()));
+            MusicStageActivity.musicstage_informationList[i].setBackground(res.getDrawable(MusicStageActivity.musicstage_Image_modelList.get(i).getMusicstage_information()));
+
+            MusicStageActivity.musicstage_progress1List[i].setBackground(res.getDrawable(MusicStageActivity.musicstage_Image_modelList.get(i).getMusicstage_progress1()));
+            MusicStageActivity.musicstage_progress2List[i].setBackground(res.getDrawable(MusicStageActivity.musicstage_Image_modelList.get(i).getMusicstage_progress2()));
+            MusicStageActivity.musicstage_progress3List[i].setBackground(res.getDrawable(MusicStageActivity.musicstage_Image_modelList.get(i).getMusicstage_progress3()));
+
+
+            MusicStageActivity.musicstage_progress1List[i].setVisibility(View.INVISIBLE);
+            MusicStageActivity.musicstage_progress2List[i].setVisibility(View.INVISIBLE);
+            MusicStageActivity.musicstage_progress3List[i].setVisibility(View.INVISIBLE);
+
+            MusicStageActivity.musicstage_like_img[i].setOnClickListener(this);
+            MusicStageActivity.musicstage_imageList[i].setOnClickListener(this);
+            MusicStageActivity.musicstage_informationList[i].setOnClickListener(this);
+        }
 
         return v;
     }
 
-
-    public class UiHandler extends Handler {
-
-        private static final int REQUEST_A = 'a';
-        private static final int REQUEST_B = 'b';
-        private static final int REQUEST_C = 'c';
-        private static final int REQUEST_D = 'd';
-        private static final int NOMAL_MODE = 5;
-        private static final int RECORD_MODE = 6;
-        private static final int PLAY_MODE = 7;
-
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-
-            switch (msg.what) {
-
-                case REQUEST_A:
-
-                    feedback_mainboard_focus.startAnimation(mFeedbackAnim);
-
-                    break;
-
-                case REQUEST_B:
-
-                    feedback_kick1_focus.startAnimation(mFeedbackAnim);
-
-                    break;
-
-
-                case REQUEST_C:
-
-                    feedback_kick2_focus.startAnimation(mFeedbackAnim);
-
-                    break;
-
-
-                case REQUEST_D:
-
-                    feedback_sub1_focus.startAnimation(mFeedbackAnim);
-
-                    break;
-
-                case NOMAL_MODE:
-
-                    mButton_record_mic.setClickable(true);
-                    mButton_play.setClickable(true);
-                    mButton_play.setText("Nomal");
-                    break;
-
-                case RECORD_MODE:
-
-                    mButton_play.setClickable(true);
-                                        mButton_play.setText("Recording");
-                    break;
-
-                case PLAY_MODE:
-
-                    mButton_play.setClickable(false);
-                    mButton_record_mic.setClickable(false);
-                    mButton_play.setText("Playing");
-                    break;
-
-                default:
-
-                    break;
-            }
-
+    void enable_click() {
+        for (int i = 0; i < 4; i++) {
+            MusicStageActivity.musicstage_imageList[i].setClickable(true);
         }
     }
 
+    void disable_click() {
+        for (int i = 0; i < 4; i++) {
+            MusicStageActivity.musicstage_imageList[i].setClickable(false);
+        }
+    }
 
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+            case R.id.musicstage_image5:
+            case R.id.musicstage_image6:
+            case R.id.musicstage_image7:
+            case R.id.musicstage_image8:
+
+
+
+                for (int i = 4; i < 8; i++) {
+
+                    if (v.getId() == MusicStageActivity.musicstage_Id_modelList.get(i).getMusicstage_image_id()) {
+
+                        target_index = i;
+                        System.out.println("compare pre = " + pre_choice + "target =" + target_index);
+                        if (pre_choice != target_index && pre_choice != -1) {
+
+                            System.out.println("another choice!!! " + pre_choice);
+                            //     MusicStageActivity.gMusicHandler.sendEmptyMessage(CLEAR_BGM);
+                            System.out.println("========1=======");
+                            MusicStageActivity.mMusicAnimation_down.resume();
+                            MusicStageActivity.mMusicAnimation_scale.resume();
+
+                            System.out.println("========2=======");
+
+                            MusicStageActivity.musicstage_progress1List[pre_choice].clearAnimation();
+                            MusicStageActivity.musicstage_progress2List[pre_choice].clearAnimation();
+                            MusicStageActivity.musicstage_progress3List[pre_choice].clearAnimation();
+
+                            System.out.println("========3=======");
+
+                            MusicStageActivity.mMusicAnimation_down.cancel();
+                            MusicStageActivity.mMusicAnimation_scale.cancel();
+
+                            System.out.println("========4=======");
+                            MusicStageActivity.musicstage_progress1List[pre_choice].setVisibility(View.GONE);
+                            MusicStageActivity.musicstage_progress2List[pre_choice].setVisibility(View.GONE);
+                            MusicStageActivity.musicstage_progress3List[pre_choice].setVisibility(View.GONE);
+                            click_current_state = CLICK_STATE_OFF;
+                        }
+
+                        if (pre_choice == target_index && click_current_state == CLICK_STATE_OFF) {
+                            System.out.println("another CLICK_STATE_OFF " + pre_choice);
+                            click_current_state = CLICK_STATE_ON;
+                        } else if (pre_choice == target_index && click_current_state == CLICK_STATE_ON) {
+                            System.out.println("another CLICK_STATE_STOP " + pre_choice);
+                            click_current_state = CLICK_STATE_ON;
+
+                        } else if (pre_choice == target_index && click_current_state == CLICK_STATE_ING) {
+                            System.out.println("another CLICK_STATE_ING " + pre_choice);
+                            click_current_state = CLICK_STATE_ING;
+                        }
+                    }
+                }
+
+                switch (click_current_state) {
+                    case CLICK_STATE_OFF:
+
+                        MusicStageActivity.mMusicAnimation_scale.setAnimationListener(new Animation.AnimationListener() {
+                            @Override
+                            public void onAnimationStart(Animation animation) {
+
+                                Message bgm_start = MusicStageActivity.gMusicHandler.obtainMessage();
+                                bgm_start.what = PLAY_BGM;
+                                bgm_start.arg1 = 2;
+                                MusicStageActivity.gMusicHandler.sendMessage(bgm_start);
+                                disable_click();
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animation animation) {
+
+                                click_current_state = CLICK_STATE_OFF;
+                                MusicStageActivity.gMusicHandler.sendEmptyMessage(PAUSE_BGM);
+                                enable_click();
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animation animation) {
+
+                            }
+                        });
+
+                        MusicStageActivity.mMusicAnimation_down.setAnimationListener(new Animation.AnimationListener() {
+                            @Override
+                            public void onAnimationStart(Animation animation) {
+                                MusicStageActivity.musicstage_progress1List[target_index].setVisibility(View.VISIBLE);
+                                MusicStageActivity.musicstage_progress2List[target_index].setVisibility(View.VISIBLE);
+                                MusicStageActivity.musicstage_progress3List[target_index].setVisibility(View.VISIBLE);
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animation animation) {
+                                MusicStageActivity.musicstage_progress1List[target_index].setVisibility(View.GONE);
+                                MusicStageActivity.musicstage_progress2List[target_index].setVisibility(View.GONE);
+                                MusicStageActivity.musicstage_progress3List[target_index].setVisibility(View.GONE);
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animation animation) {
+
+                            }
+                        });
+
+                        pre_choice = target_index;
+
+                        MusicStageActivity.musicstage_progress2List[target_index].startAnimation(MusicStageActivity.mMusicAnimation_scale);
+
+                        MusicStageActivity.musicstage_progress3List[target_index].startAnimation(MusicStageActivity.mMusicAnimation_down);
+
+                        click_current_state = CLICK_STATE_ON;
+
+                        break;
+
+                    case CLICK_STATE_ON:
+
+                        disable_click();
+                        MusicStageActivity.mMusicAnimation_scale.pause();
+                        MusicStageActivity.mMusicAnimation_down.pause();
+
+                        Message bgm_pause = MusicStageActivity.gMusicHandler.obtainMessage();
+                        bgm_pause.what = PAUSE_BGM;
+                        MusicStageActivity.gMusicHandler.sendMessage(bgm_pause);
+
+                        click_current_state = CLICK_STATE_ING;
+                        break;
+
+                    case CLICK_STATE_ING:
+
+                        disable_click();
+
+                        MusicStageActivity.mMusicAnimation_scale.resume();
+
+                        MusicStageActivity.mMusicAnimation_down.resume();
+
+                        Message bgm_resume = MusicStageActivity.gMusicHandler.obtainMessage();
+                        bgm_resume.what = RESUME_BGM;
+                        MusicStageActivity.gMusicHandler.sendMessage(bgm_resume);
+                        click_current_state = CLICK_STATE_ON;
+
+                        break;
+                }
+
+                break;
+
+
+            case R.id.musicstage_information5:
+            case R.id.musicstage_information6:
+            case R.id.musicstage_information7:
+            case R.id.musicstage_information8:
+
+                for (int i = 4; i < 8; i++) {
+                    if (v.getId() == MusicStageActivity.musicstage_Id_modelList.get(i).getMusicstage_image_id()) {
+                        target_index = i;
+                    }
+                }
+
+                Intent intent = new Intent(MusicStageActivity.mContext, MusicStageSubActivity.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_hold);
+                getActivity().finish();
+
+                break;
+
+            case R.id.musicstage_main5_like_img:
+            case R.id.musicstage_main6_like_img:
+            case R.id.musicstage_main7_like_img:
+            case R.id.musicstage_main8_like_img:
+
+                for (int i = 4; i < 8; i++) {
+                    if (v.getId() == MusicStageActivity.musicstage_Id_modelList.get(i).getMusicstage_like_img_id()) {
+                        target_index = i;
+                    }
+                }
+                int temp_like = (Integer.parseInt(MusicStageActivity.musicstage_like_txt[target_index].getText().toString()) + 1);
+
+                MusicStageActivity.musicstage_like_txt[target_index].setText(String.valueOf(temp_like));
+
+                break;
+        }
+
+    }
 }
+

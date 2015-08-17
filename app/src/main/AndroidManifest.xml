@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.jay.percit" >
-
+    package="com.example.jay.percit">
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
@@ -13,11 +12,11 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/percit_icon"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:label="@string/app_name">
         <activity
             android:name=".Controller.MusicStageActivity"
-            android:label="CommunityActivity" >
+            android:label="CommunityActivity"
+            android:theme="@style/MusicStage_theme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,10 +25,12 @@
         </activity>
         <activity
             android:name=".Controller.PlaylistActivity"
-            android:label="@string/title_activity_crew" />
+            android:label="@string/title_activity_crew"
+            android:theme="@style/MusicStage_theme" />
         <activity
             android:name=".Controller.MyStorageActivity"
-            android:label="@string/title_activity_musicplayer" />
+            android:label="@string/title_activity_musicplayer"
+            android:theme="@style/MusicStage_theme" />
 
         <service
             android:name=".Util.BluetoothLeService"
@@ -40,9 +41,13 @@
             android:enabled="true" />
 
         <activity
+            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"
             android:name=".Controller.SettingActivity"
-            android:label="@string/title_activity_setting" >
-        </activity>
+            android:label="@string/title_activity_setting"></activity>
+        <activity
+            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"
+            android:name=".Controller.MusicStageSubActivity"
+            android:label="@string/title_activity_music_stage_sub"></activity>
     </application>
 
 </manifest>

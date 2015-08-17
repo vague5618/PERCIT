@@ -26,12 +26,11 @@ public class BluetoothThread extends Thread implements Runnable {
 
     private final static String TAG = "BluetoothThread";
 
-    private final String MY_UUID = "0000dfb1-0000-1000-8000-00805f9b34fb";
-
+    private final String MY_UUID = "0000ffe1-0000-1000-8000-00805f9b34fb";
+    //0000dfb1-0000-1000-8000-00805f9b34fb
     private final String LIST_NAME = "NAME";
     private final String LIST_UUID = "UUID";
-    private final String mDeviceAddress = "D0:39:72:C5:3B:26";
-
+    private final String mDeviceAddress = "F4:B8:5E:CC:26:56";
     private MusicHandler mHandler;
     private Context mContext;
     private BluetoothLeService mBluetoothLeService;
@@ -59,7 +58,6 @@ public class BluetoothThread extends Thread implements Runnable {
             // Automatically connects to the device upon successful start-up initialization.
 
             mBluetoothLeService.connect(mDeviceAddress);
-
         }
 
         @Override
@@ -110,8 +108,8 @@ public class BluetoothThread extends Thread implements Runnable {
 
                     System.out.println("Read temp_power : " + temp_power);
 
-                    mHandler.sendEmptyMessage(temp_power);
-                    mHandler.sendEmptyMessage(temp_position);
+//                    mHandler.sendEmptyMessage(temp_power);
+  //                  mHandler.sendEmptyMessage(temp_position);
                 }
             }
         }
@@ -139,10 +137,11 @@ public class BluetoothThread extends Thread implements Runnable {
 
                 uuid = gattCharacteristic.getUuid().toString();
 
+                System.out.println("====================uuid + "+ uuid);
+
                 if (uuid.equals(MY_UUID)) {
 
                     Log.d("process", "SAME");
-
 
                     charas.add(gattCharacteristic);
                     HashMap<String, String> currentCharaData = new HashMap<String, String>();
@@ -235,7 +234,5 @@ public class BluetoothThread extends Thread implements Runnable {
             final boolean result = mBluetoothLeService.connect(mDeviceAddress);
             Log.d(TAG, "Connect request result=" + result);
         }
-
     }
-
 }

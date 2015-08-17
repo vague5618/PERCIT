@@ -18,9 +18,9 @@ public class BluetoothScan extends Thread {
     private boolean mScanning;
     private Handler mHandler;
 
-    private final String mDeviceAddress = "D0:39:72:C5:3B:26";
+    private final String mDeviceAddress = "F4:B8:5E:CC:26:56";
     // Stops scanning after 10 seconds.
-    private static final long SCAN_PERIOD = 3000;
+    private static final long SCAN_PERIOD = 10000;
 
 
     public BluetoothScan(BluetoothAdapter mBluetoothAdapter, Handler mHandler,BluetoothThread mBluetoothThread) {
@@ -54,12 +54,14 @@ public class BluetoothScan extends Thread {
                 public void run() {
                     mScanning = false;
                     mBluetoothAdapter.stopLeScan(mLeScanCallback);
-
                 }
             }, SCAN_PERIOD);
 
             mScanning = true;
             mBluetoothAdapter.startLeScan(mLeScanCallback);
+
+            System.out.println("=======================bluetooth startScan");
+
         } else {
             mScanning = false;
             mBluetoothAdapter.stopLeScan(mLeScanCallback);

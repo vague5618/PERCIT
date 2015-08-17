@@ -1,40 +1,314 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center">
+    android:layout_width="1143dp"
+    android:layout_height="671dp"
+    android:orientation="horizontal"
+    android:background="@drawable/musicstage_back1">
 
-    <FrameLayout
-        android:layout_width="400dp"
-        android:layout_height="400dp"
-        android:layout_gravity="center"
-        android:background="@android:color/holo_blue_light">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="49dp"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="128dp"
+            android:layout_height="359dp">
+
+            <ImageView
+                android:id="@+id/musicstage_image1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/musicstage_main1_progress1"
+                    android:layout_width="128dp"
+                    android:layout_height="36dp" />
+
+
+                <ImageView
+                    android:id="@+id/musicstage_main1_progress2"
+                    android:layout_width="128dp"
+                    android:layout_height="53dp"
+                    android:layout_below="@id/musicstage_main1_progress1" />
+
+
+                <ImageView
+                    android:id="@+id/musicstage_main1_progress3"
+                    android:layout_width="128dp"
+                    android:layout_height="24dp"
+                    android:layout_below="@id/musicstage_main1_progress2" />
+
+            </RelativeLayout>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="29dp"
+            android:layout_marginLeft="29dp">
+
+            <ImageView
+                android:id="@+id/musicstage_main1_like_img"
+                android:background="@drawable/musicstage_main_like"
+                android:layout_width="68dp"
+                android:layout_height="22dp" />
+
+            <TextView
+                android:id="@+id/musicstage_main1_like_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="1000"
+                android:textColor="#ffffffff"
+                android:textSize="20.83px"
+                android:textStyle="bold" />
+
+        </FrameLayout>
 
         <ImageView
-            android:id="@+id/musicstage_image1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:id="@+id/musicstage_information1"
+            android:layout_width="130dp"
+            android:layout_height="97dp"
+            android:layout_marginTop="18dp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="168dp"
+        android:layout_marginTop="49dp"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="128dp"
+            android:layout_height="359dp">
+
+            <ImageView
+                android:id="@+id/musicstage_image2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/musicstage_main2_progress1"
+                    android:layout_width="128dp"
+                    android:layout_height="36dp" />
+
+
+                <ImageView
+                    android:id="@+id/musicstage_main2_progress2"
+                    android:layout_width="128dp"
+                    android:layout_height="53dp"
+                    android:layout_below="@id/musicstage_main2_progress1" />
+
+
+                <ImageView
+                    android:id="@+id/musicstage_main2_progress3"
+                    android:layout_width="128dp"
+                    android:layout_height="24dp"
+                    android:layout_below="@id/musicstage_main2_progress2" />
+
+            </RelativeLayout>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="29dp"
+            android:layout_marginLeft="29dp">
+
+            <ImageView
+                android:id="@+id/musicstage_main2_like_img"
+                android:background="@drawable/musicstage_main_like"
+                android:layout_width="68dp"
+                android:layout_height="22dp" />
+
+            <TextView
+                android:id="@+id/musicstage_main2_like_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="1000"
+                android:textColor="#ffffffff"
+                android:textSize="20.83px"
+                android:textStyle="bold" />
+
+        </FrameLayout>
 
         <ImageView
-            android:id="@+id/musicstage_progress1"
-            android:layout_width="400dp"
-            android:layout_height="100dp"
-            android:background="@drawable/musicstage_transparent"/>
+            android:id="@+id/musicstage_information2"
+            android:layout_width="130dp"
+            android:layout_height="97dp"
+            android:layout_marginTop="18dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="168dp"
+        android:layout_marginTop="49dp"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="128dp"
+            android:layout_height="359dp">
+
+            <ImageView
+                android:id="@+id/musicstage_image3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/musicstage_main3_progress1"
+                    android:layout_width="128dp"
+                    android:layout_height="36dp" />
+
+
+                <ImageView
+                    android:id="@+id/musicstage_main3_progress2"
+                    android:layout_width="128dp"
+                    android:layout_height="53dp"
+                    android:layout_below="@id/musicstage_main3_progress1" />
+
+
+                <ImageView
+                    android:id="@+id/musicstage_main3_progress3"
+                    android:layout_width="128dp"
+                    android:layout_height="24dp"
+                    android:layout_below="@id/musicstage_main3_progress2" />
+
+            </RelativeLayout>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="29dp"
+            android:layout_marginLeft="29dp">
+
+            <ImageView
+                android:id="@+id/musicstage_main3_like_img"
+                android:background="@drawable/musicstage_main_like"
+                android:layout_width="68dp"
+                android:layout_height="22dp" />
+
+            <TextView
+                android:id="@+id/musicstage_main3_like_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="1000"
+                android:textColor="#ffffffff"
+                android:textSize="20.83px"
+                android:textStyle="bold" />
+
+        </FrameLayout>
 
         <ImageView
-            android:id="@+id/musicstage_progress2"
-            android:layout_width="400dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="100dp"
-            android:background="@drawable/musicstage_transparent"/>
+            android:id="@+id/musicstage_information3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="168dp"
+        android:layout_marginTop="49dp"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="128dp"
+            android:layout_height="359dp">
+
+            <ImageView
+                android:id="@+id/musicstage_image4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/musicstage_main4_progress1"
+                    android:layout_width="128dp"
+                    android:layout_height="36dp" />
 
 
-    </FrameLayout>
+                <ImageView
+                    android:id="@+id/musicstage_main4_progress2"
+                    android:layout_width="128dp"
+                    android:layout_height="53dp"
+                    android:layout_below="@id/musicstage_main4_progress1" />
 
 
-    <ImageView
-        android:id="@+id/musicstage_information1"
-        android:layout_width="200dp"
-        android:layout_height="200dp" />
+                <ImageView
+                    android:id="@+id/musicstage_main4_progress3"
+                    android:layout_width="128dp"
+                    android:layout_height="24dp"
+                    android:layout_below="@id/musicstage_main4_progress2" />
+
+            </RelativeLayout>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="29dp"
+            android:layout_marginLeft="29dp">
+
+            <ImageView
+                android:id="@+id/musicstage_main4_like_img"
+                android:background="@drawable/musicstage_main_like"
+                android:layout_width="68dp"
+                android:layout_height="22dp" />
+
+            <TextView
+                android:id="@+id/musicstage_main4_like_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="1000"
+                android:textColor="#ffffffff"
+                android:textSize="20.83px"
+                android:textStyle="bold" />
+
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/musicstage_information4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp" />
+
+    </LinearLayout>
+
+
+
+
+
 
 </LinearLayout>

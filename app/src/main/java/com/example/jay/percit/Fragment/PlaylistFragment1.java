@@ -36,7 +36,7 @@ public class PlaylistFragment1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_musicstage3, container, false);
+        View v = inflater.inflate(R.layout.fragment_musicstage2, container, false);
 
         guiHandler = new UiHandler();
 

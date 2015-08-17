@@ -11,4 +11,8 @@
     <string name="title_activity_crew">CrewActivity</string>
     <string name="title_activity_musicplayer">MusicplayerActivity</string>
     <string name="title_activity_setting">SettingActivity</string>
+
+    <string name="title_activity_music_stage_sub">MusicStageSubActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

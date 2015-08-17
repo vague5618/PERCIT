@@ -44,7 +44,8 @@ public class SettingHandler extends Handler {
                 temp_number = msg.arg1;
                 temp_string = (String) msg.obj;
 
-                SettingActivity.setting_list[1]=temp_string;
+                SettingActivity.setting_musicname_list[3] = temp_string;
+                SettingActivity.setting_musicnumber_list[3] = String.valueOf(temp_number);
                 SettingActivity.setting_sub1_text.setText(temp_string);
 
                 break;
@@ -53,6 +54,9 @@ public class SettingHandler extends Handler {
 
                 temp_number = msg.arg1;
                 temp_string = (String) msg.obj;
+
+                SettingActivity.setting_musicname_list[4] = temp_string;
+                SettingActivity.setting_musicnumber_list[4] = String.valueOf(temp_number);
                 SettingActivity.setting_sub2_text.setText(temp_string);
                 break;
 
@@ -60,6 +64,9 @@ public class SettingHandler extends Handler {
 
                 temp_number = msg.arg1;
                 temp_string = (String) msg.obj;
+
+                SettingActivity.setting_musicname_list[5] = temp_string;
+                SettingActivity.setting_musicnumber_list[5] = String.valueOf(temp_number);
                 SettingActivity.setting_sub3_text.setText(temp_string);
                 break;
 
@@ -67,6 +74,9 @@ public class SettingHandler extends Handler {
 
                 temp_number = msg.arg1;
                 temp_string = (String) msg.obj;
+
+                SettingActivity.setting_musicname_list[6] = temp_string;
+                SettingActivity.setting_musicnumber_list[6] = String.valueOf(temp_number);
                 SettingActivity.setting_sub4_text.setText(temp_string);
                 break;
 
@@ -74,6 +84,9 @@ public class SettingHandler extends Handler {
 
                 temp_number = msg.arg1;
                 temp_string = (String) msg.obj;
+
+                SettingActivity.setting_musicname_list[7] = temp_string;
+                SettingActivity.setting_musicnumber_list[7] = String.valueOf(temp_number);
                 SettingActivity.setting_sub5_text.setText(temp_string);
                 break;
 
@@ -81,15 +94,18 @@ public class SettingHandler extends Handler {
 
                 temp_number = msg.arg1;
                 temp_string = (String) msg.obj;
+
+                SettingActivity.setting_musicname_list[8] = temp_string;
+                SettingActivity.setting_musicnumber_list[8] = String.valueOf(temp_number);
                 SettingActivity.setting_sub6_text.setText(temp_string);
                 break;
 
             case R.id.setting_mainboard:
 
-                System.out.println("===========================123");
                 temp_number = msg.arg1;
                 temp_string = (String) msg.obj;
-                SettingActivity.setting_list[0]=temp_string;
+                SettingActivity.setting_musicname_list[0] = temp_string;
+                SettingActivity.setting_musicnumber_list[0] = String.valueOf(temp_number);
                 SettingActivity.setting_mainboard_text.setText(temp_string);
                 break;
 
@@ -98,6 +114,9 @@ public class SettingHandler extends Handler {
 
                 temp_number = msg.arg1;
                 temp_string = (String) msg.obj;
+
+                SettingActivity.setting_musicname_list[1] = temp_string;
+                SettingActivity.setting_musicnumber_list[1] = String.valueOf(temp_number);
                 SettingActivity.setting_kick1_text.setText(temp_string);
                 break;
 
@@ -105,6 +124,9 @@ public class SettingHandler extends Handler {
 
                 temp_number = msg.arg1;
                 temp_string = (String) msg.obj;
+
+                SettingActivity.setting_musicname_list[2] = temp_string;
+                SettingActivity.setting_musicnumber_list[2] = String.valueOf(temp_number);
                 SettingActivity.setting_kick2_text.setText(temp_string);
                 break;
 
@@ -123,6 +145,16 @@ public class SettingHandler extends Handler {
                 SettingActivity.setting_kick1.setImageDrawable(res.getDrawable(R.drawable.setting_kick1_unfocus));
                 SettingActivity.setting_kick2.setImageDrawable(res.getDrawable(R.drawable.setting_kick2_unfocus));
 
+                SettingActivity.setting_sub1.setOnDragListener(null);
+                SettingActivity.setting_sub2.setOnDragListener(null);
+                SettingActivity.setting_sub3.setOnDragListener(null);                ;
+                SettingActivity.setting_sub4.setOnDragListener(null);
+                SettingActivity.setting_sub5.setOnDragListener(null);
+                SettingActivity.setting_sub6.setOnDragListener(null);                ;
+                SettingActivity.setting_kick1.setOnDragListener(null);                ;
+                SettingActivity.setting_kick2.setOnDragListener(null);
+
+                SettingActivity.setting_mainboard.setOnDragListener(SettingActivity.gDragEventListener);
                 SettingActivity.setting_mainboard.startAnimation(mAnimation_blink);
 
                 break;
@@ -140,6 +172,17 @@ public class SettingHandler extends Handler {
                 SettingActivity.setting_sub6.setImageDrawable(res.getDrawable(R.drawable.setting_sub6_focus));
                 SettingActivity.setting_kick1.setImageDrawable(res.getDrawable(R.drawable.setting_kick1_focus));
                 SettingActivity.setting_kick2.setImageDrawable(res.getDrawable(R.drawable.setting_kick2_focus));
+
+
+                SettingActivity.setting_sub1.setOnDragListener(SettingActivity.gDragEventListener);
+                SettingActivity.setting_sub2.setOnDragListener(SettingActivity.gDragEventListener);
+                SettingActivity.setting_sub3.setOnDragListener(SettingActivity.gDragEventListener);
+                SettingActivity.setting_sub4.setOnDragListener(SettingActivity.gDragEventListener);
+                SettingActivity.setting_sub5.setOnDragListener(SettingActivity.gDragEventListener);
+                SettingActivity.setting_sub6.setOnDragListener(SettingActivity.gDragEventListener);
+                SettingActivity.setting_kick1.setOnDragListener(SettingActivity.gDragEventListener);
+                SettingActivity.setting_kick2.setOnDragListener(SettingActivity.gDragEventListener);
+                SettingActivity.setting_mainboard.setOnDragListener(null);
 
 
                 SettingActivity.setting_sub1.startAnimation(mAnimation_blink);

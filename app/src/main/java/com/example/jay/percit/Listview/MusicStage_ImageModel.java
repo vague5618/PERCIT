@@ -11,15 +11,27 @@ public class MusicStage_ImageModel {
     private int musicstage_information;
     private int musicstage_progress1;
     private int musicstage_progress2;
-    private String musicstage_musicname;
+    private int musicstage_progress3;
+    private String musicstage_bgnumber;
 
-    public MusicStage_ImageModel(int musicstage_image, int musicstage_information, int musicstage_progress1, int musicstage_progress2, String musicstage_musicname) {
+
+    public MusicStage_ImageModel(int musicstage_image, int musicstage_information, int musicstage_progress1, int musicstage_progress2, int musicstage_progress3, String musicstage_bgnumber) {
         this.musicstage_image = musicstage_image;
         this.musicstage_information = musicstage_information;
         this.musicstage_progress1 = musicstage_progress1;
         this.musicstage_progress2 = musicstage_progress2;
-        this.musicstage_musicname = musicstage_musicname;
+        this.musicstage_progress3 = musicstage_progress3;
+        this.musicstage_bgnumber = musicstage_bgnumber;
     }
+
+    public MusicStage_ImageModel(int musicstage_image, int musicstage_information, int musicstage_progress1, int musicstage_progress2, String musicstage_bgnumber) {
+        this.musicstage_image = musicstage_image;
+        this.musicstage_information = musicstage_information;
+        this.musicstage_progress1 = musicstage_progress1;
+        this.musicstage_progress2 = musicstage_progress2;
+        this.musicstage_bgnumber = musicstage_bgnumber;
+    }
+
 
     public int getMusicstage_image() {
         return musicstage_image;
@@ -37,7 +49,11 @@ public class MusicStage_ImageModel {
         return musicstage_progress2;
     }
 
-    public String getMusicstage_musicname() {
-        return musicstage_musicname;
+    public int getMusicstage_progress3() {
+        return musicstage_progress3;
+    }
+
+    public String getMusicstage_bgnumber() {
+        return musicstage_bgnumber;
     }
 }

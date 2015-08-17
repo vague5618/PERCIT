@@ -4,7 +4,7 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.example.jay.percit.Controller.MusicStageActivity;
-import com.example.jay.percit.Fragment.MusicStageFragment2;
+import com.example.jay.percit.Fragment.MusicStageFragment4;
 import com.example.jay.percit.Thread.MusicplayerThread;
 import com.example.jay.percit.Thread.RecordThread;
 import com.example.jay.percit.Util.BluetoothConnectService;
@@ -22,6 +22,7 @@ public class MusicHandler extends Handler {
     private static final int PLAY_BGM = 8;
     private static final int PAUSE_BGM = 9;
     private static final int RESUME_BGM = 10;
+    private static final int CLEAR_BGM = 11;
 
     private float current_Volume = 1;
     private int save_Volume = 1;
@@ -43,129 +44,130 @@ public class MusicHandler extends Handler {
 
                 break;
 
-            case REQUEST_A:
-
-                if (MusicStageActivity.state == PLAY_MODE) {
-
-                    byte[] temp_content = {'a'};
-
-                    //      mBluetoothConnectService.write(temp_content);
-                    MusicStageActivity.gBluetoothThread.write(temp_content);
-                    MusicStageFragment2.guiHandler.sendEmptyMessage(REQUEST_A);
-                    mMusicPlayerThread.play(1, current_Volume);
-                } else if (MusicStageActivity.state == RECORD_MODE) {
-
-                    int temp_index = mRecordThread.get_time();
-
-                    MusicStageActivity.record_power[temp_index] = save_Volume;
-                    MusicStageActivity.record_arr[temp_index] = REQUEST_A;
-                    mMusicPlayerThread.play(1, current_Volume);
-                } else {
-                    mMusicPlayerThread.play(1, current_Volume);
-                }
-
-                break;
-
-            case REQUEST_B:
-
-                if (MusicStageActivity.state == PLAY_MODE) {
-
-                    byte[] temp_content = {'b'};
-
-                    //    mBluetoothConnectService.write(temp_content);
-                    MusicStageActivity.gBluetoothThread.write(temp_content);
-                    MusicStageFragment2.guiHandler.sendEmptyMessage(REQUEST_B);
-                    mMusicPlayerThread.play(2, current_Volume);
-
-
-                } else if (MusicStageActivity.state == RECORD_MODE) {
-
-                    int temp_index = mRecordThread.get_time();
-
-                    MusicStageActivity.record_power[temp_index] = save_Volume;
-
-                    MusicStageActivity.record_arr[temp_index] = REQUEST_B;
-
-                    mMusicPlayerThread.play(2, current_Volume);
-                } else {
-
-                    mMusicPlayerThread.play(2, current_Volume);
-                }
-
-                break;
-
-
-            case REQUEST_C:
-
-                if (MusicStageActivity.state == PLAY_MODE) {
-
-                    byte[] temp_content = {'c'};
-
-                    //    mBluetoothConnectService.write(temp_content);
-                    MusicStageActivity.gBluetoothThread.write(temp_content);
-                    MusicStageFragment2.guiHandler.sendEmptyMessage(REQUEST_C);
-                    mMusicPlayerThread.play(3, current_Volume);
-
-                } else if (MusicStageActivity.state == RECORD_MODE) {
-
-                    int temp_index = mRecordThread.get_time();
-
-                    MusicStageActivity.record_power[temp_index] = save_Volume;
-
-                    MusicStageActivity.record_arr[temp_index] = REQUEST_C;
-
-                    mMusicPlayerThread.play(3, current_Volume);
-                } else {
-                    mMusicPlayerThread.play(3, current_Volume);
-                }
-
-                break;
-
-
-            case REQUEST_D:
-
-                if (MusicStageActivity.state == PLAY_MODE) {
-
-                    byte[] temp_content = {'d'};
-                    //       mBluetoothConnectService.write(temp_content);
-                    MusicStageActivity.gBluetoothThread.write(temp_content);
-                    MusicStageFragment2.guiHandler.sendEmptyMessage(REQUEST_D);
-                    mMusicPlayerThread.play(4, current_Volume);
-                } else if (MusicStageActivity.state == RECORD_MODE) {
-
-                    int temp_index = mRecordThread.get_time();
-
-                    MusicStageActivity.record_power[temp_index] = save_Volume;
-
-                    MusicStageActivity.record_arr[temp_index] = REQUEST_D;
-
-                    mMusicPlayerThread.play(4, current_Volume);
-                } else {
-
-                    mMusicPlayerThread.play(4, current_Volume);
-                }
-
-                break;
+//            case REQUEST_A:
+//
+//                if (MusicStageActivity.state == PLAY_MODE) {
+//
+//                    byte[] temp_content = {'a'};
+//
+//                    //      mBluetoothConnectService.write(temp_content);
+//                    MusicStageActivity.gBluetoothThread.write(temp_content);
+//                    MusicStageFragment4.guiHandler.sendEmptyMessage(REQUEST_A);
+//                    mMusicPlayerThread.play(1, current_Volume);
+//                } else if (MusicStageActivity.state == RECORD_MODE) {
+//
+//                    int temp_index = mRecordThread.get_time();
+//
+//                    MusicStageActivity.record_power[temp_index] = save_Volume;
+//                    MusicStageActivity.record_arr[temp_index] = REQUEST_A;
+//                    mMusicPlayerThread.play(1, current_Volume);
+//                } else {
+//                    mMusicPlayerThread.play(1, current_Volume);
+//                }
+//
+//                break;
+//
+//            case REQUEST_B:
+//
+//                if (MusicStageActivity.state == PLAY_MODE) {
+//
+//                    byte[] temp_content = {'b'};
+//
+//                    //    mBluetoothConnectService.write(temp_content);
+//                    MusicStageActivity.gBluetoothThread.write(temp_content);
+//                    MusicStageFragment4.guiHandler.sendEmptyMessage(REQUEST_B);
+//                    mMusicPlayerThread.play(2, current_Volume);
+//
+//
+//                } else if (MusicStageActivity.state == RECORD_MODE) {
+//
+//                    int temp_index = mRecordThread.get_time();
+//
+//                    MusicStageActivity.record_power[temp_index] = save_Volume;
+//
+//                    MusicStageActivity.record_arr[temp_index] = REQUEST_B;
+//
+//                    mMusicPlayerThread.play(2, current_Volume);
+//                } else {
+//
+//                    mMusicPlayerThread.play(2, current_Volume);
+//                }
+//
+//                break;
+//
+//
+//            case REQUEST_C:
+//
+//                if (MusicStageActivity.state == PLAY_MODE) {
+//
+//                    byte[] temp_content = {'c'};
+//
+//                    //    mBluetoothConnectService.write(temp_content);
+//                    MusicStageActivity.gBluetoothThread.write(temp_content);
+//                    MusicStageFragment4.guiHandler.sendEmptyMessage(REQUEST_C);
+//                    mMusicPlayerThread.play(3, current_Volume);
+//
+//                } else if (MusicStageActivity.state == RECORD_MODE) {
+//
+//                    int temp_index = mRecordThread.get_time();
+//
+//                    MusicStageActivity.record_power[temp_index] = save_Volume;
+//
+//                    MusicStageActivity.record_arr[temp_index] = REQUEST_C;
+//
+//                    mMusicPlayerThread.play(3, current_Volume);
+//                } else {
+//                    mMusicPlayerThread.play(3, current_Volume);
+//                }
+//
+//                break;
+//
+//
+//            case REQUEST_D:
+//
+//                if (MusicStageActivity.state == PLAY_MODE) {
+//
+//                    byte[] temp_content = {'d'};
+//                    //       mBluetoothConnectService.write(temp_content);
+//                    MusicStageActivity.gBluetoothThread.write(temp_content);
+//                    MusicStageFragment4.guiHandler.sendEmptyMessage(REQUEST_D);
+//                    mMusicPlayerThread.play(4, current_Volume);
+//                } else if (MusicStageActivity.state == RECORD_MODE) {
+//
+//                    int temp_index = mRecordThread.get_time();
+//
+//                    MusicStageActivity.record_power[temp_index] = save_Volume;
+//
+//                    MusicStageActivity.record_arr[temp_index] = REQUEST_D;
+//
+//                    mMusicPlayerThread.play(4, current_Volume);
+//                } else {
+//
+//                    mMusicPlayerThread.play(4, current_Volume);
+//                }
+//
+//                break;
 
             case NOMAL_MODE:
 
-                MusicStageFragment2.guiHandler.sendEmptyMessage(NOMAL_MODE);
+                MusicStageFragment4.guiHandler.sendEmptyMessage(NOMAL_MODE);
                 break;
 
             case RECORD_MODE:
 
-                MusicStageFragment2.guiHandler.sendEmptyMessage(RECORD_MODE);
+                MusicStageFragment4.guiHandler.sendEmptyMessage(RECORD_MODE);
                 break;
 
             case PLAY_MODE:
 
-                MusicStageFragment2.guiHandler.sendEmptyMessage(PLAY_MODE);
+                MusicStageFragment4.guiHandler.sendEmptyMessage(PLAY_MODE);
                 break;
 
             case PLAY_BGM:
-
                 try {
-                    mMusicPlayerThread.playBGM(1);
+                    System.out.println("Play============");
+                    int temp_index = msg.arg1;
+                    mMusicPlayerThread.playBGM(temp_index);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -173,8 +175,13 @@ public class MusicHandler extends Handler {
             case PAUSE_BGM:
                 mMusicPlayerThread.stopBGM();
                 break;
+
             case RESUME_BGM:
                 mMusicPlayerThread.resumeBGM();
+                break;
+
+            case CLEAR_BGM:
+                mMusicPlayerThread.killMediaPlayer();
                 break;
             
 

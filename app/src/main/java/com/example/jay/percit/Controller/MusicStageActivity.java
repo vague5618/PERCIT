@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -12,37 +13,86 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.example.jay.percit.Animation.ScaleAnim;
+import com.example.jay.percit.Animation.TranslateAnim;
 import com.example.jay.percit.Fragment.MusicStageFragment1;
 import com.example.jay.percit.Fragment.MusicStageFragment2;
-import com.example.jay.percit.Fragment.MusicStageFragment3;
 import com.example.jay.percit.Handler.MusicHandler;
+import com.example.jay.percit.Listview.MusicStage_IdModel;
+import com.example.jay.percit.Listview.MusicStage_IdSetup;
+import com.example.jay.percit.Listview.MusicStage_ImageModel;
+import com.example.jay.percit.Listview.MusicStage_ImageSetup;
 import com.example.jay.percit.R;
 import com.example.jay.percit.Thread.MusicplayerThread;
 import com.example.jay.percit.Thread.RecordThread;
 import com.example.jay.percit.Util.BluetoothScan;
 import com.example.jay.percit.Util.BluetoothThread;
 
+import java.util.ArrayList;
+
 public class MusicStageActivity extends ActionBarActivity {
 
     public static final int NOMAL_MODE = 5;
     public static final int RECORD_MODE = 6;
     public static final int PLAY_MODE = 7;
-    private static final int LOW_DPI_STATUS_BAR_HEIGHT = 19;
-    private static final int MEDIUM_DPI_STATUS_BAR_HEIGHT = 25;
-    private static final int HIGH_DPI_STATUS_BAR_HEIGHT = 38;
+    private static final int PLAY_BGM = 8;
+    private static final int PAUSE_BGM = 9;
+    private static final int RESUME_BGM = 10;
+    private static final int CLEAR_BGM = 11;
+    private static final int CLICK_STATE_ON = 99;
+    private static final int CLICK_STATE_OFF = 100;
+    private static final int CLICK_STATE_ING = 101;
 
-    public static BluetoothThread gBluetoothThread;
+    public static int click_current_state = CLICK_STATE_OFF;
+
+    public static int pre_choice = -1;
+
+    public static ImageView musicstage_imageList[];
+
+    public static ImageView musicstage_progress1List[];
+
+    public static ImageView musicstage_progress2List[];
+
+    public static ImageView musicstage_progress3List[];
+
+    public static ImageView musicstage_like_img[];
+
+    public static TextView musicstage_like_txt[];
+
+    public static ImageView musicstage_informationList[];
+
+    public static ArrayList<MusicStage_ImageModel> musicstage_Image_modelList;
+
+    public static MusicStage_ImageSetup musicstage_Image_setup;
+
+    public static ArrayList<MusicStage_IdModel> musicstage_Id_modelList;
+
+    public static MusicStage_IdSetup musicStage_id_setup;
+
+    public static ScaleAnim mMusicAnimation_scale;
+    public static TranslateAnim mMusicAnimation_down;
+
     SectionsPagerAdapter mSectionsPagerAdapter;
     public static ViewPager gViewPager;
     static public Context mContext;
-    public BluetoothAdapter mBluetoothAdapter;
-    public BluetoothScan mBluetoothScan;
+    Resources res;
+
+//
+//    public static BluetoothThread gBluetoothThread;
+//    public BluetoothAdapter mBluetoothAdapter;
+//    public BluetoothScan mBluetoothScan;
     private MusicplayerThread mMusicplayerThread;
+
+
     public static RecordThread gRecordThread;
     public static MusicHandler gMusicHandler;
     private Handler mHandler;
@@ -54,6 +104,9 @@ public class MusicStageActivity extends ActionBarActivity {
 
     @Override
     protected void onDestroy() {
+//
+//        gMusicHandler.sendEmptyMessage(RESUME_BGM);
+
 
         mMusicplayerThread.killMediaPlayer();
         super.onDestroy();
@@ -66,19 +119,8 @@ public class MusicStageActivity extends ActionBarActivity {
         //commit check
 
         super.onCreate(savedInstanceState);
-
+        overridePendingTransition(0,0);
         setContentView(R.layout.activity_musicstage);
-
-        ActionBar actionBar = getSupportActionBar();
-
-        actionBar.setElevation(0);
-
-        actionBar.hide();
-
-        final BluetoothManager bluetoothManager =
-                (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
-
-        mBluetoothAdapter = bluetoothManager.getAdapter();
 
         //Create Classs
 
@@ -91,15 +133,7 @@ public class MusicStageActivity extends ActionBarActivity {
 
         gRecordThread = new RecordThread();
 
-        mHandler = new Handler();
-
         gMusicHandler = new MusicHandler(mMusicplayerThread, gRecordThread);
-
-        gBluetoothThread = new BluetoothThread(this, gMusicHandler);
-
-        mBluetoothScan = new BluetoothScan(mBluetoothAdapter, mHandler, gBluetoothThread);
-
-        mBluetoothScan.start();
 
         gViewPager = (ViewPager) findViewById(R.id.pager);
 
@@ -107,29 +141,21 @@ public class MusicStageActivity extends ActionBarActivity {
 //
         gViewPager.setOnTouchListener(onTouchPager);
 
-        gViewPager.setCurrentItem(current_fragment);
+        gViewPager.setPageMargin(-120);
 
-        gViewPager.setPageMargin(-80);
-
-        current_fragment = 0;
+        Setup_UI();
 
         mContext = this;
 
-        mMusicplayerThread.play(2,1);
-
-//        Intent Service = new Intent(this, BluetoothConnectService.class);
-//        startService(Service);
-
-
+        mMusicplayerThread.play(2, 1);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        getMenuInflater().inflate(R.menu.menu_community, menu);
+        getMenuInflater().inflate(R.menu.menu_musicstage_actionbar, menu);
 
         return true;
     }
-
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
@@ -145,11 +171,11 @@ public class MusicStageActivity extends ActionBarActivity {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
 
-            if (position == 2) {
-                return MusicStageFragment3.newInstance();
-            } else if (position == 1) {
+            if (position == 1) {
+                mMusicplayerThread.killMediaPlayer();
                 return MusicStageFragment2.newInstance();
             } else {
+                mMusicplayerThread.killMediaPlayer();
                 return MusicStageFragment1.newInstance();
             }
         }
@@ -157,10 +183,9 @@ public class MusicStageActivity extends ActionBarActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 2;
         }
     }
-
 
     // up-down swipe
 
@@ -200,7 +225,6 @@ public class MusicStageActivity extends ActionBarActivity {
 
                 Intent intent = new Intent(mContext, PlaylistActivity.class);
                 startActivity(intent);
-
                 overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_down);
                 finish();
                 return false;
@@ -215,5 +239,43 @@ public class MusicStageActivity extends ActionBarActivity {
 
 
     };
+
+
+    private void Setup_UI() {
+        musicstage_imageList = new ImageView[10];
+        musicstage_progress1List = new ImageView[10];
+        musicstage_progress2List = new ImageView[10];
+        musicstage_progress3List = new ImageView[10];
+        musicstage_like_img = new ImageView[10];
+        musicstage_like_txt = new TextView[10];
+        musicstage_informationList = new ImageView[10];
+        musicstage_Image_modelList = new ArrayList<>();
+        musicstage_Id_modelList = new ArrayList<>();
+        musicstage_Image_setup = new MusicStage_ImageSetup(musicstage_Image_modelList);
+        musicStage_id_setup = new MusicStage_IdSetup(musicstage_Id_modelList);
+
+
+//        mMusicAnimation_scale = new ScaleAnim(1, 1, 1, 6.09461f);
+
+        mMusicAnimation_scale = new ScaleAnim(1, 1, 1, 5.528291f);
+
+        mMusicAnimation_scale.setDuration(15000);
+//
+//        mMusicAnimation_down = new
+//                TranslateAnim(Animation.RELATIVE_TO_SELF, 0.0f,
+//                Animation.RELATIVE_TO_SELF, 0.0f,
+//                Animation.RELATIVE_TO_SELF, 0.0f,
+//                Animation.RELATIVE_TO_SELF, 11.25f);
+
+
+        mMusicAnimation_down = new
+               TranslateAnim(Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 10f);
+
+        mMusicAnimation_down.setDuration(15000);
+
+    }
 
 }

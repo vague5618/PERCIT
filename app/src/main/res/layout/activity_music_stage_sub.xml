@@ -1,0 +1,385 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="1280dp"
+        android:layout_height="56dp"
+        android:background="@drawable/musicstage_sub_actionbar"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/musicstage_sub_back"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/musicstage_sub_actionbar_01_icon" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:layout_width="652dp"
+            android:layout_height="671dp"
+            android:background="@drawable/musicstage_sub_background02">
+
+
+            <FrameLayout
+                android:layout_width="155dp"
+                android:layout_height="435dp"
+                android:layout_marginLeft="80dp"
+                android:layout_marginTop="80dp">
+
+                <ImageView
+                    android:id="@+id/musicstage_sub_imagepattern"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/musicstage_sub_imagepattern" />
+
+                <ImageView
+                    android:id="@+id/musicstage_sub_progressbar_01"
+                    android:layout_width="155dp"
+                    android:layout_height="29dp"
+                    android:background="@drawable/musicstage_sub_progressbar_01"
+                    android:visibility="invisible" />
+
+                <ImageView
+                    android:id="@+id/musicstage_sub_progressbar_02"
+                    android:layout_width="155dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="29dp"
+                    android:background="@drawable/musicstage_sub_progressbar_02"
+                    android:visibility="invisible" />
+
+                <ImageView
+                    android:id="@+id/musicstage_sub_progressbar_03"
+                    android:layout_width="155dp"
+                    android:layout_height="7dp"
+                    android:layout_marginTop="30dp"
+
+                    android:background="@drawable/musicstage_sub_progressbar_03"
+                    android:visibility="invisible" />
+
+            </FrameLayout>
+
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="628dp"
+            android:layout_height="671dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/musicstage_sub_background01">
+
+
+                <ImageView
+                    android:id="@+id/musicstage_sub_sub1_unfocus"
+                    android:layout_width="104dp"
+                    android:layout_height="114dp"
+                    android:layout_marginLeft="61dp"
+                    android:layout_marginTop="253dp"
+                    android:background="@drawable/musicstage_sub_sub1_unfocus" />
+
+                <ImageView
+                    android:id="@+id/musicstage_sub_sub1"
+                    android:layout_width="104dp"
+                    android:layout_height="114dp"
+                    android:layout_marginLeft="61dp"
+                    android:layout_marginTop="253dp"
+                    android:visibility="invisible"
+                    android:background="@drawable/musicstage_sub_sub1_focus"
+                    />
+
+                <TextView
+                    android:id="@+id/musicstage_sub_sub1_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/musicstage_sub_sub1_unfocus"
+                    android:layout_alignLeft="@id/musicstage_sub_sub1_unfocus"
+                    android:layout_alignRight="@id/musicstage_sub_sub1_unfocus"
+                    android:layout_alignTop="@id/musicstage_sub_sub1_unfocus"
+                    android:gravity="center"
+                    android:text="Hi-hat"
+                    android:textColor="#ff5c54"
+                    android:textSize="53.59px" />
+
+
+
+                <ImageView
+                    android:id="@+id/musicstage_sub_sub2_unfocus"
+                    android:layout_width="104dp"
+                    android:layout_height="116dp"
+                    android:layout_marginLeft="61dp"
+                    android:layout_marginTop="131dp"
+                    android:background="@drawable/musicstage_sub_sub2_unfocus" />
+
+
+                <ImageView
+                    android:id="@+id/musicstage_sub_sub2"
+                    android:layout_width="104dp"
+                    android:layout_height="116dp"
+                    android:layout_marginLeft="61dp"
+                    android:layout_marginTop="131dp"
+                    android:background="@drawable/musicstage_sub_sub2_focus"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/musicstage_sub_sub2_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/musicstage_sub_sub2_unfocus"
+                    android:layout_alignLeft="@id/musicstage_sub_sub2_unfocus"
+                    android:layout_alignRight="@id/musicstage_sub_sub2_unfocus"
+                    android:layout_alignTop="@id/musicstage_sub_sub2_unfocus"
+                    android:gravity="center"
+                    android:text="Crash\nCymbal"
+                    android:textColor="#ff5c54"
+                    android:textSize="53.59px" />
+
+
+
+
+                <ImageView
+                    android:id="@+id/musicstage_sub_sub3_unfocus"
+                    android:layout_width="114dp"
+                    android:layout_height="104dp"
+                    android:layout_marginLeft="113dp"
+                    android:layout_marginTop="80dp"
+                    android:background="@drawable/musicstage_sub_sub3_unfocus" />
+
+
+                <ImageView
+                    android:id="@+id/musicstage_sub_sub3"
+                    android:layout_width="114dp"
+                    android:layout_height="104dp"
+                    android:layout_marginLeft="113dp"
+                    android:layout_marginTop="80dp"
+                    android:background="@drawable/musicstage_sub_sub3_focus"
+                    android:visibility="invisible" />
+
+
+                <TextView
+                    android:id="@+id/musicstage_sub_sub3_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/musicstage_sub_sub3_unfocus"
+                    android:layout_alignLeft="@id/musicstage_sub_sub3_unfocus"
+                    android:layout_alignRight="@id/musicstage_sub_sub3_unfocus"
+                    android:layout_alignTop="@id/musicstage_sub_sub3_unfocus"
+                    android:gravity="center"
+                    android:text="High Tam"
+                    android:textColor="#ff5c54"
+                    android:textSize="53.59px" />
+
+                <ImageView
+                    android:id="@+id/musicstage_sub_sub4_unfocus"
+                    android:layout_width="116dp"
+                    android:layout_height="104dp"
+                    android:layout_marginLeft="232dp"
+                    android:layout_marginTop="80dp"
+                    android:background="@drawable/musicstage_sub_sub4_unfocus" />
+
+
+                <ImageView
+                    android:id="@+id/musicstage_sub_sub4"
+                    android:layout_width="116dp"
+                    android:layout_height="104dp"
+                    android:layout_marginLeft="232dp"
+                    android:layout_marginTop="80dp"
+                    android:background="@drawable/musicstage_sub_sub4_focus"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/musicstage_sub_sub4_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/musicstage_sub_sub4_unfocus"
+                    android:layout_alignLeft="@id/musicstage_sub_sub4_unfocus"
+                    android:layout_alignRight="@id/musicstage_sub_sub4_unfocus"
+                    android:layout_alignTop="@id/musicstage_sub_sub4_unfocus"
+                    android:gravity="center"
+                    android:text="Mid Tam"
+                    android:textColor="#ff5c54"
+                    android:textSize="53.59px" />
+
+
+
+                <ImageView
+                    android:id="@+id/musicstage_sub_sub5_unfocus"
+                    android:layout_width="104dp"
+                    android:layout_height="116dp"
+                    android:layout_marginLeft="296dp"
+                    android:layout_marginTop="132dp"
+                    android:background="@drawable/musicstage_sub_sub5_unfocus" />
+                <ImageView
+                    android:id="@+id/musicstage_sub_sub5"
+                    android:layout_width="104dp"
+                    android:layout_height="116dp"
+                    android:layout_marginLeft="296dp"
+                    android:layout_marginTop="132dp"
+                    android:background="@drawable/musicstage_sub_sub5_focus"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/musicstage_sub_sub5_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/musicstage_sub_sub5_unfocus"
+                    android:layout_alignLeft="@id/musicstage_sub_sub5_unfocus"
+                    android:layout_alignRight="@id/musicstage_sub_sub5_unfocus"
+                    android:layout_alignTop="@id/musicstage_sub_sub5_unfocus"
+                    android:gravity="center"
+                    android:text="Ride\nCymbal"
+                    android:textColor="#ff5c54"
+                    android:textSize="53.59px" />
+
+
+
+
+
+                <ImageView
+                    android:id="@+id/musicstage_sub_sub6_unfocus"
+                    android:layout_width="104dp"
+                    android:layout_height="115dp"
+                    android:layout_marginLeft="296dp"
+                    android:layout_marginTop="254dp"
+                    android:background="@drawable/musicstage_sub_sub6_unfocus" />
+
+                <ImageView
+                    android:id="@+id/musicstage_sub_sub6"
+                    android:layout_width="104dp"
+                    android:layout_height="115dp"
+                    android:layout_marginLeft="296dp"
+                    android:layout_marginTop="254dp"
+                    android:background="@drawable/musicstage_sub_sub6_focus"
+                    android:visibility="invisible" />
+
+
+                <TextView
+                    android:id="@+id/musicstage_sub_sub6_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/musicstage_sub_sub6_unfocus"
+                    android:layout_alignLeft="@id/musicstage_sub_sub6_unfocus"
+                    android:layout_alignRight="@id/musicstage_sub_sub6_unfocus"
+                    android:layout_alignTop="@id/musicstage_sub_sub6_unfocus"
+                    android:gravity="center"
+                    android:text="Floor\nTam"
+                    android:textColor="#ff5c54"
+                    android:textSize="53.59px" />
+
+                <ImageView
+                    android:id="@+id/musicstage_sub_mainboard_unfocus"
+                    android:layout_width="168dp"
+                    android:layout_height="168dp"
+                    android:layout_marginLeft="146dp"
+                    android:layout_marginTop="166dp"
+                    android:background="@drawable/musicstage_sub_mainboard_unfocus" />
+
+
+                <ImageView
+                    android:id="@+id/musicstage_sub_mainboard"
+                    android:layout_width="168dp"
+                    android:layout_height="168dp"
+                    android:layout_marginLeft="146dp"
+                    android:layout_marginTop="166dp"
+                    android:background="@drawable/musicstage_sub_mainboard_focus"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/musicstage_sub_mainboard_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/musicstage_sub_mainboard_unfocus"
+                    android:layout_alignLeft="@id/musicstage_sub_mainboard_unfocus"
+                    android:layout_alignRight="@id/musicstage_sub_mainboard_unfocus"
+                    android:layout_alignTop="@id/musicstage_sub_mainboard_unfocus"
+                    android:gravity="center"
+                    android:text="Snare Drum"
+                    android:textColor="#ff5c54"
+                    android:textSize="53.59px" />
+
+
+                <ImageView
+                    android:id="@+id/musicstage_sub_kick1_unfocus"
+                    android:layout_width="114dp"
+                    android:layout_height="82dp"
+                    android:layout_marginLeft="61dp"
+                    android:layout_marginTop="397dp"
+                    android:background="@drawable/musicstage_sub_kick1_unfocus" />
+
+                <ImageView
+                    android:id="@+id/musicstage_sub_kick1"
+                    android:layout_width="114dp"
+                    android:layout_height="82dp"
+                    android:layout_marginLeft="61dp"
+                    android:layout_marginTop="397dp"
+                    android:background="@drawable/musicstage_sub_kick1_focus"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/musicstage_sub_kick1_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/musicstage_sub_kick1_unfocus"
+                    android:layout_alignLeft="@id/musicstage_sub_kick1_unfocus"
+                    android:layout_alignRight="@id/musicstage_sub_kick1_unfocus"
+                    android:layout_alignTop="@id/musicstage_sub_kick1_unfocus"
+                    android:gravity="center"
+                    android:text="Hi-hat"
+                    android:textColor="#ff5c54"
+                    android:textSize="53.59px" />
+
+
+                <ImageView
+                    android:id="@+id/musicstage_sub_kick2_unfocus"
+                    android:layout_width="114dp"
+                    android:layout_height="82dp"
+                    android:layout_marginLeft="276dp"
+                    android:layout_marginTop="397dp"
+                    android:background="@drawable/musicstage_sub_kick2_unfocus" />
+
+                <ImageView
+                    android:id="@+id/musicstage_sub_kick2"
+                    android:layout_width="114dp"
+                    android:layout_height="82dp"
+                    android:layout_marginLeft="276dp"
+                    android:layout_marginTop="397dp"
+                    android:visibility="invisible"
+                    android:background="@drawable/musicstage_sub_kick2_focus" />
+
+
+                <TextView
+                    android:id="@+id/musicstage_sub_kick2_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/musicstage_sub_kick2_unfocus"
+                    android:layout_alignLeft="@id/musicstage_sub_kick2_unfocus"
+                    android:layout_alignRight="@id/musicstage_sub_kick2_unfocus"
+                    android:layout_alignTop="@id/musicstage_sub_kick2_unfocus"
+                    android:gravity="center"
+                    android:text="Bass Drum"
+                    android:textColor="#ff5c54"
+                    android:textSize="53.59px" />
+
+            </RelativeLayout>
+
+        </FrameLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
