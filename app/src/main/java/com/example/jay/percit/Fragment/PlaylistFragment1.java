@@ -1,6 +1,8 @@
 package com.example.jay.percit.Fragment;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,151 +12,145 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.jay.percit.Controller.MusicStageActivity;
+import com.example.jay.percit.Controller.MusicStageSubActivity;
+import com.example.jay.percit.Controller.PlaylistActivity;
+import com.example.jay.percit.Controller.PlaylistBasic;
 import com.example.jay.percit.Controller.SettingActivity;
+import com.example.jay.percit.Model.MusicStage_Id;
+import com.example.jay.percit.Model.MusicStage_IdDAO;
+import com.example.jay.percit.Model.Playlist_IdDAO;
+import com.example.jay.percit.Model.Playlist_ImageDAO;
 import com.example.jay.percit.R;
 
 /**
  * Created by Jay on 2015-08-06.
  */
-public class PlaylistFragment1 extends Fragment {
+public class PlaylistFragment1 extends Fragment implements View.OnClickListener {
 
-    public static UiHandler guiHandler;
-    private View mSetting_handle;
+    Playlist_ImageDAO playlist_imageDAO;
+    Playlist_IdDAO playlist_idDAO;
+    Cursor playlist_imageCursor;
+    Cursor playlist_IdCursor;
+    int target_index;
 
+    Resources res;
 
     public static PlaylistFragment1 newInstance() {
 
         PlaylistFragment1 fragment = new PlaylistFragment1();
+
         return fragment;
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_musicstage2, container, false);
+        View v = inflater.inflate(R.layout.fragment_playlist1, container, false);
 
-        guiHandler = new UiHandler();
+        res = container.getResources();
 
-        mSetting_handle = (ImageView) v.findViewById(R.id.setting_handler);
+        try {
+            playlist_imageDAO = playlist_imageDAO.open(PlaylistActivity.mContext);
+            playlist_idDAO = playlist_idDAO.open(PlaylistActivity.mContext);
+        } catch (Exception e) {
+            Log.i("DB Query", "Error");
+            e.printStackTrace();
+        }
 
-        mSetting_handle.setOnTouchListener(
+        playlist_IdCursor = playlist_idDAO.getPlaylist_id();
 
-                new View.OnTouchListener() {
+        playlist_IdCursor.move(0);
 
-                    private float PressedY;
-                    private float PressedX;
+        for (int i = 0; i < 4; i++) {
 
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
+            while (playlist_IdCursor.moveToNext() && i < 4) {
 
-                        float y_distance = 0;
-                        float x_distance = 0;
+                PlaylistActivity.playlist_imageList[i] = (ImageView) v.findViewById(Integer.parseInt(playlist_IdCursor.getString(1)));
+                PlaylistActivity.playlist_informationList[i] = (ImageView) v.findViewById(Integer.parseInt(playlist_IdCursor.getString(2)));
+                Log.i(" Cursor check ", playlist_IdCursor.getString(2));
+                PlaylistActivity.playlist_progress1List[i] = (ImageView) v.findViewById(Integer.parseInt(playlist_IdCursor.getString(3)));
+                PlaylistActivity.playlist_progress2List[i] = (ImageView) v.findViewById(Integer.parseInt(playlist_IdCursor.getString(4)));
+                PlaylistActivity.playlist_progress3List[i] = (ImageView) v.findViewById(Integer.parseInt(playlist_IdCursor.getString(5)));
+                i++;
+            }
+        }
 
+        playlist_imageCursor = playlist_imageDAO.getPlaylist_image("POP", null);
 
-                        if (v.getId() == R.id.setting_handler)
-                        {
+      //  playlist_imageCursor.moveToFirst();
 
-                            MusicStageActivity.gViewPager.requestDisallowInterceptTouchEvent(true);
+        //  Log.i("Cursor count", String.valueOf(playlist_imageCursor.getCount()));
 
-                            switch (event.getAction()) {
+        for (int i = 0; i < 4; i++) {
 
+            while (playlist_imageCursor.moveToNext() && i < 4) {
 
-                                case MotionEvent.ACTION_DOWN:
+                PlaylistActivity.playlist_imageList[i].setBackground(res.getDrawable(Integer.parseInt(playlist_imageCursor.getString(1))));
 
-                                    System.out.println("****************** DOWN");
+                PlaylistActivity.playlist_informationList[i].setBackground(res.getDrawable(Integer.parseInt(playlist_imageCursor.getString(2))));
 
-                                    PressedY = event.getY();
+                PlaylistActivity.playlist_progress1List[i].setBackground(res.getDrawable(Integer.parseInt(playlist_imageCursor.getString(3))));
 
-                                    PressedX = event.getX();
+                PlaylistActivity.playlist_progress2List[i].setBackground(res.getDrawable(Integer.parseInt(playlist_imageCursor.getString(4))));
 
-                                    System.out.println("get X() : " + PressedX);
+                PlaylistActivity.playlist_progress3List[i].setBackground(res.getDrawable(Integer.parseInt(playlist_imageCursor.getString(5))));
 
-                                    break;
+                PlaylistActivity.playlist_MusicnameList[i] = playlist_imageCursor.getString(8);
 
-                                case MotionEvent.ACTION_UP:
+                PlaylistActivity.playlist_progress1List[i].setVisibility(View.INVISIBLE);
 
-                                    System.out.println("****************** UP");
-                                    y_distance = PressedY - event.getY();
-                                    x_distance = PressedX - event.getX();
+                PlaylistActivity.playlist_progress2List[i].setVisibility(View.INVISIBLE);
 
-                                    System.out.println("UP get X() : " + event.getX());
-                                    break;
+                PlaylistActivity.playlist_progress3List[i].setVisibility(View.INVISIBLE);
 
-                            }
+                PlaylistActivity.playlist_informationList[i].setOnClickListener(this);
 
-                            if (Math.abs(x_distance) > 1000) {
+                i++;
+            }
+        }
 
-                                Log.d("===", "========================");
-
-                                System.out.println("very Long : " + Math.abs(x_distance));
-
-                                Log.d("===", "========================");
-
-                                MusicStageActivity.gViewPager.requestDisallowInterceptTouchEvent(false);
-
-                                return true;
-                            }
-
-                            if (x_distance > 0 && y_distance < 200) {
-
-                                Log.d("===", "========================");
-
-                                System.out.println("drag success : " + Math.abs(x_distance));
-
-                                Intent intent = new Intent(MusicStageActivity.mContext, SettingActivity.class);
-                                startActivity(intent);
-                                getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_hold);
-                                getActivity().finish();
-
-                                Log.d("===", "========================");
-
-                                return true;
-
-                            } else if (x_distance < 0) {
-                                Log.d("===", "========================");
-
-                                System.out.println("Right process : " + Math.abs(x_distance));
-
-                                Log.d("===", "========================");
-
-                                MusicStageActivity.gViewPager.requestDisallowInterceptTouchEvent(false);
-
-                                return true;
-
-                            }
-                            return true;
-
-                        }
-
-                        return true;
-                    }
-                });
         return v;
     }
 
-    ;
 
+    @Override
+    public void onClick(View v) {
 
-    public class UiHandler extends Handler {
+        switch (v.getId()) {
+            case R.id.playlist_information1:
+            case R.id.playlist_information2:
+            case R.id.playlist_information3:
+            case R.id.playlist_information4:
+            case R.id.playlist_information5:
+            case R.id.playlist_information6:
+            case R.id.playlist_information7:
+            case R.id.playlist_information8:
 
+                for (int i = 0; i < 8; i++) {
+                    if (v.getId() == PlaylistActivity.playlist_informationList[i].getId()) {
+                        target_index = i;
+                        Log.i("Click on ",PlaylistActivity.playlist_MusicnameList[i]);
+                    }
+                }
 
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
+                Intent intent = new Intent(PlaylistActivity.mContext, PlaylistBasic.class);
 
-            switch (msg.what) {
+                intent.putExtra("Musicname", PlaylistActivity.playlist_MusicnameList[target_index]);
 
-                default:
+                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_hold);
 
-                    break;
-            }
+                getActivity().startActivity(intent);
 
+                getActivity().finish();
+
+                break;
         }
+
+
     }
-
-
 }

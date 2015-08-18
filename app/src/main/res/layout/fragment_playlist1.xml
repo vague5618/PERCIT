@@ -1,40 +1,228 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="1143dp"
     android:layout_height="match_parent"
-    android:gravity="center">
-
-    <FrameLayout
-        android:layout_width="400dp"
-        android:layout_height="400dp"
-        android:layout_gravity="center"
-        android:background="@android:color/holo_blue_light">
-
-        <ImageView
-            android:id="@+id/musicstage_image1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <ImageView
-            android:id="@+id/musicstage_progress1"
-            android:layout_width="400dp"
-            android:layout_height="100dp"
-            android:background="@drawable/musicstage_transparent"/>
-
-        <ImageView
-            android:id="@+id/musicstage_progress2"
-            android:layout_width="400dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="100dp"
-            android:background="@drawable/musicstage_transparent"/>
+    android:background="@drawable/playlist_background1">
 
 
-    </FrameLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@drawable/playlist_background1"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="128dp"
+            android:layout_height="534dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="49dp"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="128dp"
+                android:layout_height="359dp">
+
+                <ImageView
+                    android:id="@+id/playlist_image1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/playlist_main1_progress1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
 
-    <ImageView
-        android:id="@+id/musicstage_information1"
-        android:layout_width="200dp"
-        android:layout_height="200dp" />
+                    <ImageView
+                        android:id="@+id/playlist_main1_progress2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/playlist_main1_progress1" />
+
+
+                    <ImageView
+                        android:id="@+id/playlist_main1_progress3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/playlist_main1_progress2" />
+
+                </RelativeLayout>
+
+            </FrameLayout>
+
+            <ImageView
+                android:id="@+id/playlist_information1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+
+                android:layout_marginTop="395dp" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="128dp"
+            android:layout_height="534dp"
+            android:layout_marginLeft="169dp"
+            android:layout_marginTop="49dp"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="128dp"
+                android:layout_height="359dp">
+
+                <ImageView
+                    android:id="@+id/playlist_image2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/playlist_main2_progress1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+                    <ImageView
+                        android:id="@+id/playlist_main2_progress2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/playlist_main2_progress1" />
+
+                    <ImageView
+                        android:id="@+id/playlist_main2_progress3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/playlist_main2_progress2" />
+
+                </RelativeLayout>
+
+            </FrameLayout>
+
+            <ImageView
+                android:id="@+id/playlist_information2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="395dp" />
+
+        </FrameLayout>
+
+
+        <FrameLayout
+            android:layout_width="128dp"
+            android:layout_height="534dp"
+            android:layout_marginLeft="169dp"
+            android:layout_marginTop="49dp"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="128dp"
+                android:layout_height="359dp">
+
+                <ImageView
+                    android:id="@+id/playlist_image3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/playlist_main3_progress1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+                    <ImageView
+                        android:id="@+id/playlist_main3_progress2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/playlist_main3_progress1" />
+
+                    <ImageView
+                        android:id="@+id/playlist_main3_progress3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/playlist_main3_progress2" />
+
+                </RelativeLayout>
+
+            </FrameLayout>
+
+            <ImageView
+                android:id="@+id/playlist_information3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+
+                android:layout_marginTop="395dp" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="128dp"
+            android:layout_height="534dp"
+            android:layout_marginLeft="169dp"
+            android:layout_marginTop="49dp"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="128dp"
+                android:layout_height="359dp">
+
+                <ImageView
+                    android:id="@+id/playlist_image4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/playlist_main4_progress1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+                    <ImageView
+                        android:id="@+id/playlist_main4_progress2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/playlist_main4_progress1" />
+
+                    <ImageView
+                        android:id="@+id/playlist_main4_progress3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/playlist_main4_progress2" />
+
+                </RelativeLayout>
+
+            </FrameLayout>
+
+
+            <ImageView
+                android:id="@+id/playlist_information4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="395dp"
+                android:layout_gravity="center_horizontal"
+                />
+
+        </FrameLayout>
+
+
+    </LinearLayout>
+
 
 </LinearLayout>

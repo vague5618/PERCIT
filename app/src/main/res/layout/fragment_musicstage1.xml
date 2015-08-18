@@ -17,7 +17,7 @@
             android:layout_height="359dp">
 
             <ImageView
-                android:id="@+id/musicstage_image1"
+                android:id="@+id/playlist_image1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
@@ -65,9 +65,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
                 android:text="1000"
                 android:textColor="#ffffffff"
-                android:textSize="20.83px"
+                android:textSize="6.5pt"
                 android:textStyle="bold" />
 
         </FrameLayout>
@@ -142,8 +143,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="1000"
+                android:layout_marginLeft="5dp"
                 android:textColor="#ffffffff"
-                android:textSize="20.83px"
+                android:textSize="6.5pt"
                 android:textStyle="bold" />
 
         </FrameLayout>
@@ -212,13 +214,14 @@
                 android:layout_height="22dp" />
 
             <TextView
+                android:layout_marginLeft="5dp"
                 android:id="@+id/musicstage_main3_like_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="1000"
                 android:textColor="#ffffffff"
-                android:textSize="20.83px"
+                android:textSize="6.5pt"
                 android:textStyle="bold" />
 
         </FrameLayout>
@@ -287,13 +290,14 @@
                 android:layout_height="22dp" />
 
             <TextView
+                android:layout_marginLeft="5dp"
                 android:id="@+id/musicstage_main4_like_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="1000"
                 android:textColor="#ffffffff"
-                android:textSize="20.83px"
+                android:textSize="6.5pt"
                 android:textStyle="bold" />
 
         </FrameLayout>

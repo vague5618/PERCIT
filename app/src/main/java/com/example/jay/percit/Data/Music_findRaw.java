@@ -18,12 +18,12 @@ public class Music_findRaw {
 
         //for Music_number
 
-        for(int i=0; i<4; i++)
+        for(int i=0; i<50; i++)
         {
             Music_effect[ i ]= R.raw.a_snaredrum_metal1_1+i;
         }
 
-        for(int i=0; i<3; i++)
+        for(int i=0; i<50; i++)
         {
             Music_bgm[ i ]= R.raw.z_bg_falling_love_10cm+i;
         }

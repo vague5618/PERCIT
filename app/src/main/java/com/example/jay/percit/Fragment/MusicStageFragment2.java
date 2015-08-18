@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.example.jay.percit.Controller.MusicStageActivity;
 import com.example.jay.percit.Controller.MusicStageSubActivity;
 import com.example.jay.percit.Controller.SettingActivity;
+import com.example.jay.percit.Model.MusicStage_Id;
 import com.example.jay.percit.R;
 
 /**
@@ -45,11 +46,9 @@ public class MusicStageFragment2 extends Fragment implements View.OnClickListene
     public static MusicStageFragment2 newInstance() {
 
         MusicStageFragment2 fragment = new MusicStageFragment2();
-
         click_current_state = CLICK_STATE_OFF;
         return fragment;
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,7 +58,7 @@ public class MusicStageFragment2 extends Fragment implements View.OnClickListene
 
         res = v.getResources();
 
-        mSetting_handle = (ImageView) v.findViewById(R.id.setting_handler);
+        mSetting_handle = (ImageView) v.findViewById(R.id.musicstage_setting_handler);
 
         mSetting_handle.setOnTouchListener(
 
@@ -75,7 +74,7 @@ public class MusicStageFragment2 extends Fragment implements View.OnClickListene
                         float x_distance = 0;
 
 
-                        if (v.getId() == R.id.setting_handler) {
+                        if (v.getId() == R.id.musicstage_setting_handler) {
 
                             MusicStageActivity.gViewPager.requestDisallowInterceptTouchEvent(true);
 

@@ -2,16 +2,21 @@ package com.example.jay.percit.Controller;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 
-import com.example.jay.percit.Fragment.MusicStageFragment1;
+import com.example.jay.percit.Data.Playlist_Bgm_Setup;
+import com.example.jay.percit.Data.Playlist_Id_Setup;
+import com.example.jay.percit.Data.Playlist_Image_Setup;
 import com.example.jay.percit.Fragment.PlaylistFragment1;
 import com.example.jay.percit.Fragment.PlaylistFragment2;
 import com.example.jay.percit.R;
@@ -27,28 +32,71 @@ public class PlaylistActivity extends ActionBarActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     SectionsPagerAdapter mSectionsPagerAdapter;
-    ViewPager mViewPager;
+    public static ViewPager gViewPager;
     static public Context mContext;
+    Playlist_Id_Setup playlist_id_setup;
+    Playlist_Image_Setup playlist_image_setup;
+    Playlist_Bgm_Setup playlist_bgm_setup;
+    Resources res;
+
+    public static ImageView playlist_imageList[];
+
+    public static ImageView playlist_progress1List[];
+
+    public static ImageView playlist_progress2List[];
+
+    public static ImageView playlist_progress3List[];
+
+    public static ImageView playlist_informationList[];
+
+    public static String playlist_MusicnameList[];
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playlist);
 
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setOnTouchListener(onTouchPager);
+        gViewPager = (ViewPager) findViewById(R.id.pager);
+        gViewPager.setAdapter(mSectionsPagerAdapter);
+        gViewPager.setOnTouchListener(onTouchPager);
+        gViewPager.setPageMargin(-120);
+
         mContext = this;
+
+        if (playlist_id_setup == null) {
+            Log.i("playlist_id_setup", "setup!");
+            playlist_id_setup = new Playlist_Id_Setup(this);
+        }
+
+        if (playlist_image_setup == null) {
+            Log.i("playlist_image_setup", "setup!");
+            playlist_image_setup = new Playlist_Image_Setup(this);
+        }
+
+        if( playlist_bgm_setup ==null)
+        {
+            playlist_bgm_setup = new Playlist_Bgm_Setup(this);
+        }
+
+
+        Setup_UI();
+
     }
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
+
+    private void Setup_UI() {
+
+        playlist_imageList = new ImageView[10];
+        playlist_progress1List = new ImageView[10];
+        playlist_progress2List = new ImageView[10];
+        playlist_progress3List = new ImageView[10];
+        playlist_informationList = new ImageView[10];
+        playlist_MusicnameList = new String[10];
+    }
+
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -62,7 +110,8 @@ public class PlaylistActivity extends ActionBarActivity {
                 return PlaylistFragment2.newInstance();
             } else {
                 return PlaylistFragment1.newInstance();
-            }        }
+            }
+        }
 
         @Override
         public int getCount() {
@@ -102,7 +151,7 @@ public class PlaylistActivity extends ActionBarActivity {
 
             if (y_distance > 0) {
 
-                Intent intent = new Intent(mContext, MyStorageActivity.class);
+                Intent intent = new Intent(mContext, CrewActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_down);
                 finish();

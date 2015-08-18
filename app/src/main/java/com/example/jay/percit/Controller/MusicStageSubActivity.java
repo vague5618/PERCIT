@@ -172,7 +172,7 @@ public class MusicStageSubActivity extends ActionBarActivity implements View.OnC
 
     public void Anim_Prepare() {
 
-        mMusicAnimation = new AlphaAnimation(1f,0.3f);
+        mMusicAnimation = new AlphaAnimation(1f,0.8f);
 
         mMusicAnimation.setDuration(100);
 
@@ -220,8 +220,10 @@ public class MusicStageSubActivity extends ActionBarActivity implements View.OnC
             case R.id.musicstage_sub_back:
 
                 Intent intent = new Intent(this, MusicStageActivity.class);
+                mMusicplayerThread.killMediaPlayer();
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_hold, R.anim.slide_out_left);
+                finish();
 
                 break;
             case R.id.musicstage_sub_imagepattern:

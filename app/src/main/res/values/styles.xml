@@ -22,6 +22,74 @@
         <item name="background">@drawable/musicstage_actionbar</item>
     </style>
 
+    <style name="Playlist_theme" parent="Theme.AppCompat.Light">
+
+        <item name="android:windowContentOverlay">@null</item>
+
+        <item name="android:actionBarStyle">@style/Playlist_ActionBar</item>
+
+        <item name="actionBarStyle">@style/Playlist_ActionBar</item>
+
+    </style>
+
+    <style name="Playlist_ActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!--<item name="android:backgroundSplit">@drawable/musicstage_actionbar</item>-->
+        <!--<item name="android:backgroundStacked">@drawable/musicstage_actionbar</item>-->
+        <item name="android:background">@drawable/playlist_actionbar_01</item>
+        <!--<item name="android:height">56.0dp</item>-->
+        <item name="height">56.0dp</item>
+        <!--<item name="backgroundSplit">@drawable/musicstage_actionbar</item>-->
+        <!--<item name="backgroundStacked">@drawable/musicstage_actionbar</item>-->
+        <item name="background">@drawable/playlist_actionbar_01</item>
+    </style>
+
+
+
+    <style name="Crew_theme" parent="Theme.AppCompat.Light">
+
+        <item name="android:windowContentOverlay">@null</item>
+
+        <item name="android:actionBarStyle">@style/Crew_ActionBar</item>
+
+        <item name="actionBarStyle">@style/Crew_ActionBar</item>
+
+    </style>
+
+    <style name="Crew_ActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!--<item name="android:backgroundSplit">@drawable/musicstage_actionbar</item>-->
+        <!--<item name="android:backgroundStacked">@drawable/musicstage_actionbar</item>-->
+        <item name="android:background">@drawable/crew_main_actionbar</item>
+        <!--<item name="android:height">56.0dp</item>-->
+        <item name="height">56.0dp</item>
+        <!--<item name="backgroundSplit">@drawable/musicstage_actionbar</item>-->
+        <!--<item name="backgroundStacked">@drawable/musicstage_actionbar</item>-->
+        <item name="background">@drawable/crew_main_actionbar</item>
+    </style>
+
+
+
+    <style name="Mystorage_theme" parent="Theme.AppCompat.Light">
+
+        <item name="android:windowContentOverlay">@null</item>
+
+        <item name="android:actionBarStyle">@style/Mystorage_ActionBar</item>
+
+        <item name="actionBarStyle">@style/Mystorage_ActionBar</item>
+
+    </style>
+
+    <style name="Mystorage_ActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!--<item name="android:backgroundSplit">@drawable/musicstage_actionbar</item>-->
+        <!--<item name="android:backgroundStacked">@drawable/musicstage_actionbar</item>-->
+        <item name="android:background">@drawable/mystorage_actionbar</item>
+        <!--<item name="android:height">56.0dp</item>-->
+        <item name="height">56.0dp</item>
+        <!--<item name="backgroundSplit">@drawable/musicstage_actionbar</item>-->
+        <!--<item name="backgroundStacked">@drawable/musicstage_actionbar</item>-->
+        <item name="background">@drawable/mystorage_actionbar</item>
+    </style>
+
+
 
     <style name="FullscreenTheme" parent="android:Theme.NoTitleBar">
         <item name="android:windowContentOverlay">@null</item>

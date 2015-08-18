@@ -11,10 +11,8 @@ import android.support.v4.view.ViewPager;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.example.jay.percit.Fragment.MusicStageFragment1;
-import com.example.jay.percit.Fragment.MusicStageFragment2;
-import com.example.jay.percit.Fragment.PlaylistFragment1;
-import com.example.jay.percit.Fragment.PlaylistFragment2;
+import com.example.jay.percit.Fragment.MyStorageFragment1;
+import com.example.jay.percit.Fragment.MyStorageFragment2;
 import com.example.jay.percit.R;
 
 public class MyStorageActivity extends ActionBarActivity {
@@ -38,7 +36,7 @@ public class MyStorageActivity extends ActionBarActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setOnTouchListener(onTouchPager);
 
-        mViewPager.setPageMargin(-80);
+        mViewPager.setPageMargin(-120);
 
         mContext = this;
     }
@@ -57,9 +55,9 @@ public class MyStorageActivity extends ActionBarActivity {
         public Fragment getItem(int position) {
 
             if (position == 1) {
-                return PlaylistFragment2.newInstance();
+                return MyStorageFragment2.newInstance();
             } else {
-                return PlaylistFragment1.newInstance();
+                return MyStorageFragment1.newInstance();
             }
         }
 
@@ -71,7 +69,6 @@ public class MyStorageActivity extends ActionBarActivity {
     }
 
     // up-down swipe
-
 
     private View.OnTouchListener onTouchPager = new View.OnTouchListener() {
 
@@ -104,7 +101,7 @@ public class MyStorageActivity extends ActionBarActivity {
 
             } else {
 
-                Intent intent = new Intent(mContext, PlaylistActivity.class);
+                Intent intent = new Intent(mContext, CrewActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
                 finish();

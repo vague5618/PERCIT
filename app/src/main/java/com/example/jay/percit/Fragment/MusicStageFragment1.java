@@ -16,8 +16,6 @@ import com.example.jay.percit.Controller.MusicStageActivity;
 import com.example.jay.percit.Controller.MusicStageSubActivity;
 import com.example.jay.percit.R;
 
-import java.util.logging.Handler;
-
 /**
  * Created by Jay on 2015-08-06.
  */
@@ -85,6 +83,8 @@ public class MusicStageFragment1 extends Fragment implements View.OnClickListene
         }
 
 
+
+
         return v;
     }
 
@@ -106,7 +106,7 @@ public class MusicStageFragment1 extends Fragment implements View.OnClickListene
 
 
         switch (v.getId()) {
-            case R.id.musicstage_image1:
+            case R.id.playlist_image1:
             case R.id.musicstage_image2:
             case R.id.musicstage_image3:
             case R.id.musicstage_image4:

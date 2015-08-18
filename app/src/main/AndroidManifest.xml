@@ -13,6 +13,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/percit_icon"
         android:label="@string/app_name">
+
         <activity
             android:name=".Controller.MusicStageActivity"
             android:label="CommunityActivity"
@@ -26,11 +27,11 @@
         <activity
             android:name=".Controller.PlaylistActivity"
             android:label="@string/title_activity_crew"
-            android:theme="@style/MusicStage_theme" />
+            android:theme="@style/Playlist_theme" />
         <activity
             android:name=".Controller.MyStorageActivity"
             android:label="@string/title_activity_musicplayer"
-            android:theme="@style/MusicStage_theme" />
+            android:theme="@style/Mystorage_theme" />
 
         <service
             android:name=".Util.BluetoothLeService"
@@ -41,13 +42,22 @@
             android:enabled="true" />
 
         <activity
-            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"
             android:name=".Controller.SettingActivity"
-            android:label="@string/title_activity_setting"></activity>
+            android:label="@string/title_activity_setting"
+            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
         <activity
-            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"
             android:name=".Controller.MusicStageSubActivity"
-            android:label="@string/title_activity_music_stage_sub"></activity>
-    </application>
+            android:label="@string/title_activity_music_stage_sub"
+            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
+        <activity
+            android:name=".Controller.PlaylistBasic"
+            android:label="@string/title_activity_playlist_basic"
+            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"></activity>
 
+        <activity
+            android:name=".Controller.CrewActivity"
+            android:label="@string/title_activity_playlist_basic"
+            android:theme="@style/Crew_theme"></activity>
+
+    </application>
 </manifest>

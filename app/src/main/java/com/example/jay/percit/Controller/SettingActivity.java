@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,12 +21,15 @@ import com.example.jay.percit.Data.Setting_Category1;
 import com.example.jay.percit.Data.Setting_Category2;
 import com.example.jay.percit.Handler.SettingHandler;
 import com.example.jay.percit.Listener.DragEventListener;
-import com.example.jay.percit.Listener.MusicStageClickListener;
+import com.example.jay.percit.Listener.SettingClickListener;
 import com.example.jay.percit.Listview.Setting_Category1_ListAdapter;
 import com.example.jay.percit.Listview.Setting_Category2_ListAdapter;
+import com.example.jay.percit.Model.Setting_percit;
+import com.example.jay.percit.Model.Setting_percitDAO;
 import com.example.jay.percit.R;
 import com.example.jay.percit.Util.BluetoothScan;
 import com.example.jay.percit.Util.BluetoothThread;
+
 import android.bluetooth.BluetoothManager;
 
 import java.nio.ByteBuffer;
@@ -59,7 +63,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnTouchLi
     public static TextView setting_kick2_text;
 
     public static DragEventListener gDragEventListener;
-    MusicStageClickListener mMusicStageClickListener;
+    SettingClickListener mSettingClickListener;
 
     public static BluetoothThread gBluetoothThread;
     public BluetoothAdapter mBluetoothAdapter;
@@ -73,6 +77,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnTouchLi
     private float mPressedY;
     private float mPressedX;
     ImageView mActivitySetting;
+    Setting_percitDAO setting_percitDAO;
 
     String temp_name;
 
@@ -88,6 +93,12 @@ public class SettingActivity extends AppCompatActivity implements View.OnTouchLi
         setting_musicname_list = new String[9];
 
         BluetoothOn();
+
+        try {
+            setting_percitDAO = Setting_percitDAO.open(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         gSettingHandler = new SettingHandler(this, getResources());
         setting_sub1 = (ImageView) findViewById(R.id.setting_sub1);
@@ -121,7 +132,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnTouchLi
 
         gDragEventListener = new DragEventListener(this, gSettingHandler);
 
-        mMusicStageClickListener = new MusicStageClickListener(this);
+        mSettingClickListener = new SettingClickListener(this);
 
         mCategory1_listView.setAdapter(mCategory1_adapter);
 
@@ -189,24 +200,23 @@ public class SettingActivity extends AppCompatActivity implements View.OnTouchLi
 //        setting_kick1.setOnDragListener(gDragEventListener);
 //        setting_kick2.setOnDragListener(gDragEventListener);
 
-        setting_sub1.setOnClickListener(mMusicStageClickListener);
-        setting_sub2.setOnClickListener(mMusicStageClickListener);
-        setting_sub3.setOnClickListener(mMusicStageClickListener);
-        setting_sub4.setOnClickListener(mMusicStageClickListener);
-        setting_sub5.setOnClickListener(mMusicStageClickListener);
-        setting_sub6.setOnClickListener(mMusicStageClickListener);
-        setting_mainboard.setOnClickListener(mMusicStageClickListener);
-        setting_kick1.setOnClickListener(mMusicStageClickListener);
-        setting_kick2.setOnClickListener(mMusicStageClickListener);
+        setting_sub1.setOnClickListener(mSettingClickListener);
+        setting_sub2.setOnClickListener(mSettingClickListener);
+        setting_sub3.setOnClickListener(mSettingClickListener);
+        setting_sub4.setOnClickListener(mSettingClickListener);
+        setting_sub5.setOnClickListener(mSettingClickListener);
+        setting_sub6.setOnClickListener(mSettingClickListener);
+        setting_mainboard.setOnClickListener(mSettingClickListener);
+        setting_kick1.setOnClickListener(mSettingClickListener);
+        setting_kick2.setOnClickListener(mSettingClickListener);
 
-        for(int i =0; i<9; i++) {
-            setting_musicnumber_list[i]="";
+        for (int i = 0; i < 9; i++) {
+            setting_musicnumber_list[i] = "-1";
         }
     }
 
 
-    public void BluetoothOn()
-    {
+    public void BluetoothOn() {
 
         final BluetoothManager bluetoothManager =
                 (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
@@ -223,8 +233,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnTouchLi
     }
 
 
-    private static byte[] intToByteArray(final int integer)
-    {
+    private static byte[] intToByteArray(final int integer) {
         ByteBuffer buff = ByteBuffer.allocate(Integer.SIZE / 8);
         buff.putInt(integer);
         buff.order(ByteOrder.BIG_ENDIAN);
@@ -232,9 +241,9 @@ public class SettingActivity extends AppCompatActivity implements View.OnTouchLi
         return buff.array();
     }
 
-    public static int convert(int n){
+    public static int convert(int n) {
 
-        return Integer.valueOf(String.valueOf(n),16);
+        return Integer.valueOf(String.valueOf(n), 16);
     }
 
 
@@ -266,30 +275,47 @@ public class SettingActivity extends AppCompatActivity implements View.OnTouchLi
 
             Intent intent = new Intent(this, MusicStageActivity.class);
 
-            String temp[] = {"a","b","c","d","e","f","g","h","i"};
-
-            byte[] setting_signal = {127};
-
-            gBluetoothThread.write(setting_signal);
+            Setting_percit setting_percit_temp = new Setting_percit();
 
             for (int i = 0; i < 9; i++) {
 
-                byte[] setting_location = temp[i].getBytes();
-
-                gBluetoothThread.write(setting_location);
-
                 System.out.println("setting: " + (i + 1) + " = " + setting_musicnumber_list[i]);
                 System.out.println("=====" + setting_musicname_list[i]);
-
-                byte[] setting_musicnumber = setting_musicnumber_list[i].getBytes();
-                gBluetoothThread.write(setting_musicnumber);
-
-
-
-//                byte[] setting_null =null;
-//                gBluetoothThread.write(setting_null);
-
             }
+
+            setting_percit_temp.setSetting_percit_a(Integer.parseInt(setting_musicnumber_list[0]));
+
+            setting_percit_temp.setSetting_percit_b(Integer.parseInt(setting_musicnumber_list[1]));
+
+            setting_percit_temp.setSetting_percit_c(Integer.parseInt(setting_musicnumber_list[2]));
+
+            setting_percit_temp.setSetting_percit_d(Integer.parseInt(setting_musicnumber_list[3]));
+
+            setting_percit_temp.setSetting_percit_e(Integer.parseInt(setting_musicnumber_list[4]));
+
+            setting_percit_temp.setSetting_percit_f(Integer.parseInt(setting_musicnumber_list[5]));
+
+            setting_percit_temp.setSetting_percit_g(Integer.parseInt(setting_musicnumber_list[6]));
+
+            setting_percit_temp.setSetting_percit_h(Integer.parseInt(setting_musicnumber_list[7]));
+
+            setting_percit_temp.setSetting_percit_i(Integer.parseInt(setting_musicnumber_list[8]));
+
+            setting_percitDAO.updateSetting_percit(setting_percit_temp);
+
+//            Setting_percit setting_percit_temp1 = setting_percitDAO.getSetting_percit();
+//
+//            Log.i("setting_a : ", String.valueOf(setting_percit_temp1.getSetting_percit_a()));
+//
+//            Log.i("setting_b : ", String.valueOf(setting_percit_temp1.getSetting_percit_b()));
+//
+//            Log.i("setting_c : ", String.valueOf(setting_percit_temp1.getSetting_percit_c()));
+//
+//            Log.i("setting_d : ", String.valueOf(setting_percit_temp1.getSetting_percit_d()));
+//
+//            Log.i("setting_e : ", String.valueOf(setting_percit_temp1.getSetting_percit_e()));
+//
+//            Log.i("setting_f : ", String.valueOf(setting_percit_temp1.getSetting_percit_f()));
 
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_hold);

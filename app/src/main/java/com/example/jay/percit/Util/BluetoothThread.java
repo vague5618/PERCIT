@@ -108,8 +108,8 @@ public class BluetoothThread extends Thread implements Runnable {
 
                     System.out.println("Read temp_power : " + temp_power);
 
-//                    mHandler.sendEmptyMessage(temp_power);
-  //                  mHandler.sendEmptyMessage(temp_position);
+                    mHandler.sendEmptyMessage(temp_power);
+                    mHandler.sendEmptyMessage(temp_position);
                 }
             }
         }
