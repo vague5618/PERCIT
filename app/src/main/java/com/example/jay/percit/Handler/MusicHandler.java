@@ -165,9 +165,8 @@ public class MusicHandler extends Handler {
 
             case PLAY_BGM:
                 try {
-                    System.out.println("Play============");
                     int temp_index = msg.arg1;
-                    mMusicPlayerThread.playBGM(temp_index);
+                    mMusicPlayerThread.select_playBGM(temp_index);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -183,14 +182,9 @@ public class MusicHandler extends Handler {
             case CLEAR_BGM:
                 mMusicPlayerThread.killMediaPlayer();
                 break;
-            
-
             default:
-
                 save_Volume = msg.what;
-
                 current_Volume = (float) ((msg.what - '0')) / (float) 10;
-
                 break;
         }
 

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.animation.Animation;
 
 import com.example.jay.percit.Controller.MusicStageSubActivity;
+import com.example.jay.percit.R;
 import com.example.jay.percit.Thread.MusicplayerThread;
 import com.example.jay.percit.Thread.RecordThread;
 import com.example.jay.percit.Util.BluetoothThread;
@@ -168,8 +169,7 @@ public class FeedbackHandler extends Handler {
             case FEEDBACK_START:
                 try {
                     System.out.println("FEEDBACK_START");
-
-                    musicplayerThread.playBGM(3);
+                    musicplayerThread.select_playBGM(R.raw.zz_bg_a_marryyou_brunomars);
                     recordThread.Play_feedback(record_arr, 0);
                 } catch (Exception e) {
                     e.printStackTrace();

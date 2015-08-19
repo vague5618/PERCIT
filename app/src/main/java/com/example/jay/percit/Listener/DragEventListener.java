@@ -46,8 +46,6 @@ public class DragEventListener implements View.OnDragListener {
                     return true;
 
                 } else {
-
-                    System.out.println("ddddd");
                     return false;
                 }
 

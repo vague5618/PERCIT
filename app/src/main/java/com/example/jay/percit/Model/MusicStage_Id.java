@@ -17,7 +17,8 @@ public class MusicStage_Id {
     public MusicStage_Id() {
     }
 
-    public MusicStage_Id(int musicstage_image_id, int musicstage_information_id, int musicstage_progress1_id, int musicstage_progress2_id, int musicstage_progress3_id, int musicstage_like_txt_id, int musicstage_like_img_id) {
+    public MusicStage_Id(int musicstage_index, int musicstage_image_id, int musicstage_information_id, int musicstage_progress1_id, int musicstage_progress2_id, int musicstage_progress3_id, int musicstage_like_txt_id, int musicstage_like_img_id) {
+        this.musicstage_index = musicstage_index;
         this.musicstage_image_id = musicstage_image_id;
         this.musicstage_information_id = musicstage_information_id;
         this.musicstage_progress1_id = musicstage_progress1_id;
@@ -34,6 +35,7 @@ public class MusicStage_Id {
     public void setMusicstage_index(int musicstage_index) {
         this.musicstage_index = musicstage_index;
     }
+
     public void setMusicstage_image_id(int musicstage_image_id) {
         this.musicstage_image_id = musicstage_image_id;
     }

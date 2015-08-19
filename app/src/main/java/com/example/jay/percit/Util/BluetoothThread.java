@@ -14,6 +14,8 @@ import android.util.Log;
 
 import com.example.jay.percit.Controller.MusicStageActivity;
 import com.example.jay.percit.Handler.MusicHandler;
+import com.example.jay.percit.Thread.MusicplayerThread;
+import com.example.jay.percit.Thread.SoundpoolThread;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,16 +33,28 @@ public class BluetoothThread extends Thread implements Runnable {
     private final String LIST_NAME = "NAME";
     private final String LIST_UUID = "UUID";
     private final String mDeviceAddress = "F4:B8:5E:CC:26:56";
-    private MusicHandler mHandler;
     private Context mContext;
     private BluetoothLeService mBluetoothLeService;
     private ArrayList<ArrayList<BluetoothGattCharacteristic>> mGattCharacteristics =
             new ArrayList<ArrayList<BluetoothGattCharacteristic>>();
     private boolean mConnected = false;
     private BluetoothGattCharacteristic mNotifyCharacteristic;
+    MusicplayerThread musicplayerThread;
+    SoundpoolThread soundpoolThread;
 
-    public BluetoothThread(Context mContext, MusicHandler mHandler) {
-        this.mHandler = mHandler;
+    public BluetoothThread(Context mContext, MusicplayerThread musicplayerThread,SoundpoolThread soundpoolThread) {
+        this.musicplayerThread = musicplayerThread;
+        this.mContext = mContext;
+        this.soundpoolThread = soundpoolThread;
+    }
+
+    public BluetoothThread(Context mContext, MusicplayerThread musicplayerThread) {
+        this.musicplayerThread = musicplayerThread;
+        this.mContext = mContext;
+    }
+
+    public BluetoothThread(Context mContext, SoundpoolThread soundpoolThread) {
+        this.soundpoolThread = soundpoolThread;
         this.mContext = mContext;
     }
 
@@ -65,7 +79,6 @@ public class BluetoothThread extends Thread implements Runnable {
             mBluetoothLeService = null;
         }
     };
-
     // Handles various events fired by the Service.
     // ACTION_GATT_CONNECTED: connected to a GATT server.
     // ACTION_GATT_DISCONNECTED: disconnected from a GATT server.
@@ -94,22 +107,22 @@ public class BluetoothThread extends Thread implements Runnable {
 
     private void displayData(String data) {
 
-        if (data != null && MusicStageActivity.state!= MusicStageActivity.PLAY_MODE) {
+        if (soundpoolThread != null && data != null) {
 
             for (int i = 0; i < data.length(); i++) {
+
                 char temp_signal = data.charAt(i);
 
                 if (temp_signal == 127) {
                     char temp_position = data.charAt(++i);
 
-                    char temp_power = data.charAt(++i);
+                    float temp_power = Float.parseFloat(String.valueOf(data.charAt(++i)));
 
-                    System.out.println("Read temp_position : " + temp_position);
+                    Log.i("Read temp_position : ", String.valueOf(temp_position));
 
-                    System.out.println("Read temp_power : " + temp_power);
+                    Log.i("Read temp_position : ", String.valueOf(temp_power));
 
-                    mHandler.sendEmptyMessage(temp_power);
-                    mHandler.sendEmptyMessage(temp_position);
+                    soundpoolThread.play(temp_position, temp_power);
                 }
             }
         }
@@ -118,7 +131,6 @@ public class BluetoothThread extends Thread implements Runnable {
     private void displayGattServices(List<BluetoothGattService> gattServices) {
         if (gattServices == null) return;
         String uuid = null;
-
 
         mGattCharacteristics = new ArrayList<ArrayList<BluetoothGattCharacteristic>>();
 
@@ -137,7 +149,7 @@ public class BluetoothThread extends Thread implements Runnable {
 
                 uuid = gattCharacteristic.getUuid().toString();
 
-                System.out.println("====================uuid + "+ uuid);
+                System.out.println("====================uuid + " + uuid);
 
                 if (uuid.equals(MY_UUID)) {
 
@@ -211,7 +223,7 @@ public class BluetoothThread extends Thread implements Runnable {
 
     public void Thread_onPause() {
 
-        if(mGattUpdateReceiver!=null)
+        if (mGattUpdateReceiver != null)
             mContext.unregisterReceiver(mGattUpdateReceiver);
 
     }

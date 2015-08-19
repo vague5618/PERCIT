@@ -23,11 +23,10 @@ import com.example.jay.percit.Animation.TranslateAnim;
 import com.example.jay.percit.Fragment.MusicStageFragment1;
 import com.example.jay.percit.Fragment.MusicStageFragment2;
 import com.example.jay.percit.Handler.MusicHandler;
-import com.example.jay.percit.Model.MusicStage_Id;
 import com.example.jay.percit.Listview.MusicStage_IdSetup;
-import com.example.jay.percit.Model.MusicStage_IdDAO;
-import com.example.jay.percit.Model.MusicStage_Image;
 import com.example.jay.percit.Listview.MusicStage_ImageSetup;
+import com.example.jay.percit.Model.MusicStage_Id;
+import com.example.jay.percit.Model.MusicStage_Image;
 import com.example.jay.percit.R;
 import com.example.jay.percit.Thread.MusicplayerThread;
 import com.example.jay.percit.Thread.RecordThread;
@@ -36,16 +35,7 @@ import java.util.ArrayList;
 
 public class MusicStageActivity extends ActionBarActivity {
 
-    public static final int NOMAL_MODE = 5;
-    public static final int RECORD_MODE = 6;
-    public static final int PLAY_MODE = 7;
-    private static final int PLAY_BGM = 8;
-    private static final int PAUSE_BGM = 9;
-    private static final int RESUME_BGM = 10;
-    private static final int CLEAR_BGM = 11;
-    private static final int CLICK_STATE_ON = 99;
     private static final int CLICK_STATE_OFF = 100;
-    private static final int CLICK_STATE_ING = 101;
 
     public static int click_current_state = CLICK_STATE_OFF;
 
@@ -79,80 +69,54 @@ public class MusicStageActivity extends ActionBarActivity {
     SectionsPagerAdapter mSectionsPagerAdapter;
     public static ViewPager gViewPager;
     static public Context mContext;
-    Resources res;
     private MusicplayerThread mMusicplayerThread;
     public static RecordThread gRecordThread;
     public static MusicHandler gMusicHandler;
-    private Handler mHandler;
-    private Button mButton;
     public static int state;
     public static int record_arr[];
     public static int record_power[];
-    public static int current_fragment = 0;
 
     @Override
     protected void onDestroy() {
-//
-//        gMusicHandler.sendEmptyMessage(RESUME_BGM);
         mMusicplayerThread.killMediaPlayer();
         super.onDestroy();
     }
 
     @Override
+    protected void onPause() {
+
+        mMusicplayerThread.killMediaPlayer();
+        super.onPause();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        //commit check
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_musicstage);
-//
-//        MusicStage_IdDAO  db_Handler = MusicStage_IdDAO.getHelper(this);
-//
-//        MusicStage_Id
-//                temp_musicstage_id = new MusicStage_Id(R.id.playlist_image1, R.id.musicstage_information1,
-//                R.id.musicstage_main1_progress1, R.id.musicstage_main1_progress2, R.id.musicstage_main1_progress3,
-//                R.id.musicstage_main1_like_txt, R.id.musicstage_main1_like_img);
-//
-//        temp_musicstage_id.setMusicstage_index(0);
-//
-//        db_Handler.add_musicstage_id(temp_musicstage_id);
-
-        //Create Classs
 
         record_arr = new int[1500];
         record_power = new int[1500];
 
-        mSectionsPagerAdapter = new
-                SectionsPagerAdapter(getSupportFragmentManager()
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        );
-
-        mMusicplayerThread = new
-
-                MusicplayerThread(this);
-
-        gRecordThread = new
-
-                RecordThread();
-
-        gMusicHandler = new
-
-                MusicHandler(mMusicplayerThread, gRecordThread);
-
-        gViewPager = (ViewPager)
-
-                findViewById(R.id.pager);
+        gViewPager = (ViewPager) findViewById(R.id.pager);
 
         gViewPager.setAdapter(mSectionsPagerAdapter);
-//
+
         gViewPager.setOnTouchListener(onTouchPager);
 
         gViewPager.setPageMargin(-120);
 
-        Setup_UI();
-
         mContext = this;
 
-        mMusicplayerThread.play(2, 1);
+        mMusicplayerThread = new MusicplayerThread(this);
+
+        gRecordThread = new RecordThread();
+
+        gMusicHandler = new MusicHandler(mMusicplayerThread, gRecordThread);
+
+        Setup_UI();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -162,10 +126,6 @@ public class MusicStageActivity extends ActionBarActivity {
         return true;
     }
 
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -272,7 +232,6 @@ public class MusicStageActivity extends ActionBarActivity {
 //                Animation.RELATIVE_TO_SELF, 0.0f,
 //                Animation.RELATIVE_TO_SELF, 11.25f);
 
-
         mMusicAnimation_down = new
                 TranslateAnim(Animation.RELATIVE_TO_SELF, 0.0f,
                 Animation.RELATIVE_TO_SELF, 0.0f,
@@ -280,7 +239,6 @@ public class MusicStageActivity extends ActionBarActivity {
                 Animation.RELATIVE_TO_SELF, 10f);
 
         mMusicAnimation_down.setDuration(15000);
-
     }
 
 }

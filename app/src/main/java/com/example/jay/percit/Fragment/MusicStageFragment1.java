@@ -22,7 +22,6 @@ import com.example.jay.percit.R;
 
 public class MusicStageFragment1 extends Fragment implements View.OnClickListener {
 
-
     private static final String ARG_SECTION_NUMBER = "section_number";
     private static final int CLICK_STATE_ON = 99;
     private static final int CLICK_STATE_OFF = 100;
@@ -83,8 +82,6 @@ public class MusicStageFragment1 extends Fragment implements View.OnClickListene
         }
 
 
-
-
         return v;
     }
 
@@ -117,7 +114,6 @@ public class MusicStageFragment1 extends Fragment implements View.OnClickListene
 
                         target_index = i;
                         System.out.println("compare pre = " + MusicStageActivity.pre_choice + "target =" + target_index);
-
 
                         if (MusicStageActivity.pre_choice != target_index && MusicStageActivity.pre_choice != -1) {
 

@@ -204,7 +204,7 @@ public class MusicStageSubActivity extends ActionBarActivity implements View.OnC
 
         mBluetoothAdapter = bluetoothManager.getAdapter();
 
-        gBluetoothThread = new BluetoothThread(this, null);
+        gBluetoothThread = new BluetoothThread(this,null,null);
 
         Handler mHandler = new Handler();
 

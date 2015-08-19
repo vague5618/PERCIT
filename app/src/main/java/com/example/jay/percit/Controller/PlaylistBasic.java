@@ -28,6 +28,7 @@ import com.example.jay.percit.Model.Playlist_bgmDAO;
 import com.example.jay.percit.R;
 import com.example.jay.percit.Thread.MusicplayerThread;
 import com.example.jay.percit.Thread.RecordThread;
+import com.example.jay.percit.Thread.SoundpoolThread;
 import com.example.jay.percit.Util.BluetoothScan;
 import com.example.jay.percit.Util.BluetoothThread;
 
@@ -36,6 +37,7 @@ public class PlaylistBasic extends ActionBarActivity implements View.OnClickList
     ImageView playlist_basic_back;
     Playlist_bgmDAO playlist_bgmDAO;
     MusicplayerThread musicplayerThread;
+    SoundpoolThread soundpoolThread;
     LinearLayout playlist_basic_background;
     Button playlist_playbtn;
     Button playlist_stopbtn;
@@ -68,16 +70,14 @@ public class PlaylistBasic extends ActionBarActivity implements View.OnClickList
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         playlist_bgm_temp = playlist_bgmDAO.getPlaylist_bgm(musicname);
 
         musicplayerThread = new MusicplayerThread(this);
+        soundpoolThread = new SoundpoolThread(this,null);
 
-        playHandler = new PlayHandler(musicplayerThread);
 
         playlist_basic_background = (LinearLayout) findViewById(R.id.playlist_basic_background);
         playlist_basic_back = (ImageView) findViewById(R.id.playlist_basic_back);
-
         playlist_playbtn = (Button) findViewById(R.id.playlist_basic_playbtn);
         playlist_stopbtn = (Button) findViewById(R.id.playlist_basic_stopbtn);
 
@@ -95,9 +95,9 @@ public class PlaylistBasic extends ActionBarActivity implements View.OnClickList
 
         mBluetoothAdapter = bluetoothManager.getAdapter();
 
-        gBluetoothThread = new BluetoothThread(this, null);
+        gBluetoothThread = new BluetoothThread(this, soundpoolThread);
 
-        mBluetoothScan = new BluetoothScan(mBluetoothAdapter, playHandler, gBluetoothThread);
+        mBluetoothScan = new BluetoothScan(mBluetoothAdapter, new Handler(), gBluetoothThread);
 
         mBluetoothScan.start();
     }
@@ -125,12 +125,10 @@ public class PlaylistBasic extends ActionBarActivity implements View.OnClickList
                 break;
             case R.id.playlist_basic_stopbtn:
                 try {
-
                     musicplayerThread.stopBGM();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
                 break;
         }
     }

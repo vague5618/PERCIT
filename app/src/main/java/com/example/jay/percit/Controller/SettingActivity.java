@@ -1,15 +1,11 @@
 package com.example.jay.percit.Controller;
 
-import android.bluetooth.BluetoothAdapter;
 import android.content.ClipData;
 import android.content.ClipDescription;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,13 +23,6 @@ import com.example.jay.percit.Listview.Setting_Category2_ListAdapter;
 import com.example.jay.percit.Model.Setting_percit;
 import com.example.jay.percit.Model.Setting_percitDAO;
 import com.example.jay.percit.R;
-import com.example.jay.percit.Util.BluetoothScan;
-import com.example.jay.percit.Util.BluetoothThread;
-
-import android.bluetooth.BluetoothManager;
-
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 
 public class SettingActivity extends AppCompatActivity implements View.OnTouchListener {
 
@@ -65,10 +54,6 @@ public class SettingActivity extends AppCompatActivity implements View.OnTouchLi
     public static DragEventListener gDragEventListener;
     SettingClickListener mSettingClickListener;
 
-    public static BluetoothThread gBluetoothThread;
-    public BluetoothAdapter mBluetoothAdapter;
-    public BluetoothScan mBluetoothScan;
-
     Setting_Category1_ListAdapter mCategory1_adapter;
     Setting_Category2_ListAdapter mCategory2_adapter;
     Setting_Category1 mCategory1_setup;
@@ -91,8 +76,6 @@ public class SettingActivity extends AppCompatActivity implements View.OnTouchLi
 
         setting_musicnumber_list = new String[9];
         setting_musicname_list = new String[9];
-
-        BluetoothOn();
 
         try {
             setting_percitDAO = Setting_percitDAO.open(this);
@@ -215,38 +198,6 @@ public class SettingActivity extends AppCompatActivity implements View.OnTouchLi
         }
     }
 
-
-    public void BluetoothOn() {
-
-        final BluetoothManager bluetoothManager =
-                (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
-
-        mBluetoothAdapter = bluetoothManager.getAdapter();
-
-        gBluetoothThread = new BluetoothThread(this, null);
-
-        Handler mHandler = new Handler();
-
-        mBluetoothScan = new BluetoothScan(mBluetoothAdapter, mHandler, gBluetoothThread);
-
-        mBluetoothScan.start();
-    }
-
-
-    private static byte[] intToByteArray(final int integer) {
-        ByteBuffer buff = ByteBuffer.allocate(Integer.SIZE / 8);
-        buff.putInt(integer);
-        buff.order(ByteOrder.BIG_ENDIAN);
-
-        return buff.array();
-    }
-
-    public static int convert(int n) {
-
-        return Integer.valueOf(String.valueOf(n), 16);
-    }
-
-
     @Override
     public boolean onTouch(View v, MotionEvent event) {
 
@@ -273,7 +224,6 @@ public class SettingActivity extends AppCompatActivity implements View.OnTouchLi
 
         if (x_distance < 0) {
 
-            Intent intent = new Intent(this, MusicStageActivity.class);
 
             Setting_percit setting_percit_temp = new Setting_percit();
 
@@ -303,20 +253,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnTouchLi
 
             setting_percitDAO.updateSetting_percit(setting_percit_temp);
 
-//            Setting_percit setting_percit_temp1 = setting_percitDAO.getSetting_percit();
-//
-//            Log.i("setting_a : ", String.valueOf(setting_percit_temp1.getSetting_percit_a()));
-//
-//            Log.i("setting_b : ", String.valueOf(setting_percit_temp1.getSetting_percit_b()));
-//
-//            Log.i("setting_c : ", String.valueOf(setting_percit_temp1.getSetting_percit_c()));
-//
-//            Log.i("setting_d : ", String.valueOf(setting_percit_temp1.getSetting_percit_d()));
-//
-//            Log.i("setting_e : ", String.valueOf(setting_percit_temp1.getSetting_percit_e()));
-//
-//            Log.i("setting_f : ", String.valueOf(setting_percit_temp1.getSetting_percit_f()));
 
+            Intent intent = new Intent(this, MusicStageActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_hold);
             finish();
