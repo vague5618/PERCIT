@@ -2,6 +2,7 @@ package com.example.jay.percit.Fragment;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -19,6 +20,8 @@ import com.example.jay.percit.Controller.MusicStageActivity;
 import com.example.jay.percit.Controller.MusicStageSubActivity;
 import com.example.jay.percit.Controller.SettingActivity;
 import com.example.jay.percit.Model.MusicStage_Id;
+import com.example.jay.percit.Model.MusicStage_IdDAO;
+import com.example.jay.percit.Model.MusicStage_ImageDAO;
 import com.example.jay.percit.R;
 
 /**
@@ -41,6 +44,12 @@ public class MusicStageFragment2 extends Fragment implements View.OnClickListene
     private View mSetting_handle;
     private Resources res;
     private int target_index = 0;
+
+
+    MusicStage_ImageDAO musicstage_imageDAO;
+    MusicStage_IdDAO musicstage_idDAO;
+    Cursor musicstage_imageCursor;
+    Cursor musicstage_IdCursor;
 
 
     public static MusicStageFragment2 newInstance() {
@@ -108,6 +117,7 @@ public class MusicStageFragment2 extends Fragment implements View.OnClickListene
                             if (x_distance > 0 && y_distance < 200) {
 
                                 Intent intent = new Intent(MusicStageActivity.mContext, SettingActivity.class);
+                                intent.putExtra("call","MusicStageActivity");
                                 startActivity(intent);
                                 getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_hold);
                                 getActivity().finish();
@@ -129,33 +139,78 @@ public class MusicStageFragment2 extends Fragment implements View.OnClickListene
                     }
                 });
 
-        for (int i = 4; i < 8; i++) {
 
-            MusicStageActivity.musicstage_imageList[i] = (ImageView) v.findViewById(MusicStageActivity.musicstage_Id_modelList.get(i).getMusicstage_image_id());
-            MusicStageActivity.musicstage_informationList[i] = (ImageView) v.findViewById(MusicStageActivity.musicstage_Id_modelList.get(i).getMusicstage_information_id());
-            MusicStageActivity.musicstage_progress1List[i] = (ImageView) v.findViewById(MusicStageActivity.musicstage_Id_modelList.get(i).getMusicstage_progress1_id());
-            MusicStageActivity.musicstage_progress2List[i] = (ImageView) v.findViewById(MusicStageActivity.musicstage_Id_modelList.get(i).getMusicstage_progress2_id());
-            MusicStageActivity.musicstage_progress3List[i] = (ImageView) v.findViewById(MusicStageActivity.musicstage_Id_modelList.get(i).getMusicstage_progress3_id());
-            MusicStageActivity.musicstage_like_img[i] = (ImageView) v.findViewById(MusicStageActivity.musicstage_Id_modelList.get(i).getMusicstage_like_img_id());
-            MusicStageActivity.musicstage_like_txt[i] = (TextView) v.findViewById(MusicStageActivity.musicstage_Id_modelList.get(i).getMusicstage_like_txt_id());
-
-            MusicStageActivity.musicstage_imageList[i].setBackground(res.getDrawable(MusicStageActivity.musicstage_Image_modelList.get(i).getMusicstage_image()));
-            MusicStageActivity.musicstage_informationList[i].setBackground(res.getDrawable(MusicStageActivity.musicstage_Image_modelList.get(i).getMusicstage_information()));
-
-            MusicStageActivity.musicstage_progress1List[i].setBackground(res.getDrawable(MusicStageActivity.musicstage_Image_modelList.get(i).getMusicstage_progress1()));
-            MusicStageActivity.musicstage_progress2List[i].setBackground(res.getDrawable(MusicStageActivity.musicstage_Image_modelList.get(i).getMusicstage_progress2()));
-            MusicStageActivity.musicstage_progress3List[i].setBackground(res.getDrawable(MusicStageActivity.musicstage_Image_modelList.get(i).getMusicstage_progress3()));
-
-
-            MusicStageActivity.musicstage_progress1List[i].setVisibility(View.INVISIBLE);
-            MusicStageActivity.musicstage_progress2List[i].setVisibility(View.INVISIBLE);
-            MusicStageActivity.musicstage_progress3List[i].setVisibility(View.INVISIBLE);
-
-            MusicStageActivity.musicstage_like_img[i].setOnClickListener(this);
-            MusicStageActivity.musicstage_imageList[i].setOnClickListener(this);
-            MusicStageActivity.musicstage_informationList[i].setOnClickListener(this);
+        try {
+            musicstage_imageDAO = MusicStage_ImageDAO.open(MusicStageActivity.mContext);
+            musicstage_idDAO = MusicStage_IdDAO.open(MusicStageActivity.mContext);
+        } catch (Exception e) {
+            Log.i("DB Query", "Error");
+            e.printStackTrace();
         }
 
+        musicstage_IdCursor = musicstage_idDAO.getMusicStage_Id();
+        musicstage_IdCursor.moveToFirst();
+        musicstage_IdCursor.move(3);
+
+        for (int i = 4; i < 8; i++) {
+
+            while (musicstage_IdCursor.moveToNext() && i < 8) {
+
+                Log.i("=====errorID====", musicstage_IdCursor.getString(1));
+                MusicStageActivity.musicstage_imageList[i] = (ImageView) v.findViewById(Integer.parseInt(musicstage_IdCursor.getString(1)));
+                MusicStageActivity.musicstage_informationList[i] = (ImageView) v.findViewById(Integer.parseInt(musicstage_IdCursor.getString(2)));
+                MusicStageActivity.musicstage_progress1List[i] = (ImageView) v.findViewById(Integer.parseInt(musicstage_IdCursor.getString(3)));
+                MusicStageActivity.musicstage_progress2List[i] = (ImageView) v.findViewById(Integer.parseInt(musicstage_IdCursor.getString(4)));
+                MusicStageActivity.musicstage_progress3List[i] = (ImageView) v.findViewById(Integer.parseInt(musicstage_IdCursor.getString(5)));
+                MusicStageActivity.musicstage_like_txt[i] = (TextView) v.findViewById(Integer.parseInt(musicstage_IdCursor.getString(6)));
+                MusicStageActivity.musicstage_like_img[i] = (ImageView) v.findViewById(Integer.parseInt(musicstage_IdCursor.getString(7)));
+                i++;
+            }
+        }
+
+        musicstage_imageCursor = musicstage_imageDAO.getMusicstage_image();
+
+        if (musicstage_imageCursor.getCount() > 4) {
+            Log.i("Cursor count", String.valueOf(musicstage_imageCursor.getCount()));
+
+            musicstage_imageCursor.moveToPosition(3);
+        }
+
+        for (int i = 4; i < 8; i++) {
+
+            while (musicstage_imageCursor.moveToNext() && i < 8) {
+
+                Log.i("=====errorImage=====", musicstage_imageCursor.getString(1));
+
+                MusicStageActivity.musicstage_imageList[i].setBackground(res.getDrawable(Integer.parseInt(musicstage_imageCursor.getString(1))));
+
+                MusicStageActivity.musicstage_informationList[i].setBackground(res.getDrawable(Integer.parseInt(musicstage_imageCursor.getString(2))));
+
+                MusicStageActivity.musicstage_progress1List[i].setBackground(res.getDrawable(Integer.parseInt(musicstage_imageCursor.getString(3))));
+
+                MusicStageActivity.musicstage_progress2List[i].setBackground(res.getDrawable(Integer.parseInt(musicstage_imageCursor.getString(4))));
+
+                MusicStageActivity.musicstage_progress3List[i].setBackground(res.getDrawable(Integer.parseInt(musicstage_imageCursor.getString(5))));
+
+                MusicStageActivity.musicstage_likeList[i] = Integer.parseInt(musicstage_imageCursor.getString(6));
+
+                MusicStageActivity.musicstage_like_txt[i].setText(musicstage_imageCursor.getString(6));
+
+                MusicStageActivity.musicstage_progress1List[i].setVisibility(View.INVISIBLE);
+
+                MusicStageActivity.musicstage_progress2List[i].setVisibility(View.INVISIBLE);
+
+                MusicStageActivity.musicstage_progress3List[i].setVisibility(View.INVISIBLE);
+
+                MusicStageActivity.musicstage_imageList[i].setOnClickListener(this);
+
+                MusicStageActivity.musicstage_informationList[i].setOnClickListener(this);
+
+                MusicStageActivity.musicstage_like_img[i].setOnClickListener(this);
+
+                i++;
+            }
+        }
         return v;
     }
 
@@ -181,10 +236,9 @@ public class MusicStageFragment2 extends Fragment implements View.OnClickListene
             case R.id.musicstage_image8:
 
 
-
                 for (int i = 4; i < 8; i++) {
 
-                    if (v.getId() == MusicStageActivity.musicstage_Id_modelList.get(i).getMusicstage_image_id()) {
+                    if (v.getId() == MusicStageActivity.musicstage_imageList[i].getId()) {
 
                         target_index = i;
                         System.out.println("compare pre = " + pre_choice + "target =" + target_index);
@@ -325,7 +379,7 @@ public class MusicStageFragment2 extends Fragment implements View.OnClickListene
             case R.id.musicstage_information8:
 
                 for (int i = 4; i < 8; i++) {
-                    if (v.getId() == MusicStageActivity.musicstage_Id_modelList.get(i).getMusicstage_image_id()) {
+                    if (v.getId() == MusicStageActivity.musicstage_informationList[i].getId()) {
                         target_index = i;
                     }
                 }
@@ -343,13 +397,18 @@ public class MusicStageFragment2 extends Fragment implements View.OnClickListene
             case R.id.musicstage_main8_like_img:
 
                 for (int i = 4; i < 8; i++) {
-                    if (v.getId() == MusicStageActivity.musicstage_Id_modelList.get(i).getMusicstage_like_img_id()) {
+                    if (v.getId() == MusicStageActivity.musicstage_like_img[i].getId()) {
                         target_index = i;
                     }
                 }
-                int temp_like = (Integer.parseInt(MusicStageActivity.musicstage_like_txt[target_index].getText().toString()) + 1);
+
+                int temp_like = Integer.parseInt(MusicStageActivity.musicstage_like_txt[target_index].getText().toString()) + 1;
 
                 MusicStageActivity.musicstage_like_txt[target_index].setText(String.valueOf(temp_like));
+
+                MusicStageActivity.musicstage_likeList[target_index]++;
+
+                musicstage_imageDAO.updateMusicstage_like(target_index + 1, MusicStageActivity.musicstage_likeList[target_index]);
 
                 break;
         }

@@ -15,8 +15,27 @@ import com.example.jay.percit.Model.Setting_percitDAO;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "really6.db";
+    private static final String DATABASE_NAME = "really25.db";
     private static final int DB_VER = 1;             // DB 버전
+
+    private static final String TABLE_musicstage_id = "musicstage_Id";
+    private static final String COLUMN_musicstage_index = "musicstage_index";
+    private static final String COLUMN_musicstage_image_id = "musicstage_image_id";
+    private static final String COLUMN_musicstage_information_id = "musicstage_information_id";
+    private static final String COLUMN_musicstage_progress1_id = "musicstage_progress1_id";
+    private static final String COLUMN_musicstage_progress2_id = "musicstage_progress2_id";
+    private static final String COLUMN_musicstage_progress3_id = "musicstage_progress3_id";
+    private static final String COLUMN_musicstage_like_txt_id = "musicstage_like_txt_id";
+    private static final String COLUMN_musicstage_like_img_id = "musicstage_like_img_id";
+
+    private static final String TABLE_musicstage_image = "musicstage_images";
+    private static final String COLUMN_musicstage_image = "musicstage_image";
+    private static final String COLUMN_musicstage_information = "musicstage_information";
+    private static final String COLUMN_musicstage_progress1 = "musicstage_progress1";
+    private static final String COLUMN_musicstage_progress2 = "musicstage_progress2";
+    private static final String COLUMN_musicstage_progress3 = "musicstage_progress3";
+    private static final String COLUMN_musicstage_like = "musicstage_like";
+
 
     private static final String TABLE_playlist_image = "playlist_images";
     private static final String COLUMN_playlist_image = "playlist_image";
@@ -53,7 +72,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String COLUMN_playlist_index = "playlist_index";
     private static final String COLUMN_playlist_bgm_musicname = "playlist_bgm_musicname";
     private static final String COLUMN_playlist_bgm_raw = "playlist_bgm_raw";
-    private static final String COLUMN_playlist_bgm_background= "playlist_bgm_background";
+    private static final String COLUMN_playlist_bgm_background = "playlist_bgm_background";
 
 
     public DBHelper(Context context) {
@@ -102,6 +121,35 @@ public class DBHelper extends SQLiteOpenHelper {
                 + ")";
 
         db.execSQL(CREATE_PLAYLIST_BGM_TABLE);
+
+
+        String CREATE_MUSICSTAGE_ID_TABLE = "CREATE TABLE " +
+                TABLE_musicstage_id + "("
+                + COLUMN_musicstage_index + " INTEGER PRIMARY KEY,"
+                + COLUMN_musicstage_image_id + " TEXT,"
+                + COLUMN_musicstage_information_id + " INTEGER,"
+                + COLUMN_musicstage_progress1_id + " INTEGER,"
+                + COLUMN_musicstage_progress2_id + " INTEGER,"
+                + COLUMN_musicstage_progress3_id + " INTEGER,"
+                + COLUMN_musicstage_like_txt_id + " INTEGER,"
+                + COLUMN_musicstage_like_img_id + " INTEGER"
+                + ")";
+
+        db.execSQL(CREATE_MUSICSTAGE_ID_TABLE);
+
+
+        String CREATE_MUSICSTAGE_IMAGE_TABLE = "CREATE TABLE " +
+                TABLE_musicstage_image + "("
+                + COLUMN_musicstage_index + " INTEGER PRIMARY KEY,"
+                + COLUMN_musicstage_image + " INTEGER,"
+                + COLUMN_musicstage_information + " INTEGER,"
+                + COLUMN_musicstage_progress1 + " INTEGER,"
+                + COLUMN_musicstage_progress2 + " INTEGER,"
+                + COLUMN_musicstage_progress3 + " INTEGER,"
+                + COLUMN_musicstage_like + " INTEGER"
+                + ")";
+
+        db.execSQL(CREATE_MUSICSTAGE_IMAGE_TABLE);
 
 
 

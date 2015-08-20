@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 import com.example.jay.percit.Controller.PlaylistActivity;
 import com.example.jay.percit.Controller.PlaylistBasic;
+import com.example.jay.percit.Controller.PlaylistMusic;
 import com.example.jay.percit.Model.MusicStage_IdDAO;
 import com.example.jay.percit.Model.Playlist_IdDAO;
 import com.example.jay.percit.Model.Playlist_ImageDAO;
@@ -115,6 +116,17 @@ public class PlaylistFragment1 extends Fragment implements View.OnClickListener 
 
         switch (v.getId()) {
             case R.id.playlist_information1:
+
+                Intent intent = new Intent(PlaylistActivity.mContext, PlaylistBasic.class);
+
+                getActivity().startActivity(intent);
+
+                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_hold);
+
+                getActivity().finish();
+
+                break;
+
             case R.id.playlist_information2:
             case R.id.playlist_information3:
             case R.id.playlist_information4:
@@ -130,13 +142,13 @@ public class PlaylistFragment1 extends Fragment implements View.OnClickListener 
                     }
                 }
 
-                Intent intent = new Intent(PlaylistActivity.mContext, PlaylistBasic.class);
+                Intent intent2 = new Intent(PlaylistActivity.mContext, PlaylistMusic.class);
 
-                intent.putExtra("Musicname", PlaylistActivity.playlist_MusicnameList[target_index]);
+                intent2.putExtra("Musicname", PlaylistActivity.playlist_MusicnameList[target_index]);
+
+                getActivity().startActivity(intent2);
 
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_hold);
-
-                getActivity().startActivity(intent);
 
                 getActivity().finish();
 

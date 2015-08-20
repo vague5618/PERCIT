@@ -39,7 +39,7 @@ public class MusicStage_ImageDAO {
         return handler;
     }
 
-    public void setMusicsage_image(MusicStage_Image musicsage_image) {
+    public void setMusicstage_image(MusicStage_Image musicsage_image) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_musicstage_index, musicsage_image.getMusicstage_index());
         values.put(COLUMN_musicstage_image, musicsage_image.getMusicstage_image());
@@ -52,7 +52,7 @@ public class MusicStage_ImageDAO {
         db.insert(TABLE_musicstage_image, null, values);
     }
 
-    public Cursor getPlaylist_image() {
+    public Cursor getMusicstage_image() {
 
         db = helper.getWritableDatabase();
 
@@ -76,4 +76,14 @@ public class MusicStage_ImageDAO {
 
         return cursor;
     }
+
+
+    public void updateMusicstage_like(int index, int like)
+    {
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_musicstage_like, like);
+        db.update(TABLE_musicstage_image, values, COLUMN_musicstage_index + " = "+index, null);
+
+    }
+
 }

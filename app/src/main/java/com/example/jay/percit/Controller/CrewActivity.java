@@ -49,13 +49,10 @@ public class CrewActivity extends ActionBarActivity {
         gViewPager = (ViewPager) findViewById(R.id.pager);
         gViewPager.setAdapter(mSectionsPagerAdapter);
         gViewPager.setOnTouchListener(onTouchPager);
-        gViewPager.setPageMargin(-120);
+        gViewPager.setPageMargin(-199);
 
         mContext = this;
-
-
     }
-
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 

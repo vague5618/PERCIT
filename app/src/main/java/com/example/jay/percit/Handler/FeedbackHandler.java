@@ -2,6 +2,7 @@ package com.example.jay.percit.Handler;
 
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 
@@ -19,6 +20,7 @@ public class FeedbackHandler extends Handler {
     final static int FEEDBACK_START = 1;
     final static int FEEDBACK_PAUSE = 2;
     final static int FEEDBACK_RESUME = 3;
+    final static int FEEDBACK_END = 4;
     final static int REQUEST_A = 65;
     final static int REQUEST_B = 66;
     final static int REQUEST_C = 67;
@@ -29,6 +31,7 @@ public class FeedbackHandler extends Handler {
     final static int REQUEST_H = 72;
     final static int REQUEST_I = 73;
     int time = 0;
+
 
     int record_arr[];
 
@@ -90,74 +93,74 @@ public class FeedbackHandler extends Handler {
         record_arr[1417] = REQUEST_A;
 
 
-        record_arr[141]=REQUEST_I;
+        record_arr[141] = REQUEST_I;
 
-        record_arr[183]=REQUEST_I;
+        record_arr[183] = REQUEST_I;
 
-        record_arr[252]=REQUEST_I;
+        record_arr[252] = REQUEST_I;
 
-        record_arr[293]=REQUEST_I;
+        record_arr[293] = REQUEST_I;
 
-        record_arr[307]=REQUEST_I;
+        record_arr[307] = REQUEST_I;
 
-        record_arr[362]=REQUEST_I;
+        record_arr[362] = REQUEST_I;
 
-        record_arr[403]=REQUEST_I;
+        record_arr[403] = REQUEST_I;
 
-        record_arr[472]=REQUEST_I;
+        record_arr[472] = REQUEST_I;
 
-        record_arr[514]=REQUEST_I;
+        record_arr[514] = REQUEST_I;
 
-        record_arr[528]=REQUEST_I;
+        record_arr[528] = REQUEST_I;
 
-        record_arr[583]=REQUEST_I;
+        record_arr[583] = REQUEST_I;
 
-        record_arr[624]=REQUEST_I;
+        record_arr[624] = REQUEST_I;
 
-        record_arr[693]=REQUEST_I;
+        record_arr[693] = REQUEST_I;
 
 
-        record_arr[734]=REQUEST_I;
+        record_arr[734] = REQUEST_I;
 
-        record_arr[748]=REQUEST_I;
+        record_arr[748] = REQUEST_I;
 
-        record_arr[803]=REQUEST_I;
+        record_arr[803] = REQUEST_I;
 
-        record_arr[845]=REQUEST_I;
+        record_arr[845] = REQUEST_I;
 
-        record_arr[859]=REQUEST_I;
+        record_arr[859] = REQUEST_I;
 
-        record_arr[913]=REQUEST_I;
+        record_arr[913] = REQUEST_I;
 
-        record_arr[941]=REQUEST_I;
+        record_arr[941] = REQUEST_I;
 
-        record_arr[948]=REQUEST_I;
+        record_arr[948] = REQUEST_I;
 
-        record_arr[954]=REQUEST_I;
+        record_arr[954] = REQUEST_I;
 
-        record_arr[962]=REQUEST_I;
+        record_arr[962] = REQUEST_I;
 
-        record_arr[969]=REQUEST_I;
+        record_arr[969] = REQUEST_I;
 
-        record_arr[1024]=REQUEST_I;
+        record_arr[1024] = REQUEST_I;
 
-        record_arr[1065]=REQUEST_I;
+        record_arr[1065] = REQUEST_I;
 
-        record_arr[1134]=REQUEST_I;
+        record_arr[1134] = REQUEST_I;
 
-        record_arr[1176]=REQUEST_I;
+        record_arr[1176] = REQUEST_I;
 
-        record_arr[1190]=REQUEST_I;
+        record_arr[1190] = REQUEST_I;
 
-        record_arr[1245]=REQUEST_I;
+        record_arr[1245] = REQUEST_I;
 
-        record_arr[1286]=REQUEST_I;
+        record_arr[1286] = REQUEST_I;
 
-        record_arr[1355]=REQUEST_I;
+        record_arr[1355] = REQUEST_I;
 
-        record_arr[1396]=REQUEST_I;
+        record_arr[1396] = REQUEST_I;
 
-        record_arr[1410]=REQUEST_I;
+        record_arr[1410] = REQUEST_I;
     }
 
 
@@ -168,6 +171,8 @@ public class FeedbackHandler extends Handler {
         switch (msg.what) {
             case FEEDBACK_START:
                 try {
+                    recordThread.cancel_timer();
+                    musicplayerThread.stopBGM();
                     System.out.println("FEEDBACK_START");
                     musicplayerThread.select_playBGM(R.raw.zz_bg_a_marryyou_brunomars);
                     recordThread.Play_feedback(record_arr, 0);
@@ -179,6 +184,7 @@ public class FeedbackHandler extends Handler {
 
             case FEEDBACK_PAUSE:
 
+                Log.i("FEED BACK PAUSE", " ");
                 musicplayerThread.stopBGM();
                 time = recordThread.Get_currenttime();
                 break;
@@ -187,32 +193,42 @@ public class FeedbackHandler extends Handler {
 
                 musicplayerThread.resumeBGM();
                 recordThread.Play_feedback(record_arr, time);
+                break;
+
+            case FEEDBACK_END:
+
+                musicplayerThread.killMediaPlayer();
+                recordThread.cancel_timer();
                 time = 0;
                 break;
 
             case REQUEST_A:
 
-                byte[] temp_a = {126,'a'};
+                byte[] temp_a = {126, 'a'};
 
-              //  mbluetoothThread.write(temp_a);
+                mbluetoothThread.write(temp_a);
 
 
-                MusicStageSubActivity.mFeedbackAnim.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-                        MusicStageSubActivity.musicstage_sub_mainboard.setVisibility(View.VISIBLE);
-                    }
+                MusicStageSubActivity.mFeedbackAnim.setAnimationListener(new Animation.AnimationListener()
 
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        MusicStageSubActivity.musicstage_sub_mainboard.setVisibility(View.GONE);
-                    }
+                                                                         {
+                                                                             @Override
+                                                                             public void onAnimationStart(Animation animation) {
+                                                                                 MusicStageSubActivity.musicstage_sub_mainboard.setVisibility(View.VISIBLE);
+                                                                             }
 
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
+                                                                             @Override
+                                                                             public void onAnimationEnd(Animation animation) {
+                                                                                 MusicStageSubActivity.musicstage_sub_mainboard.setVisibility(View.GONE);
+                                                                             }
 
-                    }
-                });
+                                                                             @Override
+                                                                             public void onAnimationRepeat(Animation animation) {
+
+                                                                             }
+                                                                         }
+
+                );
 
                 MusicStageSubActivity.musicstage_sub_mainboard.startAnimation(MusicStageSubActivity.mMusicAnimation);
 
@@ -221,26 +237,30 @@ public class FeedbackHandler extends Handler {
 
             case REQUEST_B:
 
-                byte[] temp_b = {126,'b'};
+                byte[] temp_b = {126, 'b'};
 
-              //  mbluetoothThread.write(temp_b);
+                mbluetoothThread.write(temp_b);
 
-                MusicStageSubActivity.mFeedbackAnim.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-                        MusicStageSubActivity.musicstage_sub_kick1.setVisibility(View.VISIBLE);
-                    }
+                MusicStageSubActivity.mFeedbackAnim.setAnimationListener(new Animation.AnimationListener()
 
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        MusicStageSubActivity.musicstage_sub_kick1.setVisibility(View.GONE);
-                    }
+                                                                         {
+                                                                             @Override
+                                                                             public void onAnimationStart(Animation animation) {
+                                                                                 MusicStageSubActivity.musicstage_sub_kick1.setVisibility(View.VISIBLE);
+                                                                             }
 
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
+                                                                             @Override
+                                                                             public void onAnimationEnd(Animation animation) {
+                                                                                 MusicStageSubActivity.musicstage_sub_kick1.setVisibility(View.GONE);
+                                                                             }
 
-                    }
-                });
+                                                                             @Override
+                                                                             public void onAnimationRepeat(Animation animation) {
+
+                                                                             }
+                                                                         }
+
+                );
 
                 MusicStageSubActivity.musicstage_sub_kick1.startAnimation(MusicStageSubActivity.mMusicAnimation);
 
@@ -249,26 +269,30 @@ public class FeedbackHandler extends Handler {
             case REQUEST_C:
 
 
-                byte[] temp_c = {126,'c'};
+                byte[] temp_c = {126, 'c'};
 
-            //    mbluetoothThread.write(temp_c);
+                mbluetoothThread.write(temp_c);
 
-                MusicStageSubActivity.mFeedbackAnim.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-                        MusicStageSubActivity.musicstage_sub_kick2.setVisibility(View.VISIBLE);
-                    }
+                MusicStageSubActivity.mFeedbackAnim.setAnimationListener(new Animation.AnimationListener()
 
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        MusicStageSubActivity.musicstage_sub_kick2.setVisibility(View.GONE);
-                    }
+                                                                         {
+                                                                             @Override
+                                                                             public void onAnimationStart(Animation animation) {
+                                                                                 MusicStageSubActivity.musicstage_sub_kick2.setVisibility(View.VISIBLE);
+                                                                             }
 
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
+                                                                             @Override
+                                                                             public void onAnimationEnd(Animation animation) {
+                                                                                 MusicStageSubActivity.musicstage_sub_kick2.setVisibility(View.GONE);
+                                                                             }
 
-                    }
-                });
+                                                                             @Override
+                                                                             public void onAnimationRepeat(Animation animation) {
+
+                                                                             }
+                                                                         }
+
+                );
 
                 MusicStageSubActivity.musicstage_sub_kick2.startAnimation(MusicStageSubActivity.mMusicAnimation);
 
@@ -277,27 +301,31 @@ public class FeedbackHandler extends Handler {
             case REQUEST_D:
 
 
-                byte[] temp_d = {126,'d'};
+                byte[] temp_d = {126, 'd'};
 
-             //   mbluetoothThread.write(temp_d);
+                mbluetoothThread.write(temp_d);
 
 
-                MusicStageSubActivity.mFeedbackAnim.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-                        MusicStageSubActivity.musicstage_sub_sub1.setVisibility(View.VISIBLE);
-                    }
+                MusicStageSubActivity.mFeedbackAnim.setAnimationListener(new Animation.AnimationListener()
 
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        MusicStageSubActivity.musicstage_sub_sub1.setVisibility(View.GONE);
-                    }
+                                                                         {
+                                                                             @Override
+                                                                             public void onAnimationStart(Animation animation) {
+                                                                                 MusicStageSubActivity.musicstage_sub_sub1.setVisibility(View.VISIBLE);
+                                                                             }
 
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
+                                                                             @Override
+                                                                             public void onAnimationEnd(Animation animation) {
+                                                                                 MusicStageSubActivity.musicstage_sub_sub1.setVisibility(View.GONE);
+                                                                             }
 
-                    }
-                });
+                                                                             @Override
+                                                                             public void onAnimationRepeat(Animation animation) {
+
+                                                                             }
+                                                                         }
+
+                );
 
                 MusicStageSubActivity.musicstage_sub_sub1.startAnimation(MusicStageSubActivity.mMusicAnimation);
 
@@ -306,26 +334,30 @@ public class FeedbackHandler extends Handler {
             case REQUEST_E:
 
 
-                byte[] temp_e = {126,'e'};
+                byte[] temp_e = {126, 'e'};
 
-//                mbluetoothThread.write(temp_e);
+                mbluetoothThread.write(temp_e);
 
-                MusicStageSubActivity.mFeedbackAnim.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-                        MusicStageSubActivity.musicstage_sub_sub2.setVisibility(View.VISIBLE);
-                    }
+                MusicStageSubActivity.mFeedbackAnim.setAnimationListener(new Animation.AnimationListener()
 
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        MusicStageSubActivity.musicstage_sub_sub2.setVisibility(View.GONE);
-                    }
+                                                                         {
+                                                                             @Override
+                                                                             public void onAnimationStart(Animation animation) {
+                                                                                 MusicStageSubActivity.musicstage_sub_sub2.setVisibility(View.VISIBLE);
+                                                                             }
 
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
+                                                                             @Override
+                                                                             public void onAnimationEnd(Animation animation) {
+                                                                                 MusicStageSubActivity.musicstage_sub_sub2.setVisibility(View.GONE);
+                                                                             }
 
-                    }
-                });
+                                                                             @Override
+                                                                             public void onAnimationRepeat(Animation animation) {
+
+                                                                             }
+                                                                         }
+
+                );
 
                 MusicStageSubActivity.musicstage_sub_sub2.startAnimation(MusicStageSubActivity.mMusicAnimation);
 
@@ -334,26 +366,30 @@ public class FeedbackHandler extends Handler {
             case REQUEST_F:
 
 
-                byte[] temp_f = {126,'f'};
+                byte[] temp_f = {126, 'f'};
 
-         //       mbluetoothThread.write(temp_f);
+                mbluetoothThread.write(temp_f);
 
-                MusicStageSubActivity.mFeedbackAnim.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-                        MusicStageSubActivity.musicstage_sub_sub3.setVisibility(View.VISIBLE);
-                    }
+                MusicStageSubActivity.mFeedbackAnim.setAnimationListener(new Animation.AnimationListener()
 
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        MusicStageSubActivity.musicstage_sub_sub3.setVisibility(View.GONE);
-                    }
+                                                                         {
+                                                                             @Override
+                                                                             public void onAnimationStart(Animation animation) {
+                                                                                 MusicStageSubActivity.musicstage_sub_sub3.setVisibility(View.VISIBLE);
+                                                                             }
 
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
+                                                                             @Override
+                                                                             public void onAnimationEnd(Animation animation) {
+                                                                                 MusicStageSubActivity.musicstage_sub_sub3.setVisibility(View.GONE);
+                                                                             }
 
-                    }
-                });
+                                                                             @Override
+                                                                             public void onAnimationRepeat(Animation animation) {
+
+                                                                             }
+                                                                         }
+
+                );
 
                 MusicStageSubActivity.musicstage_sub_sub3.startAnimation(MusicStageSubActivity.mMusicAnimation);
 
@@ -362,27 +398,29 @@ public class FeedbackHandler extends Handler {
             case REQUEST_G:
 
 
+                byte[] temp_g = {126, 'g'};
+                mbluetoothThread.write(temp_g);
 
-                byte[] temp_g = {126,'g'};
+                MusicStageSubActivity.mFeedbackAnim.setAnimationListener(new Animation.AnimationListener()
 
-          //      mbluetoothThread.write(temp_g);
+                                                                         {
+                                                                             @Override
+                                                                             public void onAnimationStart(Animation animation) {
+                                                                                 MusicStageSubActivity.musicstage_sub_sub4.setVisibility(View.VISIBLE);
+                                                                             }
 
-                MusicStageSubActivity.mFeedbackAnim.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-                        MusicStageSubActivity.musicstage_sub_sub4.setVisibility(View.VISIBLE);
-                    }
+                                                                             @Override
+                                                                             public void onAnimationEnd(Animation animation) {
+                                                                                 MusicStageSubActivity.musicstage_sub_sub4.setVisibility(View.GONE);
+                                                                             }
 
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        MusicStageSubActivity.musicstage_sub_sub4.setVisibility(View.GONE);
-                    }
+                                                                             @Override
+                                                                             public void onAnimationRepeat(Animation animation) {
 
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
+                                                                             }
+                                                                         }
 
-                    }
-                });
+                );
 
                 MusicStageSubActivity.musicstage_sub_sub4.startAnimation(MusicStageSubActivity.mMusicAnimation);
 
@@ -391,27 +429,31 @@ public class FeedbackHandler extends Handler {
 
             case REQUEST_H:
 
-                byte[] temp_h = {126,'h'};
+                byte[] temp_h = {126, 'h'};
 
-          //      mbluetoothThread.write(temp_h);
+                  mbluetoothThread.write(temp_h);
 
 
-                MusicStageSubActivity.mFeedbackAnim.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-                        MusicStageSubActivity.musicstage_sub_sub5.setVisibility(View.VISIBLE);
-                    }
+                MusicStageSubActivity.mFeedbackAnim.setAnimationListener(new Animation.AnimationListener()
 
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        MusicStageSubActivity.musicstage_sub_sub5.setVisibility(View.GONE);
-                    }
+                                                                         {
+                                                                             @Override
+                                                                             public void onAnimationStart(Animation animation) {
+                                                                                 MusicStageSubActivity.musicstage_sub_sub5.setVisibility(View.VISIBLE);
+                                                                             }
 
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
+                                                                             @Override
+                                                                             public void onAnimationEnd(Animation animation) {
+                                                                                 MusicStageSubActivity.musicstage_sub_sub5.setVisibility(View.GONE);
+                                                                             }
 
-                    }
-                });
+                                                                             @Override
+                                                                             public void onAnimationRepeat(Animation animation) {
+
+                                                                             }
+                                                                         }
+
+                );
 
                 MusicStageSubActivity.musicstage_sub_sub5.startAnimation(MusicStageSubActivity.mMusicAnimation);
 
@@ -421,26 +463,30 @@ public class FeedbackHandler extends Handler {
 
             case REQUEST_I:
 
-                byte[] temp_i = {126,'i'};
+                byte[] temp_i = {126, 'i'};
 
-             //   mbluetoothThread.write(temp_i);
+                 mbluetoothThread.write(temp_i);
 
-                MusicStageSubActivity.mFeedbackAnim.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-                        MusicStageSubActivity.musicstage_sub_sub6.setVisibility(View.VISIBLE);
-                    }
+                MusicStageSubActivity.mFeedbackAnim.setAnimationListener(new Animation.AnimationListener()
 
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        MusicStageSubActivity.musicstage_sub_sub6.setVisibility(View.GONE);
-                    }
+                                                                         {
+                                                                             @Override
+                                                                             public void onAnimationStart(Animation animation) {
+                                                                                 MusicStageSubActivity.musicstage_sub_sub6.setVisibility(View.VISIBLE);
+                                                                             }
 
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
+                                                                             @Override
+                                                                             public void onAnimationEnd(Animation animation) {
+                                                                                 MusicStageSubActivity.musicstage_sub_sub6.setVisibility(View.GONE);
+                                                                             }
 
-                    }
-                });
+                                                                             @Override
+                                                                             public void onAnimationRepeat(Animation animation) {
+
+                                                                             }
+                                                                         }
+
+                );
 
                 MusicStageSubActivity.musicstage_sub_sub6.startAnimation(MusicStageSubActivity.mMusicAnimation);
 

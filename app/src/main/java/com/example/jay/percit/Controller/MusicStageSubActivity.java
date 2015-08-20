@@ -30,7 +30,6 @@ import com.example.jay.percit.Util.BluetoothThread;
 
 public class MusicStageSubActivity extends ActionBarActivity implements View.OnClickListener {
 
-
     final static int FEEDBACK_START = 1;
 
     ImageView musicstage_sub_back;
@@ -138,11 +137,9 @@ public class MusicStageSubActivity extends ActionBarActivity implements View.OnC
 
         musicstage_sub_kick2_text = (TextView) findViewById(R.id.musicstage_sub_kick2_text);
 
-
     }
 
-    public void text_invisible()
-    {
+    public void text_invisible() {
         musicstage_sub_sub6_text.setVisibility(View.GONE);
         musicstage_sub_sub5_text.setVisibility(View.GONE);
         musicstage_sub_sub4_text.setVisibility(View.GONE);
@@ -154,9 +151,7 @@ public class MusicStageSubActivity extends ActionBarActivity implements View.OnC
         musicstage_sub_kick2_text.setVisibility(View.GONE);
     }
 
-    public void text_visible()
-    {
-
+    public void text_visible() {
         musicstage_sub_sub6_text.setVisibility(View.VISIBLE);
         musicstage_sub_sub5_text.setVisibility(View.VISIBLE);
         musicstage_sub_sub4_text.setVisibility(View.VISIBLE);
@@ -166,13 +161,12 @@ public class MusicStageSubActivity extends ActionBarActivity implements View.OnC
         musicstage_sub_mainboard_text.setVisibility(View.VISIBLE);
         musicstage_sub_kick1_text.setVisibility(View.VISIBLE);
         musicstage_sub_kick2_text.setVisibility(View.VISIBLE);
-
     }
 
 
     public void Anim_Prepare() {
 
-        mMusicAnimation = new AlphaAnimation(1f,0.8f);
+        mMusicAnimation = new AlphaAnimation(1f, 0.8f);
 
         mMusicAnimation.setDuration(100);
 
@@ -180,7 +174,7 @@ public class MusicStageSubActivity extends ActionBarActivity implements View.OnC
 
         mMusicAnimation_scale = new ScaleAnim(1, 1, 1, 394f);
 
-        mMusicAnimation_scale.setDuration(44000);
+        mMusicAnimation_scale.setDuration(45000);
 //
 //        mMusicAnimation_down = new
 //                TranslateAnim(Animation.RELATIVE_TO_SELF, 0.0f,
@@ -194,7 +188,7 @@ public class MusicStageSubActivity extends ActionBarActivity implements View.OnC
                 Animation.RELATIVE_TO_SELF, 0.0f,
                 Animation.RELATIVE_TO_SELF, 56f);
 
-        mMusicAnimation_down.setDuration(44000);
+        mMusicAnimation_down.setDuration(45000);
     }
 
 
@@ -204,7 +198,7 @@ public class MusicStageSubActivity extends ActionBarActivity implements View.OnC
 
         mBluetoothAdapter = bluetoothManager.getAdapter();
 
-        gBluetoothThread = new BluetoothThread(this,null,null);
+        gBluetoothThread = new BluetoothThread(this, null);
 
         Handler mHandler = new Handler();
 
@@ -221,6 +215,7 @@ public class MusicStageSubActivity extends ActionBarActivity implements View.OnC
 
                 Intent intent = new Intent(this, MusicStageActivity.class);
                 mMusicplayerThread.killMediaPlayer();
+                mRecordThread.cancel_timer();
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_hold, R.anim.slide_out_left);
                 finish();
@@ -257,7 +252,9 @@ public class MusicStageSubActivity extends ActionBarActivity implements View.OnC
                 musicstage_sub_progress2.startAnimation(mMusicAnimation_scale);
                 musicstage_sub_progress3.startAnimation(mMusicAnimation_down);
 
+
                 break;
-        }
+            }
+
     }
 }

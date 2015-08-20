@@ -38,7 +38,6 @@ public class CrewFragment2 extends Fragment {
         mSetting_handle = (View) v.findViewById(R.id.crew_setting_handler);
 
 
-
         mSetting_handle.setOnTouchListener(
 
                 new View.OnTouchListener() {
@@ -87,6 +86,8 @@ public class CrewFragment2 extends Fragment {
                             if (x_distance > 0 && y_distance < 200) {
 
                                 Intent intent = new Intent(CrewActivity.mContext, SettingActivity.class);
+
+                                intent.putExtra("call", "CrewActivity");
                                 startActivity(intent);
                                 getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_hold);
                                 getActivity().finish();

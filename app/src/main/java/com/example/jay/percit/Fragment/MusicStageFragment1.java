@@ -2,9 +2,11 @@ package com.example.jay.percit.Fragment;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +16,14 @@ import android.widget.TextView;
 
 import com.example.jay.percit.Controller.MusicStageActivity;
 import com.example.jay.percit.Controller.MusicStageSubActivity;
+import com.example.jay.percit.Controller.PlaylistActivity;
+import com.example.jay.percit.Model.MusicStage_IdDAO;
+import com.example.jay.percit.Model.MusicStage_ImageDAO;
+import com.example.jay.percit.Model.Playlist_IdDAO;
+import com.example.jay.percit.Model.Playlist_ImageDAO;
 import com.example.jay.percit.R;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by Jay on 2015-08-06.
@@ -22,7 +31,6 @@ import com.example.jay.percit.R;
 
 public class MusicStageFragment1 extends Fragment implements View.OnClickListener {
 
-    private static final String ARG_SECTION_NUMBER = "section_number";
     private static final int CLICK_STATE_ON = 99;
     private static final int CLICK_STATE_OFF = 100;
     private static final int CLICK_STATE_ING = 101;
@@ -32,7 +40,14 @@ public class MusicStageFragment1 extends Fragment implements View.OnClickListene
     private static final int RESUME_BGM = 10;
     private static final int CLEAR_BGM = 11;
     //
-//    public static int click_current_state = CLICK_STATE_OFF;
+
+    MusicStage_ImageDAO musicstage_imageDAO;
+    MusicStage_IdDAO musicstage_idDAO;
+    Cursor musicstage_imageCursor;
+    Cursor musicstage_IdCursor;
+
+
+    //    public static int click_current_state = CLICK_STATE_OFF;
 //
 //    public static int pre_choice = -1;
     int target_index = 0;
@@ -55,32 +70,72 @@ public class MusicStageFragment1 extends Fragment implements View.OnClickListene
 
         View v = inflater.inflate(R.layout.fragment_musicstage1, container, false);
 
-        for (int i = 0; i < 4; i++) {
-            MusicStageActivity.musicstage_imageList[i] = (ImageView) v.findViewById(MusicStageActivity.musicstage_Id_modelList.get(i).getMusicstage_image_id());
-            MusicStageActivity.musicstage_informationList[i] = (ImageView) v.findViewById(MusicStageActivity.musicstage_Id_modelList.get(i).getMusicstage_information_id());
-            MusicStageActivity.musicstage_progress1List[i] = (ImageView) v.findViewById(MusicStageActivity.musicstage_Id_modelList.get(i).getMusicstage_progress1_id());
-            MusicStageActivity.musicstage_progress2List[i] = (ImageView) v.findViewById(MusicStageActivity.musicstage_Id_modelList.get(i).getMusicstage_progress2_id());
-            MusicStageActivity.musicstage_progress3List[i] = (ImageView) v.findViewById(MusicStageActivity.musicstage_Id_modelList.get(i).getMusicstage_progress3_id());
-            MusicStageActivity.musicstage_like_img[i] = (ImageView) v.findViewById(MusicStageActivity.musicstage_Id_modelList.get(i).getMusicstage_like_img_id());
-            MusicStageActivity.musicstage_like_txt[i] = (TextView) v.findViewById(MusicStageActivity.musicstage_Id_modelList.get(i).getMusicstage_like_txt_id());
 
-            MusicStageActivity.musicstage_imageList[i].setBackground(res.getDrawable(MusicStageActivity.musicstage_Image_modelList.get(i).getMusicstage_image()));
-            MusicStageActivity.musicstage_informationList[i].setBackground(res.getDrawable(MusicStageActivity.musicstage_Image_modelList.get(i).getMusicstage_information()));
-
-            MusicStageActivity.musicstage_progress1List[i].setBackground(res.getDrawable(MusicStageActivity.musicstage_Image_modelList.get(i).getMusicstage_progress1()));
-            MusicStageActivity.musicstage_progress2List[i].setBackground(res.getDrawable(MusicStageActivity.musicstage_Image_modelList.get(i).getMusicstage_progress2()));
-            MusicStageActivity.musicstage_progress3List[i].setBackground(res.getDrawable(MusicStageActivity.musicstage_Image_modelList.get(i).getMusicstage_progress3()));
-
-
-            MusicStageActivity.musicstage_progress1List[i].setVisibility(View.INVISIBLE);
-            MusicStageActivity.musicstage_progress2List[i].setVisibility(View.INVISIBLE);
-            MusicStageActivity.musicstage_progress3List[i].setVisibility(View.INVISIBLE);
-
-            MusicStageActivity.musicstage_like_img[i].setOnClickListener(this);
-            MusicStageActivity.musicstage_imageList[i].setOnClickListener(this);
-            MusicStageActivity.musicstage_informationList[i].setOnClickListener(this);
+        try {
+            musicstage_imageDAO = MusicStage_ImageDAO.open(MusicStageActivity.mContext);
+            musicstage_idDAO = MusicStage_IdDAO.open(MusicStageActivity.mContext);
+        } catch (Exception e) {
+            Log.i("DB Query", "Error");
+            e.printStackTrace();
         }
 
+        musicstage_IdCursor = musicstage_idDAO.getMusicStage_Id();
+
+        musicstage_IdCursor.move(0);
+
+        for (int i = 0; i < 4; i++) {
+
+            while (musicstage_IdCursor.moveToNext() && i < 4) {
+
+                Log.i("=====errorcursor1=====", musicstage_IdCursor.getString(1));
+                MusicStageActivity.musicstage_imageList[i] = (ImageView) v.findViewById(Integer.parseInt(musicstage_IdCursor.getString(1)));
+                MusicStageActivity.musicstage_informationList[i] = (ImageView) v.findViewById(Integer.parseInt(musicstage_IdCursor.getString(2)));
+                MusicStageActivity.musicstage_progress1List[i] = (ImageView) v.findViewById(Integer.parseInt(musicstage_IdCursor.getString(3)));
+                MusicStageActivity.musicstage_progress2List[i] = (ImageView) v.findViewById(Integer.parseInt(musicstage_IdCursor.getString(4)));
+                MusicStageActivity.musicstage_progress3List[i] = (ImageView) v.findViewById(Integer.parseInt(musicstage_IdCursor.getString(5)));
+                MusicStageActivity.musicstage_like_txt[i] = (TextView) v.findViewById(Integer.parseInt(musicstage_IdCursor.getString(6)));
+                MusicStageActivity.musicstage_like_img[i] = (ImageView) v.findViewById(Integer.parseInt(musicstage_IdCursor.getString(7)));
+
+                i++;
+            }
+        }
+
+        musicstage_imageCursor = musicstage_imageDAO.getMusicstage_image();
+
+        for (int i = 0; i < 4; i++) {
+
+            while (musicstage_imageCursor.moveToNext() && i < 4) {
+
+                Log.i("=====errorimage1=====", musicstage_imageCursor.getString(1));
+                MusicStageActivity.musicstage_imageList[i].setBackground(res.getDrawable(Integer.parseInt(musicstage_imageCursor.getString(1))));
+
+                MusicStageActivity.musicstage_informationList[i].setBackground(res.getDrawable(Integer.parseInt(musicstage_imageCursor.getString(2))));
+
+                MusicStageActivity.musicstage_progress1List[i].setBackground(res.getDrawable(Integer.parseInt(musicstage_imageCursor.getString(3))));
+
+                MusicStageActivity.musicstage_progress2List[i].setBackground(res.getDrawable(Integer.parseInt(musicstage_imageCursor.getString(4))));
+
+                MusicStageActivity.musicstage_progress3List[i].setBackground(res.getDrawable(Integer.parseInt(musicstage_imageCursor.getString(5))));
+
+                MusicStageActivity.musicstage_likeList[i] = Integer.parseInt(musicstage_imageCursor.getString(6));
+
+                MusicStageActivity.musicstage_like_txt[i].setText(musicstage_imageCursor.getString(6));
+
+                MusicStageActivity.musicstage_progress1List[i].setVisibility(View.INVISIBLE);
+
+                MusicStageActivity.musicstage_progress2List[i].setVisibility(View.INVISIBLE);
+
+                MusicStageActivity.musicstage_progress3List[i].setVisibility(View.INVISIBLE);
+
+                MusicStageActivity.musicstage_imageList[i].setOnClickListener(this);
+
+                MusicStageActivity.musicstage_informationList[i].setOnClickListener(this);
+
+                MusicStageActivity.musicstage_like_img[i].setOnClickListener(this);
+
+                i++;
+            }
+        }
 
         return v;
     }
@@ -103,14 +158,14 @@ public class MusicStageFragment1 extends Fragment implements View.OnClickListene
 
 
         switch (v.getId()) {
-            case R.id.playlist_image1:
+            case R.id.musicstage_image1:
             case R.id.musicstage_image2:
             case R.id.musicstage_image3:
             case R.id.musicstage_image4:
 
                 for (int i = 0; i < CONTENT_NUMBER; i++) {
 
-                    if (v.getId() == MusicStageActivity.musicstage_Id_modelList.get(i).getMusicstage_image_id()) {
+                    if (v.getId() == MusicStageActivity.musicstage_imageList[i].getId()) {
 
                         target_index = i;
                         System.out.println("compare pre = " + MusicStageActivity.pre_choice + "target =" + target_index);
@@ -119,22 +174,17 @@ public class MusicStageFragment1 extends Fragment implements View.OnClickListene
 
                             System.out.println("another choice!!! " + MusicStageActivity.pre_choice);
                             //     MusicStageActivity.gMusicHandler.sendEmptyMessage(CLEAR_BGM);
-                            System.out.println("========1=======");
+
                             MusicStageActivity.mMusicAnimation_down.resume();
                             MusicStageActivity.mMusicAnimation_scale.resume();
-
-                            System.out.println("========2=======");
 
                             MusicStageActivity.musicstage_progress1List[MusicStageActivity.pre_choice].clearAnimation();
                             MusicStageActivity.musicstage_progress2List[MusicStageActivity.pre_choice].clearAnimation();
                             MusicStageActivity.musicstage_progress3List[MusicStageActivity.pre_choice].clearAnimation();
 
-                            System.out.println("========3=======");
-
                             MusicStageActivity.mMusicAnimation_down.cancel();
                             MusicStageActivity.mMusicAnimation_scale.cancel();
 
-                            System.out.println("========4=======");
                             MusicStageActivity.musicstage_progress1List[MusicStageActivity.pre_choice].setVisibility(View.GONE);
                             MusicStageActivity.musicstage_progress2List[MusicStageActivity.pre_choice].setVisibility(View.GONE);
                             MusicStageActivity.musicstage_progress3List[MusicStageActivity.pre_choice].setVisibility(View.GONE);
@@ -164,7 +214,7 @@ public class MusicStageFragment1 extends Fragment implements View.OnClickListene
 
                                 Message bgm_start = MusicStageActivity.gMusicHandler.obtainMessage();
                                 bgm_start.what = PLAY_BGM;
-                                bgm_start.arg1 = 2;
+                                bgm_start.arg1 = R.raw.zz_bg_a_marryyou_brunomars;
                                 MusicStageActivity.gMusicHandler.sendMessage(bgm_start);
                                 disable_click();
                             }
@@ -224,6 +274,8 @@ public class MusicStageFragment1 extends Fragment implements View.OnClickListene
                         bgm_pause.what = PAUSE_BGM;
                         MusicStageActivity.gMusicHandler.sendMessage(bgm_pause);
 
+                        Log.i("====stopBGM","");
+
                         MusicStageActivity.click_current_state = CLICK_STATE_ING;
                         break;
 
@@ -246,16 +298,9 @@ public class MusicStageFragment1 extends Fragment implements View.OnClickListene
 
             case R.id.musicstage_information1:
 
-                for (int i = 0; i < CONTENT_NUMBER; i++) {
-                    if (v.getId() == MusicStageActivity.musicstage_Id_modelList.get(i).getMusicstage_image_id()) {
-                        target_index = i;
-                    }
-                }
-
                 Intent intent = new Intent(MusicStageActivity.mContext, MusicStageSubActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,0);
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_hold);
-                getActivity().finish();
 
                 break;
 
@@ -265,13 +310,19 @@ public class MusicStageFragment1 extends Fragment implements View.OnClickListene
             case R.id.musicstage_main4_like_img:
 
                 for (int i = 0; i < CONTENT_NUMBER; i++) {
-                    if (v.getId() == MusicStageActivity.musicstage_Id_modelList.get(i).getMusicstage_like_img_id()) {
+                    if (v.getId() == MusicStageActivity.musicstage_like_img[i].getId()) {
                         target_index = i;
+                        Log.i("like index!!!===",String.valueOf(target_index));
                     }
                 }
-                int temp_like = (Integer.parseInt(MusicStageActivity.musicstage_like_txt[target_index].getText().toString()) + 1);
+
+                int temp_like = Integer.parseInt(MusicStageActivity.musicstage_like_txt[target_index].getText().toString()) + 1;
 
                 MusicStageActivity.musicstage_like_txt[target_index].setText(String.valueOf(temp_like));
+
+                MusicStageActivity.musicstage_likeList[target_index]++;
+
+                musicstage_imageDAO.updateMusicstage_like(target_index+1, MusicStageActivity.musicstage_likeList[target_index]);
 
                 break;
         }

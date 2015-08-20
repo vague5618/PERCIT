@@ -56,7 +56,7 @@ public class MusicStage_IdDAO {
     }
 
 
-    public Cursor MusicStage_Id() {
+    public Cursor getMusicStage_Id() {
 
         db = helper.getWritableDatabase();
 

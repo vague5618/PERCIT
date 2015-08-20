@@ -8,14 +8,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <LinearLayout
             android:id="@+id/playlist_basic_background"
             android:layout_width="1280dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@drawable/playlist_basic_background"
             android:orientation="vertical"></LinearLayout>
-
 
         <ImageView
             android:id="@+id/playlist_basic_back"
@@ -28,23 +26,6 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/musicstage_sub_actionbar_01_icon" />
-
-        <Button
-            android:id="@+id/playlist_basic_playbtn"
-            android:layout_marginTop="100dp"
-            android:layout_marginLeft="150dp"
-            android:layout_width="40dp"
-            android:layout_height="40dp"/>
-
-        <Button
-            android:id="@+id/playlist_basic_stopbtn"
-            android:layout_marginTop="100dp"
-            android:layout_marginLeft="200dp"
-            android:layout_width="40dp"
-            android:layout_height="40dp">
-
-
-        </Button>
 
 
     </FrameLayout>

@@ -63,7 +63,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnTouchLi
     private float mPressedX;
     ImageView mActivitySetting;
     Setting_percitDAO setting_percitDAO;
-
+    String call_activity;
     String temp_name;
 
     @Override
@@ -73,6 +73,9 @@ public class SettingActivity extends AppCompatActivity implements View.OnTouchLi
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+
+        Intent receive = getIntent();
+        call_activity = receive.getStringExtra("call");
 
         setting_musicnumber_list = new String[9];
         setting_musicname_list = new String[9];
@@ -253,11 +256,31 @@ public class SettingActivity extends AppCompatActivity implements View.OnTouchLi
 
             setting_percitDAO.updateSetting_percit(setting_percit_temp);
 
+            Intent intent;
 
-            Intent intent = new Intent(this, MusicStageActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_hold);
-            finish();
+            if (call_activity.equals("MusicStageActivity")) {
+                intent = new Intent(this, MusicStageActivity.class);
+
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_hold);
+
+                finish();
+            } else if (call_activity.equals("PlaylistActivity")) {
+                intent = new Intent(this, PlaylistActivity.class);
+
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_hold);
+
+                finish();
+            } else if (call_activity.equals("CrewActivity")) {
+                intent = new Intent(this, CrewActivity.class);
+
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_hold);
+
+                finish();
+            } else {
+            }
             return false;
 
         } else {

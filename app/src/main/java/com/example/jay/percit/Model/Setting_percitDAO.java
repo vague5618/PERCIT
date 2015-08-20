@@ -104,7 +104,7 @@ public class Setting_percitDAO {
             setting_percit_temp.setSetting_percit_f(Integer.parseInt(cursor.getString(6)));
             setting_percit_temp.setSetting_percit_g(Integer.parseInt(cursor.getString(7)));
             setting_percit_temp.setSetting_percit_h(Integer.parseInt(cursor.getString(8)));
-            setting_percit_temp.setSetting_percit_h(Integer.parseInt(cursor.getString(9)));
+            setting_percit_temp.setSetting_percit_i(Integer.parseInt(cursor.getString(9)));
 
             cursor.close();
         } else {

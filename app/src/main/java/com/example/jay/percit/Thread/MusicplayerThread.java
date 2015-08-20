@@ -15,7 +15,7 @@ public class MusicplayerThread {
 
     private int currentPosition = 0;
 
-    boolean isPlay = false;
+    public static boolean isFinish = true;
 
     public MusicplayerThread(Context mContext) {
         this.mContext = mContext;
@@ -23,36 +23,45 @@ public class MusicplayerThread {
 
     public void select_playBGM(int raw) throws Exception {
         try {
+            killMediaPlayer();
+            mediaPlayer = MediaPlayer.create(mContext, raw);
+            mediaPlayer.setLooping(false);
+            mediaPlayer.setVolume(0.01f, 0.01f);
+            mediaPlayer.start();
+            isFinish = false;
 
-            if (isPlay == false) {
-                killMediaPlayer();
-                mediaPlayer = MediaPlayer.create(mContext, raw);
-                mediaPlayer.setLooping(false);
-                mediaPlayer.start();
-                isPlay = true;
-            }
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    isFinish = true;
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    public boolean getState() {
+        return mediaPlayer.isPlaying();
+    }
+
     public void stopBGM() {
         try {
-            if (isPlay == true) {
-                currentPosition = mediaPlayer.getCurrentPosition();
-                mediaPlayer.pause();
-                isPlay = false;
-            }
+            currentPosition = mediaPlayer.getCurrentPosition();
+            mediaPlayer.pause();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void resumeBGM() {
+
         if (currentPosition == 0) {
 
         } else {
             mediaPlayer.seekTo(currentPosition);
+            mediaPlayer.setVolume(0.01f,0.01f);
             mediaPlayer.start();
         }
     }
@@ -61,6 +70,7 @@ public class MusicplayerThread {
         if (mediaPlayer != null) {
             try {
                 mediaPlayer.release();
+                isFinish = true;
             } catch (Exception e) {
                 e.printStackTrace();
             }

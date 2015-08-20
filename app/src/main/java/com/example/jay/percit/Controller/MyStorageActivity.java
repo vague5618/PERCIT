@@ -14,12 +14,29 @@ import android.view.View;
 import com.example.jay.percit.Fragment.MyStorageFragment1;
 import com.example.jay.percit.Fragment.MyStorageFragment2;
 import com.example.jay.percit.R;
+import com.example.jay.percit.Thread.MusicplayerThread;
+import com.example.jay.percit.Thread.RecordThread;
+import com.example.jay.percit.Thread.SoundpoolThread;
 
 public class MyStorageActivity extends ActionBarActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     public static Context mContext;
+    public static int record_arr[] = null;
+    public static float record_power[] = null;
+    public static int music_raw;
+    public static RecordThread recordThread;
+    public static SoundpoolThread soundpoolThread;
+    public static MusicplayerThread musicplayerThread;
+
+
+    @Override
+    protected void onDestroy() {
+        recordThread.cancel_timer();
+        musicplayerThread.killMediaPlayer();
+        super.onDestroy();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +53,10 @@ public class MyStorageActivity extends ActionBarActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setOnTouchListener(onTouchPager);
 
-        mViewPager.setPageMargin(-120);
+        mViewPager.setPageMargin(-140);
+
+        recordThread = new RecordThread();
+        musicplayerThread = new MusicplayerThread(this);
 
         mContext = this;
     }

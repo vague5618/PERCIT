@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.jay.percit.Controller.PlaylistActivity;
+import com.example.jay.percit.Controller.PlaylistBasic;
+import com.example.jay.percit.Controller.PlaylistMusic;
 import com.example.jay.percit.Controller.SettingActivity;
 import com.example.jay.percit.Model.Playlist_IdDAO;
 import com.example.jay.percit.Model.Playlist_ImageDAO;
@@ -21,7 +23,7 @@ import com.example.jay.percit.R;
 /**
  * Created by Jay on 2015-08-06.
  */
-public class PlaylistFragment2 extends Fragment {
+public class PlaylistFragment2 extends Fragment implements View.OnClickListener{
 
     private View mSetting_handle;
 
@@ -29,6 +31,7 @@ public class PlaylistFragment2 extends Fragment {
     Playlist_IdDAO playlist_idDAO;
     Cursor playlist_imageCursor;
     Cursor playlist_IdCursor;
+    int target_index;
     Resources res;
 
 
@@ -100,6 +103,8 @@ public class PlaylistFragment2 extends Fragment {
 
                 PlaylistActivity.playlist_progress3List[i].setBackground(res.getDrawable(Integer.parseInt(playlist_imageCursor.getString(5))));
 
+                PlaylistActivity.playlist_MusicnameList[i] = playlist_imageCursor.getString(8);
+
                 PlaylistActivity.playlist_progress1List[i].setVisibility(View.INVISIBLE);
 
                 PlaylistActivity.playlist_progress2List[i].setVisibility(View.INVISIBLE);
@@ -109,6 +114,8 @@ public class PlaylistFragment2 extends Fragment {
                 i++;
             }
         }
+
+        PlaylistActivity.playlist_informationList[4].setOnClickListener(this);
 
 
         mSetting_handle.setOnTouchListener(
@@ -159,6 +166,7 @@ public class PlaylistFragment2 extends Fragment {
                             if (x_distance > 0 && y_distance < 200) {
 
                                 Intent intent = new Intent(PlaylistActivity.mContext, SettingActivity.class);
+                                intent.putExtra("call","PlaylistActivity");
                                 startActivity(intent);
                                 getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_hold);
                                 getActivity().finish();
@@ -182,5 +190,47 @@ public class PlaylistFragment2 extends Fragment {
         return v;
     }
 
+
+
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+            case R.id.playlist_information1:
+
+                Intent intent = new Intent(PlaylistActivity.mContext, PlaylistBasic.class);
+
+                intent.putExtra("Musicname", PlaylistActivity.playlist_MusicnameList[0]);
+
+                getActivity().startActivity(intent);
+
+                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_hold);
+
+                getActivity().finish();
+
+                break;
+
+            case R.id.playlist_information5:
+
+                for (int i = 0; i < 8; i++) {
+                    if (v.getId() == PlaylistActivity.playlist_informationList[i].getId()) {
+                        target_index = i;
+                    }
+                }
+
+                Intent intent2 = new Intent(PlaylistActivity.mContext, PlaylistMusic.class);
+
+                intent2.putExtra("Musicname", PlaylistActivity.playlist_MusicnameList[target_index]);
+
+                getActivity().startActivity(intent2);
+
+                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_hold);
+
+                getActivity().finish();
+
+                break;
+        }
+
+
+    }
 
 }

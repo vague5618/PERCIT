@@ -9,12 +9,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.IBinder;
+import android.os.Message;
 import android.util.Log;
 
-
-import com.example.jay.percit.Controller.MusicStageActivity;
-import com.example.jay.percit.Handler.MusicHandler;
-import com.example.jay.percit.Thread.MusicplayerThread;
+import com.example.jay.percit.Controller.PlaylistMusic;
+import com.example.jay.percit.Handler.RecordHandler;
 import com.example.jay.percit.Thread.SoundpoolThread;
 
 import java.util.ArrayList;
@@ -27,6 +26,9 @@ import java.util.List;
 public class BluetoothThread extends Thread implements Runnable {
 
     private final static String TAG = "BluetoothThread";
+    public static boolean isRecording = false;
+
+    public static final int REQUEST_RECORD = 127;
 
     private final String MY_UUID = "0000ffe1-0000-1000-8000-00805f9b34fb";
     //0000dfb1-0000-1000-8000-00805f9b34fb
@@ -39,19 +41,7 @@ public class BluetoothThread extends Thread implements Runnable {
             new ArrayList<ArrayList<BluetoothGattCharacteristic>>();
     private boolean mConnected = false;
     private BluetoothGattCharacteristic mNotifyCharacteristic;
-    MusicplayerThread musicplayerThread;
     SoundpoolThread soundpoolThread;
-
-    public BluetoothThread(Context mContext, MusicplayerThread musicplayerThread,SoundpoolThread soundpoolThread) {
-        this.musicplayerThread = musicplayerThread;
-        this.mContext = mContext;
-        this.soundpoolThread = soundpoolThread;
-    }
-
-    public BluetoothThread(Context mContext, MusicplayerThread musicplayerThread) {
-        this.musicplayerThread = musicplayerThread;
-        this.mContext = mContext;
-    }
 
     public BluetoothThread(Context mContext, SoundpoolThread soundpoolThread) {
         this.soundpoolThread = soundpoolThread;
@@ -116,13 +106,25 @@ public class BluetoothThread extends Thread implements Runnable {
                 if (temp_signal == 127) {
                     char temp_position = data.charAt(++i);
 
-                    float temp_power = Float.parseFloat(String.valueOf(data.charAt(++i)));
+//                    float temp_power = Float.parseFloat(String.valueOf(data.charAt(++i)));
 
                     Log.i("Read temp_position : ", String.valueOf(temp_position));
 
-                    Log.i("Read temp_position : ", String.valueOf(temp_power));
+//                    Log.i("Read temp_position : ", String.valueOf(temp_power));
 
-                    soundpoolThread.play(temp_position, temp_power);
+                    soundpoolThread.play(temp_position, 1);
+
+                    System.out.println("recording is " + isRecording);
+
+                    if(isRecording==true)
+                    {
+                        Log.i("comecome", "---------");
+                        Message message = PlaylistMusic.recordHandler.obtainMessage();
+                        message.what = REQUEST_RECORD;
+                        message.arg1 = temp_position;
+                        message.obj = (float) 1;
+                        PlaylistMusic.recordHandler.sendMessage(message);
+                    }
                 }
             }
         }
@@ -207,10 +209,13 @@ public class BluetoothThread extends Thread implements Runnable {
 
     public void write(byte[] data) {
 
-        BluetoothGattCharacteristic write_characteristic =
-                mGattCharacteristics.get(0).get(0);
+        if (data != null) {
 
-        mBluetoothLeService.writeCharacteristic(write_characteristic, data);
+            BluetoothGattCharacteristic write_characteristic =
+                    mGattCharacteristics.get(0).get(0);
+
+            mBluetoothLeService.writeCharacteristic(write_characteristic, data);
+        }
     }
 
     public void Thread_onResume() {

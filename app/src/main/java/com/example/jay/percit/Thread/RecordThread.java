@@ -1,8 +1,11 @@
 package com.example.jay.percit.Thread;
 
-import com.example.jay.percit.Controller.MusicStageActivity;
+import android.util.Log;
+
 import com.example.jay.percit.Controller.MusicStageSubActivity;
-import com.example.jay.percit.Fragment.MusicStageFragment4;
+import com.example.jay.percit.Controller.PlaylistMusic;
+
+import com.example.jay.percit.Util.BluetoothThread;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -15,25 +18,29 @@ public class RecordThread {
 
     private TimerTask mTimer;
     int time_sec = 0;
-    private static final int NOMAL_MODE = 5;
-    private static final int RECORD_MODE = 6;
-    private static final int PLAY_MODE = 7;
     private int temp_arr[];
+    private int temp_recorded[];
 
     public void record_start() {
 
-        MusicStageActivity.gMusicHandler.sendEmptyMessage(RECORD_MODE);
-
         time_sec = 0;
+
+        BluetoothThread.isRecording = true;
+
+        PlaylistMusic.playlist_music_play.setClickable(false);
+
+        PlaylistMusic.playlist_music_pause.setClickable(false);
 
         mTimer = new TimerTask() {
 
             public void run() {
 
-                if (time_sec == 500 || MusicStageActivity.state == NOMAL_MODE) {
-                    cancel_timer();
+                if (time_sec == 2000) {
+                    Recording_cancel();
                 }
 
+
+                Log.i(" =====", "====");
                 time_sec++;
             }
         };
@@ -47,32 +54,52 @@ public class RecordThread {
     }
 
     public void cancel_timer() {
-//        MusicStageActivity.gMusicHandler.sendEmptyMessage(NOMAL_MODE);
-//        MusicStageFragment4.guiHandler.sendEmptyMessage(NOMAL_MODE);
-//        MusicStageActivity.state = NOMAL_MODE;
-        time_sec = 0;
-        mTimer.cancel();
+
+        if (mTimer != null) {
+            time_sec = 0;
+            mTimer.cancel();
+        }
+
     }
 
-    public void Play_Recorded(final int temp_arr[], final int temp_power[]) {
-        MusicStageActivity.gMusicHandler.sendEmptyMessage(PLAY_MODE);
+    public void Recording_cancel() {
 
-        this.temp_arr = temp_arr;
+        BluetoothThread.isRecording = false;
+
+        PlaylistMusic.playlist_music_play.setClickable(true);
+
+        PlaylistMusic.playlist_music_pause.setClickable(true);
+
+        PlaylistMusic.playlist_music_save.setClickable(true);
+
+        if (mTimer != null) {
+            time_sec = 0;
+            mTimer.cancel();
+        }
+    }
+
+    public void Play_Recorded(final int temp_arr[], final float temp_power[], final SoundpoolThread soundpoolThread) {
+
+        this.temp_recorded = temp_arr;
 
         time_sec = 0;
+
+        Log.i("come", "in");
 
         mTimer = new TimerTask() {
 
             public void run() {
 
                 if (temp_arr[time_sec] != 0) {
-                    MusicStageActivity.gMusicHandler.sendEmptyMessage(temp_arr[time_sec]);
-                    MusicStageActivity.gMusicHandler.sendEmptyMessage(temp_power[time_sec]);
+                    soundpoolThread.play(temp_arr[time_sec], temp_power[time_sec]);
                 }
 
-                if (time_sec == 500 || MusicStageActivity.state == NOMAL_MODE) {
+                if (time_sec == 2000) {
                     cancel_timer();
                 }
+
+
+                Log.i("-----", "----------");
 
                 time_sec++;
             }
@@ -82,10 +109,9 @@ public class RecordThread {
         timer.schedule(mTimer, 0, 30);
     }
 
-    public void Play_feedback(final int temp_arr[],int start_time) {
+    public void Play_feedback(final int temp_arr[], int start_time) {
 
         this.temp_arr = temp_arr;
-
 
         time_sec = start_time;
 
@@ -94,15 +120,15 @@ public class RecordThread {
             public void run() {
 
 
-                System.out.println("index : "+time_sec + "content : "+temp_arr[time_sec]);
+                System.out.println("index : " + time_sec + "content : " + temp_arr[time_sec]);
 
                 if (temp_arr[time_sec] != 0) {
-
 
                     MusicStageSubActivity.feedbackHandler.sendEmptyMessage(temp_arr[time_sec]);
                 }
 
                 if (time_sec == 1500) {
+
                     cancel_timer();
                 }
 
@@ -114,8 +140,7 @@ public class RecordThread {
         timer.schedule(mTimer, 0, 30);
     }
 
-    public int Get_currenttime()
-    {
+    public int Get_currenttime() {
         int temp = time_sec;
         mTimer.cancel();
         return temp;

@@ -2,40 +2,37 @@ package com.example.jay.percit.Controller;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.jay.percit.Animation.ScaleAnim;
 import com.example.jay.percit.Animation.TranslateAnim;
+import com.example.jay.percit.Data.Musicstage_Id_Setup;
+import com.example.jay.percit.Data.Musicstage_Image_Setup;
 import com.example.jay.percit.Fragment.MusicStageFragment1;
 import com.example.jay.percit.Fragment.MusicStageFragment2;
 import com.example.jay.percit.Handler.MusicHandler;
-import com.example.jay.percit.Listview.MusicStage_IdSetup;
-import com.example.jay.percit.Listview.MusicStage_ImageSetup;
-import com.example.jay.percit.Model.MusicStage_Id;
-import com.example.jay.percit.Model.MusicStage_Image;
+import com.example.jay.percit.Model.Setting_percit;
+import com.example.jay.percit.Model.Setting_percitDAO;
 import com.example.jay.percit.R;
 import com.example.jay.percit.Thread.MusicplayerThread;
 import com.example.jay.percit.Thread.RecordThread;
 
-import java.util.ArrayList;
-
 public class MusicStageActivity extends ActionBarActivity {
 
     private static final int CLICK_STATE_OFF = 100;
+
+    public static int start_check = 0;
 
     public static int click_current_state = CLICK_STATE_OFF;
 
@@ -54,14 +51,12 @@ public class MusicStageActivity extends ActionBarActivity {
     public static TextView musicstage_like_txt[];
 
     public static ImageView musicstage_informationList[];
+    public static int musicstage_likeList[];
 
-    public static ArrayList<MusicStage_Image> musicstage_Image_modelList;
+    Musicstage_Id_Setup musicstage_id_setup;
 
-    public static MusicStage_ImageSetup musicstage_Image_setup;
+    Musicstage_Image_Setup musicstage_image_setup;
 
-    public static ArrayList<MusicStage_Id> musicstage_Id_modelList;
-
-    public static MusicStage_IdSetup musicStage_id_setup;
 
     public static ScaleAnim mMusicAnimation_scale;
     public static TranslateAnim mMusicAnimation_down;
@@ -69,25 +64,53 @@ public class MusicStageActivity extends ActionBarActivity {
     SectionsPagerAdapter mSectionsPagerAdapter;
     public static ViewPager gViewPager;
     static public Context mContext;
-    private MusicplayerThread mMusicplayerThread;
+    public static MusicplayerThread gMusicplayerThread;
     public static RecordThread gRecordThread;
     public static MusicHandler gMusicHandler;
     public static int state;
-    public static int record_arr[];
-    public static int record_power[];
 
     @Override
     protected void onDestroy() {
-        mMusicplayerThread.killMediaPlayer();
+        gMusicplayerThread.killMediaPlayer();
         super.onDestroy();
     }
 
     @Override
     protected void onPause() {
 
-        mMusicplayerThread.killMediaPlayer();
+        gMusicplayerThread.killMediaPlayer();
         super.onPause();
     }
+
+
+    public void setting_init() {
+
+        Setting_percitDAO setting_percitDAO = null;
+
+        try {
+            setting_percitDAO = Setting_percitDAO.open(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Setting_percit setting_percit_temp = new Setting_percit();
+
+        setting_percit_temp.setSetting_percit_index(1);
+        setting_percit_temp.setSetting_percit_a(-1);
+        setting_percit_temp.setSetting_percit_b(-1);
+        setting_percit_temp.setSetting_percit_c(-1);
+        setting_percit_temp.setSetting_percit_d(-1);
+        setting_percit_temp.setSetting_percit_e(-1);
+        setting_percit_temp.setSetting_percit_f(-1);
+        setting_percit_temp.setSetting_percit_g(-1);
+        setting_percit_temp.setSetting_percit_h(-1);
+        setting_percit_temp.setSetting_percit_i(-1);
+
+        setting_percitDAO.updateSetting_percit(setting_percit_temp);
+
+        Log.i("=====setting init====","======");
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,8 +118,10 @@ public class MusicStageActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_musicstage);
 
-        record_arr = new int[1500];
-        record_power = new int[1500];
+        if(start_check == 0) {
+            setting_init();
+            start_check++;
+        }
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
@@ -110,20 +135,13 @@ public class MusicStageActivity extends ActionBarActivity {
 
         mContext = this;
 
-        mMusicplayerThread = new MusicplayerThread(this);
+        gMusicplayerThread = new MusicplayerThread(this);
 
         gRecordThread = new RecordThread();
 
-        gMusicHandler = new MusicHandler(mMusicplayerThread, gRecordThread);
+        gMusicHandler = new MusicHandler(gRecordThread);
 
         Setup_UI();
-    }
-
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        getMenuInflater().inflate(R.menu.menu_musicstage_actionbar, menu);
-
-        return true;
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
@@ -138,10 +156,10 @@ public class MusicStageActivity extends ActionBarActivity {
             // Return a PlaceholderFragment (defined as a static inner class below).
 
             if (position == 1) {
-                mMusicplayerThread.killMediaPlayer();
+                gMusicplayerThread.killMediaPlayer();
                 return MusicStageFragment2.newInstance();
             } else {
-                mMusicplayerThread.killMediaPlayer();
+                gMusicplayerThread.killMediaPlayer();
                 return MusicStageFragment1.newInstance();
             }
         }
@@ -204,7 +222,6 @@ public class MusicStageActivity extends ActionBarActivity {
             return true;
         }
 
-
     };
 
     private void Setup_UI() {
@@ -215,12 +232,15 @@ public class MusicStageActivity extends ActionBarActivity {
         musicstage_like_img = new ImageView[10];
         musicstage_like_txt = new TextView[10];
         musicstage_informationList = new ImageView[10];
-        musicstage_Image_modelList = new ArrayList<>();
-        musicstage_Id_modelList = new ArrayList<>();
-        musicstage_Image_setup = new MusicStage_ImageSetup(musicstage_Image_modelList);
-        musicStage_id_setup = new MusicStage_IdSetup(musicstage_Id_modelList);
+        musicstage_likeList = new int[10];
 
 //        mMusicAnimation_scale = new ScaleAnim(1, 1, 1, 6.09461f);
+
+
+        if (musicstage_id_setup == null)
+            musicstage_id_setup = new Musicstage_Id_Setup(this);
+        if (musicstage_image_setup == null)
+            musicstage_image_setup = new Musicstage_Image_Setup(this);
 
         mMusicAnimation_scale = new ScaleAnim(1, 1, 1, 5.528291f);
 

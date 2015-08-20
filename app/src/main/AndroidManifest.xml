@@ -16,7 +16,7 @@
 
         <activity
             android:name=".Controller.MusicStageActivity"
-            android:label="CommunityActivity"
+            android:label="PERCIT"
             android:theme="@style/MusicStage_theme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -55,9 +55,18 @@
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"></activity>
 
         <activity
+            android:name=".Controller.PlaylistMusic"
+            android:label="@string/title_activity_playlist_basic"
+            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"></activity>
+
+        <activity
             android:name=".Controller.CrewActivity"
             android:label="@string/title_activity_playlist_basic"
             android:theme="@style/Crew_theme"></activity>
 
+        <activity
+            android:name=".Controller.CrewSubActivity"
+            android:label="@string/title_activity_playlist_basic"
+            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"></activity>
     </application>
 </manifest>

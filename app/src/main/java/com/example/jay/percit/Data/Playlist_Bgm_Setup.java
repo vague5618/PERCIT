@@ -32,19 +32,19 @@ public class Playlist_Bgm_Setup {
     void setUp() {
 
         playlist_bgmDAO.setPlaylist_bgm(
-                new Playlist_bgm(1, R.raw.zz_bg_b_happy_pharrellwilliams, "HAPPY", R.drawable.playlist_basic_background)
+                new Playlist_bgm(1, R.raw.zz_bg_b_happy_pharrellwilliams, "HAPPY", R.drawable.playlist_music_background_happy)
         );
 
         playlist_bgmDAO.setPlaylist_bgm(
-                new Playlist_bgm(2, R.raw.zz_bg_a_marryyou_brunomars, "MARRY YOU", R.drawable.playlist_basic_background)
+                new Playlist_bgm(2, R.raw.zz_bg_a_marryyou_brunomars, "MARRY YOU", R.drawable.playlist_music_background_marryyou1)
         );
 
         playlist_bgmDAO.setPlaylist_bgm(
-                new Playlist_bgm(3, R.raw.zz_bg_d_sugar_maroon5, "SUGAR", R.drawable.playlist_basic_background)
+                new Playlist_bgm(3, R.raw.zz_bg_d_sugar_maroon5, "SUGAR", R.drawable.playlist_music_background_sugar)
         );
 
         playlist_bgmDAO.setPlaylist_bgm(
-                new Playlist_bgm(4, R.raw.zz_bg_e_uptownfunk_markronson, "UPTWON FUNK", R.drawable.playlist_basic_background)
+                new Playlist_bgm(4, R.raw.zz_bg_e_uptownfunk_markronson, "UPTOWN FUNK", R.drawable.playlist_music_background_uptownfunk)
         );
 
     }

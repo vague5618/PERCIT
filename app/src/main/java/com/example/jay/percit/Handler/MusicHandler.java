@@ -2,9 +2,9 @@ package com.example.jay.percit.Handler;
 
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import com.example.jay.percit.Controller.MusicStageActivity;
-import com.example.jay.percit.Fragment.MusicStageFragment4;
 import com.example.jay.percit.Thread.MusicplayerThread;
 import com.example.jay.percit.Thread.RecordThread;
 import com.example.jay.percit.Util.BluetoothConnectService;
@@ -31,9 +31,9 @@ public class MusicHandler extends Handler {
     private RecordThread mRecordThread;
     private BluetoothConnectService mBluetoothConnectService;
 
-    public MusicHandler(MusicplayerThread mMusicPlayerThread, RecordThread mRecordThread) {
+    public MusicHandler(RecordThread mRecordThread) {
         this.mRecordThread = mRecordThread;
-        this.mMusicPlayerThread = mMusicPlayerThread;
+        this.mMusicPlayerThread = MusicStageActivity.gMusicplayerThread;
     }
 
     public void handleMessage(Message msg) {
@@ -149,22 +149,25 @@ public class MusicHandler extends Handler {
 //                break;
 
             case NOMAL_MODE:
-
-                MusicStageFragment4.guiHandler.sendEmptyMessage(NOMAL_MODE);
                 break;
+//
+//                MusicStageFragment4.guiHandler.sendEmptyMessage(NOMAL_MODE);
+//                break;
 
             case RECORD_MODE:
-
-                MusicStageFragment4.guiHandler.sendEmptyMessage(RECORD_MODE);
                 break;
+//                MusicStageFragment4.guiHandler.sendEmptyMessage(RECORD_MODE);
+//                break;
 
             case PLAY_MODE:
-
-                MusicStageFragment4.guiHandler.sendEmptyMessage(PLAY_MODE);
                 break;
+//
+//                MusicStageFragment4.guiHandler.sendEmptyMessage(PLAY_MODE);
+//                break;
 
             case PLAY_BGM:
                 try {
+                    Log.i("PLAY_BGM!!", " OK");
                     int temp_index = msg.arg1;
                     mMusicPlayerThread.select_playBGM(temp_index);
                 } catch (Exception e) {
@@ -176,6 +179,7 @@ public class MusicHandler extends Handler {
                 break;
 
             case RESUME_BGM:
+                Log.i("RESUME_BGM!!", " OK");
                 mMusicPlayerThread.resumeBGM();
                 break;
 
